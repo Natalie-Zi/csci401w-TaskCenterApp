@@ -30,7 +30,7 @@
 
 ## Vision
 
-\<Provide a concise vision statement for your product.>
+\<Our goal is to develop a mobile application that simplifies schedule organization. This software will provide users, including students and employees, with a versatile calendar tool. Additionally, it will seamlessly connect with various software platforms, consolidating deadlines and meetings into a single, user-friendly interface.>
 
 ## Product Name
 
