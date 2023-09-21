@@ -1,4 +1,4 @@
-roduct# CSCI 401 - Software Engineering - Product Vision
+# CSCI 401 - Software Engineering - Product Vision
 
 ## Summary
 We want to make a tasks/schedule organizer.
