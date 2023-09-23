@@ -38,8 +38,6 @@ Our goal is to develop a mobile application that simplifies schedule organizatio
 
 ## Product Personas
 
-## Product Personas
-
 - **Persona 1**: Students (users) are the primary app customers who can use the application to stay organized with assignment due dates and class schedules and subscribe to premium features. 
 - **Persona 2**:  Restaurant Managers (users) are the secondary app customers who will use the application to manage employees' schedules and minimize conflicts regarding availability. 
 - **Persona 3**: Office professional (users) are a set of customers who will use the application in the workplace to keep track of upcoming deadlines and meetings, as a result enhancing their workload schedule.
