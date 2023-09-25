@@ -48,13 +48,9 @@ Our goal is to develop a mobile application that simplifies schedule organizatio
 
 **Scenario:** Sarah is a full-time university student juggling coursework for five classes. She struggles to keep track of assignment due dates, project deadlines, and exam schedules. With the mobile application, she can now easily consolidate all her class schedules, project deadlines, and assignment due dates into a single view. The app's versatile calendar tool ensures that she never misses a due date or overlaps her study sessions. By subscribing to premium features, Sarah can also integrate her university's learning management system, giving her real-time updates and notifications, ensuring she's always a step ahead in her academic journey.
 
----
-
 ### Product Scenario 2: Restaurant Managers
 
 **Scenario:** Carlos is a restaurant manager responsible for managing a team of 25 staff, including chefs, waiters, and cleaning staff. He often faces scheduling conflicts due to overlapping shifts and staff availability. With the mobile application, Carlos can now input all employee schedules, noting their availability and preferences. The app's calendar tool highlights any potential conflicts, allowing Carlos to adjust shifts with ease. He can also share the schedule with his team, ensuring everyone is updated in real-time. This seamless organization helps maintain a smooth operation at the restaurant, minimizing conflicts and ensuring that shifts are covered adequately.
-
----
 
 ### Product Scenario 3: Office Professionals
 
