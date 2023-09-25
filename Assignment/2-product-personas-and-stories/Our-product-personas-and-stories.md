@@ -80,4 +80,12 @@ As a \<user type\>, I want to \<describe the specific task or action\>, so I can
 
 **Describe the user interface for your product.**
 
-\<Explain the look and feel of the user interface, and if possible, provide simple wireframes or sketches.>
+- Account Login
+- Notifications
+- View of all calendars the user has created
+- Create/delete a calendar
+- Add/remove event or task from a calendar
+- Connect to another site where the task/assignment is located
+- Share calendar with other users
+
+Color scheme and overall layout of UI has yet to be determined. There might be an option for users to choose the colors of the calendars and overall theme (ex. light or dark) for the application. Menus and buttons for toggling through calendars and adding events should also be minimalistic and intuitive for the user.
