@@ -1,6 +1,6 @@
 # Product Personas and Stories
 
-## Team: \<Beta\>
+## Team: Beta
 
 ## Table of Contents
 
