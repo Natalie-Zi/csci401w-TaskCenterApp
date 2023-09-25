@@ -26,7 +26,7 @@
  
 ## Product Definition
 
-\<Insert your executive summary—briefly describe your product's purpose and goals.>
+The Task Center is a versatile and easy-to-use scheduling application designed to enhance users' and organizations' busy schedules. The Task Center software brings a new experience with a minimalistic design that emphasizes simplicity when completing crucial tasks before the deadline. Users could expect various features that improve their daily tasks and optimize user workflow.
 
 ## Vision
 
