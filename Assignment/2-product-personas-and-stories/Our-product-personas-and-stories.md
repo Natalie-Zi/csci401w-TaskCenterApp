@@ -44,9 +44,21 @@ Our goal is to develop a mobile application that simplifies schedule organizatio
 
 ## Product Scenarios
 
-### Product Scenario 1
+### Product Scenario 1: Students
 
-Scenario: \<Describe a usage scenario for your product.>
+**Scenario:** Sarah is a full-time university student juggling coursework for five classes. She struggles to keep track of assignment due dates, project deadlines, and exam schedules. With the mobile application, she can now easily consolidate all her class schedules, project deadlines, and assignment due dates into a single view. The app's versatile calendar tool ensures that she never misses a due date or overlaps her study sessions. By subscribing to premium features, Sarah can also integrate her university's learning management system, giving her real-time updates and notifications, ensuring she's always a step ahead in her academic journey.
+
+---
+
+### Product Scenario 2: Restaurant Managers
+
+**Scenario:** Carlos is a restaurant manager responsible for managing a team of 25 staff, including chefs, waiters, and cleaning staff. He often faces scheduling conflicts due to overlapping shifts and staff availability. With the mobile application, Carlos can now input all employee schedules, noting their availability and preferences. The app's calendar tool highlights any potential conflicts, allowing Carlos to adjust shifts with ease. He can also share the schedule with his team, ensuring everyone is updated in real-time. This seamless organization helps maintain a smooth operation at the restaurant, minimizing conflicts and ensuring that shifts are covered adequately.
+
+---
+
+### Product Scenario 3: Office Professionals
+
+**Scenario:** Ava, an office professional at a marketing firm, often finds herself overwhelmed with various project deadlines, client meetings, and internal team discussions. The mobile application becomes her go-to scheduling tool. She can easily input her meetings, set reminders for project deliverables, and integrate the app with other office software platforms she uses daily. By consolidating all her deadlines and appointments into a user-friendly interface, Ava ensures that she is adequately prepared for each task and can manage her workload effectively, leading to enhanced productivity and reduced stress.
 
 ## User Stories
 
