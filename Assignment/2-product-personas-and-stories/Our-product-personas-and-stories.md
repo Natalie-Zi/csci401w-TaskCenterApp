@@ -149,4 +149,10 @@ As a worker, I want the option to set reminders for important events and tasks, 
 - Connect to another site where the task/assignment is located
 - Share calendar with other users
 
-Color scheme and overall layout of UI has yet to be determined. There might be an option for users to choose the colors of the calendars and overall theme (ex. light or dark) for the application. Menus and buttons for toggling through calendars and adding events should also be minimalistic and intuitive for the user.
+![TC_loginpage_menu](https://github.com/Natalie-Zi/csci401w-sandbox/assets/143462357/dee6bb37-eb1f-410a-9c46-c1b409cb9b01)
+
+![TC_dboard_menu](https://github.com/Natalie-Zi/csci401w-sandbox/assets/143462357/865e7881-1110-466f-9118-d0715ff147ac)
+
+![TC_calendar_options](https://github.com/Natalie-Zi/csci401w-sandbox/assets/143462357/ced49bc6-56ac-45ba-923c-1d96276bf08e)
+
+Menus and buttons for toggling through calendars and adding events will be minimalistic and intuitive for the user.
