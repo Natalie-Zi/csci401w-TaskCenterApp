@@ -58,84 +58,36 @@ Our product name is TaskCenter.
 
 **Scenario:** Ava, an office professional at a marketing firm, often finds herself overwhelmed with various project deadlines, client meetings, and internal team discussions. The mobile application becomes her go-to scheduling tool. She can easily input her meetings, set reminders for project deliverables, and integrate the app with other office software platforms she uses daily. By consolidating all her deadlines and appointments into a user-friendly interface, Ava ensures that she is adequately prepared for each task and can manage her workload effectively, leading to enhanced productivity and reduced stress.
 
+User story:
+as a ... I want to... so I can...
 
-## Feature 1: Calendar Integration
+## Feature 1: create events, Implement a user-friendly event creation process
+## feature 2: edit
+## Feature 3: delete
+## Feature 4: Q&A page
+## Feature 5: Enable users to set reminders and notifications for their events.
+## Feature 6: Ability to share 
+    Comment: - Provide clear instructions on how to access and use the shared calendar.
 
-As a user, I want to have calendar integration in our application so that I can efficiently manage my time and schedule.
 
-### User Story 1: Personal Schedule Management
+**Future**
 
-As a worker, I want to easily input and manage my own meetings and appointments in the app, helping me stay organized and make the best use of my time.
-
-**Constraints**
-
-- Workers should have the ability to create, edit, and delete their own events.
-- Implement a user-friendly event creation process.
 - Ensure synchronization with the user's connected calendars.
-
-**Comments**
+  Comment: - Ensure reminders are synchronized across all user devices.
 
 - Consider providing options for categorizing and color-coding events.
-- Enable users to set reminders and notifications for their events.
-
-### User Story 2: Schedule Input for Managers
-
-As a manager, I want to be able to input the schedules of all employees, including meetings and shifts, to avoid conflicts and ensure smooth operations.
-
-**Constraints**
-
-- Managers should have appropriate permissions and access controls to input and edit employee schedules.
-- Implement validation checks to prevent scheduling conflicts.
-- Allow managers to assign and reassign tasks and shifts easily.
-
-**Comments**
-
-- Consider providing a user-friendly interface for managers to input and edit schedules.
-- Implement notifications or alerts for conflicts or scheduling issues.
-
-### User Story 3: Calendar Sharing
-
-As a manager, I want the ability to share the calendar with employees, enabling them to view and interact with the schedule in real-time, fostering better communication and coordination.
-
-**Constraints**
-
-- Ensure that employees have the necessary permissions to view and interact with the shared calendar.
-- Implement real-time updates for shared calendars.
-- Consider providing a way for employees to request schedule changes or swaps.
-
-**Comments**
-
-- Test the real-time synchronization and sharing functionality thoroughly.
-- Provide clear instructions on how to access and use the shared calendar.
-
-### User Story 4: Calendar Connection
-
-As a student, I want to connect my academic calendar, personal calendar, and other calendars to the app, so I can have a consolidated view of all my deadlines and events.
-
-**Constraints**
-
-- The app should support integration with popular platforms used by schools (e.g., Blackboard, Zybooks, etc).
-- Implement a user-friendly setup process for connecting calendars.
-
-**Comments**
-- Consider providing step-by-step instructions for users on how to connect their calendars.
-- Ensure that the app can handle various calendar formats and data sources.
-
-### User Story 5: Reminders for Productivity
-
-As a worker, I want the option to set reminders for important events and tasks, improving my productivity and reducing the chance of forgetting important deadlines.
-
-**Constraints**
-
+-Add to share
+  Comments:  Managers should have appropriate permissions and access controls to input and edit employee schedules.
+            - Implement validation checks to prevent scheduling conflicts.
+            - Allow managers to assign and reassign tasks and shifts easily.
 - Implement a reminder system that supports multiple notification methods (e.g., email, push notifications).
-- Allow users to customize reminder settings for each event.
+  Comment: - Implement notifications or alerts for conflicts or scheduling issues.
+          - Allow users to customize reminder settings for each event.
+          - Provide option for dismissing reminders.
+- The app should support integration with popular platforms used by schools (e.g., Blackboard, Zybooks, etc).
+  Comments: - Consider providing step-by-step instructions for users on how to connect their calendars.
+            - Ensure that the app can handle various calendar formats and data sources.
 
-**Comments**
-
-- Test the reliability and effectiveness of the reminder system.
-- Provide option for dismissing reminders.
-- Ensure reminders are synchronized across all user devices.
-  
 ## User Experience
 
 **Describe the user interface for your product.**
