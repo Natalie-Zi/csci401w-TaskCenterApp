@@ -40,15 +40,13 @@ Provide a simple diagram or description of the high-level system.
 
 ### 3.1. Frontend Framework
 
-Which frontend framework/library are you using? Most importantly, **why** did you choose it?
-
+HTML, (?)
 ### 3.2. Backend Framework
 
-Your choice for the backend and the reasons behind it.
-
+Javascript (?)
 ### 3.3. Database System
 
-Which database system will you use, and **why**?
+SQL, because it's the one we're most familiar with.
 
 ---
 
