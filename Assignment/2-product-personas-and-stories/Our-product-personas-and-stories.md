@@ -32,7 +32,7 @@ The Task Center is a versatile and easy-to-use scheduling application designed t
 
 ## Vision
 
-Our goal is to develop a mobile application that simplifies schedule organization. This software will provide users, including students and employees, with a versatile calendar tool. Additionally, it will seamlessly connect with various software platforms, consolidating deadlines and meetings into a single, user-friendly interface.
+Our goal is to develop a web-based application that simplifies schedule organization. This software will provide users, including students and employees, with a versatile calendar tool. Additionally, it will seamlessly connect with various software platforms, consolidating deadlines and meetings into a single, user-friendly interface.
 
 ## Product Name
 
