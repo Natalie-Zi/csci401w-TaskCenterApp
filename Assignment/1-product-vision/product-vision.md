@@ -29,12 +29,12 @@ We want to make a tasks/schedule organizer.
 ---
 
 ## Executive Summary
-We aim to create a software application for mobile phones that serves as an intuitive calendar and schedule organizer. Our vision includes integrating with platforms such as Blackboard and Zybooks to centralize deadlines and schedules for users.
+We aim to create a web-based application that serves as an intuitive calendar and schedule organizer. Our vision includes integrating with platforms such as Blackboard and Zybooks to centralize deadlines and schedules for users.
 
 ---
 
 ## Product Vision
-Our goal is to develop a mobile application that simplifies schedule organization. This software will provide users, including students and employees, with a versatile calendar tool. Additionally, it will seamlessly connect with various software platforms, consolidating deadlines and meetings into a single, user-friendly interface. This app will also provide a share feature and will have a free version and a premium version.
+Our goal is to develop a web-based application that simplifies schedule organization. This software will provide users, including students and employees, with a versatile calendar tool. Additionally, it will seamlessly connect with various software platforms, consolidating deadlines and meetings into a single, user-friendly interface. This app will also provide a share feature and will have a free version and a premium version.
 
 ---
 
