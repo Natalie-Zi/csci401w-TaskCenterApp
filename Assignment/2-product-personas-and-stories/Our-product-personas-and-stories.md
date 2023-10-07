@@ -10,18 +10,16 @@
 - [Product Personas](#product-personas)
 - [Product Scenarios](#product-scenarios)
   - [1: Student](#product-scenario-1-student)
-  - [2: Manager](#Product-scenario-2-Manager)
+  - [2: Manager](#Product-scenario-2-manager)
   - [3: Office Professionals](#Product-Scenario-3-Office-Professionals)
-
-- [User Stories](#user-stories)
-  - [Feature1: Calendar Integration](#feature1-calendar-integration)
-    - [User Story 1](#user-story-1)
-    - [User Story 2](#user-story-2)
-    - [User Story 3](#user-story-3)
-    - [User Story 4](#user-story-4)
-    - [User Story 5](#user-story-5)
-    - [Constraints](#constraints)
-    - [Comments](#comments)
+- [User Stories and Features](#user-stories)
+   - [1: Create events](#User-story-1-Create-events)
+   - [2: Edit events](#user-story-2-edit-events)
+   - [3: Delete](#user-story-3-delete-events)
+   - [4: Q&A page](#user-story-4-Q&A)
+   - [5:Remainders](#user-story-5-remainders)
+   - [6: Share](#user-story-6-share)
+- [Future Features](#future-features)
 - [User Experience](#user-experience)
   - [Describe the User Interface](#describe-the-user-interface)
 
@@ -67,7 +65,7 @@ As a student I want to be able to edit the events so I can keep my calendar up t
 ## User story 3 (Delete events) :
 As a manager I want to delete events so I can remember if a meeting was cancelled.
 
-## User story 4 (Q&A page):
+## User story 4 (Q&A):
 As a user I want to access the Q&A page so I can find out how to use the app
 
 ## User story 5  (Reminders):
@@ -75,8 +73,7 @@ As a student I want to set reminders so I don't forget important deadlines.
 
 Comment: Implement a reminder system that supports multiple notification methods (e.g., email, push notifications).
 
-
-## User story 6 (Ability to share)
+## User story 6 (Share)
 As a manager I want to share the calendar so I can let all the workers know their schedule.
 
 
