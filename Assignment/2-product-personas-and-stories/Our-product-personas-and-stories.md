@@ -8,11 +8,11 @@
 - [Vision](#vision)
 - [Product Name](#product-name)
 - [Product Personas](#product-personas)
-  - [Persona 1](#persona-1)
-  - [Persona 2](#persona-2)
-  - [Persona 3](#persona-3)
 - [Product Scenarios](#product-scenarios)
-  - [Product Scenario 1](#product-scenario-1)
+  - [1: Student](#product-scenario-1-student)
+  - [2: Manager](#Product-scenario-2-Manager)
+  - [3: Office Professionals](#Product-Scenario-3-Office-Professionals)
+
 - [User Stories](#user-stories)
   - [Feature1: Calendar Integration](#feature1-calendar-integration)
     - [User Story 1](#user-story-1)
@@ -46,11 +46,11 @@ Our product name is TaskCenter.
 
 ## Product Scenarios
 
-### Product Scenario 1: Students
+## Product Scenario 1: Student
 
 **Scenario:** Sarah is a full-time university student juggling coursework for five classes. She struggles to keep track of assignment due dates, project deadlines, and exam schedules. With the mobile application, she can now easily consolidate all her class schedules, project deadlines, and assignment due dates into a single view. The app's versatile calendar tool ensures that she never misses a due date or overlaps her study sessions. By subscribing to premium features, Sarah can also integrate her university's learning management system, giving her real-time updates and notifications, ensuring she's always a step ahead in her academic journey.
 
-### Product Scenario 2: Restaurant Managers
+## Product Scenario 2: Manager
 
 **Scenario:** Carlos is a restaurant manager responsible for managing a team of 25 staff, including chefs, waiters, and cleaning staff. He often faces scheduling conflicts due to overlapping shifts and staff availability. With the mobile application, Carlos can now input all employee schedules, noting their availability and preferences. The app's calendar tool highlights any potential conflicts, allowing Carlos to adjust shifts with ease. He can also share the schedule with his team, ensuring everyone is updated in real-time. This seamless organization helps maintain a smooth operation at the restaurant, minimizing conflicts and ensuring that shifts are covered adequately.
 
@@ -58,35 +58,40 @@ Our product name is TaskCenter.
 
 **Scenario:** Ava, an office professional at a marketing firm, often finds herself overwhelmed with various project deadlines, client meetings, and internal team discussions. The mobile application becomes her go-to scheduling tool. She can easily input her meetings, set reminders for project deliverables, and integrate the app with other office software platforms she uses daily. By consolidating all her deadlines and appointments into a user-friendly interface, Ava ensures that she is adequately prepared for each task and can manage her workload effectively, leading to enhanced productivity and reduced stress.
 
-User story:
-as a ... I want to... so I can...
+## User story 1 (Create events) :
+As a user I want to create events for my calendar so I can organize my schedule better
 
-## Feature 1: create events, Implement a user-friendly event creation process
-## feature 2: edit
-## Feature 3: delete
-## Feature 4: Q&A page
-## Feature 5: Enable users to set reminders and notifications for their events.
-## Feature 6: Ability to share 
-    Comment: - Provide clear instructions on how to access and use the shared calendar.
+## User story 2 (Edit events) :
+As a student I want to be able to edit the events so I can keep my calendar up to dat if there's any changes in the class schedule.
+
+## User story 3 (Delete events) :
+As a manager I want to delete events so I can remember if a meeting was cancelled.
+
+## User story 4 (Q&A page):
+As a user I want to access the Q&A page so I can find out how to use the app
+
+## User story 5  (Reminders):
+As a student I want to set reminders so I don't forget important deadlines.
+
+Comment: Implement a reminder system that supports multiple notification methods (e.g., email, push notifications).
 
 
-**Future**
+## User story 6 (Ability to share)
+As a manager I want to share the calendar so I can let all the workers know their schedule.
 
-- Ensure synchronization with the user's connected calendars.
-  Comment: - Ensure reminders are synchronized across all user devices.
+
+## Future Features
 
 - Consider providing options for categorizing and color-coding events.
--Add to share
-  Comments:  Managers should have appropriate permissions and access controls to input and edit employee schedules.
-            - Implement validation checks to prevent scheduling conflicts.
-            - Allow managers to assign and reassign tasks and shifts easily.
-- Implement a reminder system that supports multiple notification methods (e.g., email, push notifications).
-  Comment: - Implement notifications or alerts for conflicts or scheduling issues.
-          - Allow users to customize reminder settings for each event.
-          - Provide option for dismissing reminders.
+
+- Ensure synchronization with the user's connected calendars.
+
+- Implement validation checks to prevent scheduling conflicts.
+- Allow managers to assign and reassign tasks and shifts easily.
+- Implement notifications or alerts for conflicts or scheduling issues.
+- Allow users to customize reminder settings for each event.
+- Provide option for dismissing reminders.
 - The app should support integration with popular platforms used by schools (e.g., Blackboard, Zybooks, etc).
-  Comments: - Consider providing step-by-step instructions for users on how to connect their calendars.
-            - Ensure that the app can handle various calendar formats and data sources.
 
 ## User Experience
 
