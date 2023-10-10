@@ -13,12 +13,12 @@
   - [2: Manager](#Product-scenario-2-manager)
   - [3: Office Professionals](#Product-Scenario-3-Office-Professionals)
 - [User Stories and Features](#user-stories)
-   - [1: Create events](#User-story-1-Create-events)
-   - [2: Edit events](#user-story-2-edit-events)
-   - [3: Delete](#user-story-3-delete-events)
-   - [4: Q&A page](#user-story-4-Q&A)
-   - [5:Remainders](#user-story-5-remainders)
-   - [6: Share](#user-story-6-share)
+   - [1: Create events](#1-create-events)
+   - [2: Edit events](#2-edit-events)
+   - [3: Delete](#3-delete-events)
+   - [4: Q&A page](#4-Q&A)
+   - [5: Reminders](5-reminders)
+   - [6: Share](#6-share)
 - [Future Features](#future-features)
 - [User Experience](#user-experience)
   - [Describe the User Interface](#describe-the-user-interface)
@@ -56,24 +56,25 @@ Our product name is TaskCenter.
 
 **Scenario:** Ava, an office professional at a marketing firm, often finds herself overwhelmed with various project deadlines, client meetings, and internal team discussions. The mobile application becomes her go-to scheduling tool. She can easily input her meetings, set reminders for project deliverables, and integrate the app with other office software platforms she uses daily. By consolidating all her deadlines and appointments into a user-friendly interface, Ava ensures that she is adequately prepared for each task and can manage her workload effectively, leading to enhanced productivity and reduced stress.
 
-## User story 1 - Create events :
+## User stories
+## 1: Create events
 As a user I want to create events for my calendar so I can organize my schedule better
 
-## User story 2 (Edit events) :
+## 2: Edit events
 As a student I want to be able to edit the events so I can keep my calendar up to dat if there's any changes in the class schedule.
 
-## User story 3 (Delete events) :
+## 3: Delete events
 As a manager I want to delete events so I can remember if a meeting was cancelled.
 
-## User story 4 (Q&A):
+## 4: Q&A
 As a user I want to access the Q&A page so I can find out how to use the app
 
-## User story 5  (Reminders):
+## 5: Reminders
 As a student I want to set reminders so I don't forget important deadlines.
 
 Comment: Implement a reminder system that supports multiple notification methods (e.g., email, push notifications).
 
-## User story 6 (Share)
+## 6: Share
 As a manager I want to share the calendar so I can let all the workers know their schedule.
 
 
