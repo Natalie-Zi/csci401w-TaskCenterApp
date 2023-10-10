@@ -40,10 +40,12 @@ Provide a simple diagram or description of the high-level system.
 
 ### 3.1. Frontend Framework
 
-HTML, (?)
+HTML
+
 ### 3.2. Backend Framework
 
-Javascript (?)
+Java
+
 ### 3.3. Database System
 
 SQL, because it's the one we're most familiar with.
