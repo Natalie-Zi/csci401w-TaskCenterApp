@@ -44,11 +44,11 @@ HTML
 
 ### 3.2. Backend Framework
 
-Java
+Javascript, visual studio code
 
 ### 3.3. Database System
 
-SQL, because it's the one we're most familiar with.
+mySQL, because it's the one we're most familiar with.
 
 ---
 
@@ -56,7 +56,8 @@ SQL, because it's the one we're most familiar with.
 
 ### 4.1. Team Skills and Learning
 
-Are there particular strengths within your team that influenced your decisions? Is there a particular technology someone is excited to learn more about?
+Nicholas told us he knows something about javascript so we all decided to learn more about it.
+Also, we want to learn more about developing web applications.
 
 ### 4.2. Community and Support
 
@@ -74,6 +75,6 @@ Here, you'll log key decisions made and the rationale behind them. Here's an exa
 
 | Date       | Decision                                 | Reasoning                                                                                                           |
 |------------|------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
-| 2023-09-01 | Chose React as our frontend framework.   | Our team found an abundance of beginner-friendly tutorials for React. Additionally, two members have some prior exposure to it, making it a logical starting point for our project. |
+| 2023-10-10 | Chose Javascript for backend   | Our team found that it would be easier to use javascript for backend because we're developing a web application.|
 
 Note: As you progress, keep adding to this log. It will not only help you track your decisions but also offer insights into your evolving
