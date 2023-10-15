@@ -1,7 +1,7 @@
 ## 📝 **Team Meeting Notes**
 
 ### 📅 **Meeting Date**: [Date]
-September 28, 2023
+October 12, 2023
 
 ### 🕒 **Time**: [Start Time] - [End Time]
 3:00 PM - 4:00 PM
