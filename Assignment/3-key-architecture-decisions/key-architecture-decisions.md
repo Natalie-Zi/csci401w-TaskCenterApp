@@ -40,11 +40,13 @@ Provide a simple diagram or description of the high-level system.
 
 ### 3.1. Frontend Framework
 
-HTML
+Angular material
+We chose this framework because it has many optons we could implement.
 
 ### 3.2. Backend Framework
 
-Javascript, visual studio code
+Node.js 
+We chose this framework especially because it can be used to connect with our database.
 
 ### 3.3. Database System
 
@@ -58,14 +60,17 @@ mySQL, because it's the one we're most familiar with.
 
 Nicholas told us he knows something about javascript so we all decided to learn more about it.
 Also, we want to learn more about developing web applications.
+Furthermore, Bryan has some knowledge about mySQL from previous classes so it looked ideal to use that for database.
 
 ### 4.2. Community and Support
 
 Did the availability of tutorials, community support, or other resources influence your choice?
+Yes we found various resources we can use for our project.
 
 ### 4.3. Future Adaptability
 
 How easy do you believe it will be to adapt or extend the technology choices you’ve made in the future based on your current knowledge?
+We think it would be fairly duable to adapt and extwnd our technology choices.
 
 ---
 
@@ -76,5 +81,8 @@ Here, you'll log key decisions made and the rationale behind them. Here's an exa
 | Date       | Decision                                 | Reasoning                                                                                                           |
 |------------|------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
 | 2023-10-10 | Chose Javascript for backend   | Our team found that it would be easier to use javascript for backend because we're developing a web application.|
+|2023-16-10| Chose Node.js | We decided to use node.js as our backend framework|
+|2023-16-10| Chose Angular Material | Angular Material will be used for frontend|
+
 
 Note: As you progress, keep adding to this log. It will not only help you track your decisions but also offer insights into your evolving
