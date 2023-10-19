@@ -41,11 +41,7 @@ The C4 diagram below shows the high-level view of systems used on the Task Cente
 
 **Container View - Level 2:** 
 
-The C4 diagram below shows additional details about the Blockr.io ecosystem.
-
-Diagram (Placeholder)
-
-
+The C4 diagram below shows additional details about the Task Center ecosystem.
 
 ---
 
