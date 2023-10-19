@@ -26,13 +26,26 @@ This assignment is designed to guide you in understanding the foundational aspec
 
 ### 1.1. Purpose
 
+
 A brief overview of what this document entails.
 
 ---
 
 ## 2. System Overview
 
-Provide a simple diagram or description of the high-level system.
+**Reference Architecture - Level 1:** 
+
+The C4 diagram below shows the high-level view of systems used on the Task Center ecosystem. 
+
+![C4 Diagram](https://github.com/Natalie-Zi/csci401w-sandbox/assets/143458363/d32f80b5-6135-4dec-8cca-4e1665e8b55a)
+
+**Container View - Level 2:** 
+
+The C4 diagram below shows additional details about the Blockr.io ecosystem.
+
+Diagram (Placeholder)
+
+
 
 ---
 
