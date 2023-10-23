@@ -57,36 +57,42 @@ Our product name is TaskCenter.
 **Scenario:** Ava, an office professional at a marketing firm, often finds herself overwhelmed with various project deadlines, client meetings, and internal team discussions. The mobile application becomes her go-to scheduling tool. She can easily input her meetings, set reminders for project deliverables, and integrate the app with other office software platforms she uses daily. By consolidating all her deadlines and appointments into a user-friendly interface, Ava ensures that she is adequately prepared for each task and can manage her workload effectively, leading to enhanced productivity and reduced stress.
 
 ## User stories
-## 1: Create events
-As a user I want to create events for my calendar so I can organize my schedule better
 
-## 2: Edit events
+## 1: Create account
+As a user I want to be able to create an account to store my calendars
+
+## 2: Login
+As a user I want to be able to login to my account and access my calendars
+
+## 3: Create new calendar
+As a user I want to be able to create a new calendar so I can manage various schedules
+Comment: Each calendar should have a name
+
+## 4: Create events
+As a user I want to create events for my calendar so I can organize my schedule better
+Comment: Set a title, date, time and color for the event
+
+## 5: Edit events
 As a student I want to be able to edit the events so I can keep my calendar up to dat if there's any changes in the class schedule.
 
-## 3: Delete events
+## 6: Delete events
 As a manager I want to delete events so I can remember if a meeting was cancelled.
 
-## 4: Q&A
+## 7: Q&A
 As a user I want to access the Q&A page so I can find out how to use the app
 
-## 5: Reminders
-As a student I want to set reminders so I don't forget important deadlines.
-
-Comment: Implement a reminder system that supports multiple notification methods (e.g., email, push notifications).
-
-## 6: Share
+## 8: Share
 As a manager I want to share the calendar so I can let all the workers know their schedule.
-
 
 ## Future Features
 
 - Consider providing options for categorizing and color-coding events.
 
 - Ensure synchronization with the user's connected calendars.
-
+- Allow reminders
 - Implement validation checks to prevent scheduling conflicts.
 - Allow managers to assign and reassign tasks and shifts easily.
-- Implement notifications or alerts for conflicts or scheduling issues.
+- Implement a reminder system that supports multiple notification methods (e.g., email, push notifications).
 - Allow users to customize reminder settings for each event.
 - Provide option for dismissing reminders.
 - The app should support integration with popular platforms used by schools (e.g., Blackboard, Zybooks, etc).
