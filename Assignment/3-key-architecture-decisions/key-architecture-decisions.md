@@ -41,6 +41,8 @@ The C4 diagram below shows the high-level view of systems used on the Task Cente
 
 **Container View - Level 2:** 
 
+![C4 Diagram drawio](https://github.com/Natalie-Zi/csci401w-sandbox/assets/143458363/49f8502f-4eab-4bf7-8ea2-143b486bdbd8)
+
 The C4 diagram below shows additional details about the Task Center ecosystem.
 
 ---
