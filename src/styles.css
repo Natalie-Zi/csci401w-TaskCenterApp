@@ -1,0 +1,132 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #444;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav li {
+    display: inline;
+    margin: 0 10px;
+}
+
+header {
+    text-align: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #555;
+}
+
+.task-calendars {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.calendar {
+    width: 120px;
+    height: 150px;
+    padding: 10px;
+    border: 1px solid #555;
+    text-align: center;
+}
+
+.school {
+    background-color: #007BFF;
+}
+
+.work {
+    background-color: #28A745;
+}
+
+button {
+    background-color: #666;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.overview h2 {
+    text-align: center;
+}
+
+.task {
+    padding: 10px 20px;
+    border-bottom: 1px solid #555;
+}
+
+.task span {
+    float: right;
+}
+
+.login-container {
+    background-color: #f7f7f7;
+    padding: 40px;
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 4px;
+    background-color: #e6e6e6;
+    outline: none;
+}
+
+a {
+    display: block;
+    text-align: left;
+    text-decoration: none;
+    color: black;
+    margin: 5px 0;
+}
+
+button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 18px;
+    font-size: 16px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto 0;
+    width: 40px;
+    height: 40px;
+    line-height: 16px;
+}
