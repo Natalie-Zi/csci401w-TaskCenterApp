@@ -91,6 +91,8 @@ Here, you'll log key decisions made and the rationale behind them. Here's an exa
 
 | Date       | Decision                                 | Reasoning                                                                                                           |
 |------------|------------------------------------------|---------------------------------------------------------------------------------------------------------------------|
+|2023-8-10| Use MySQL| it's the one at least one team member is more familiar with|
+|2023-10-10| Change from mobile app to web app| We believe that we're able to better work with a website and it seemed interesting to learn more about.|
 | 2023-10-10 | Chose Javascript for backend   | Our team found that it would be easier to use javascript for backend because we're developing a web application.|
 |2023-16-10| Chose Node.js | We decided to use node.js as our backend framework|
 |2023-16-10| Chose Angular Material | Angular Material will be used for frontend|
