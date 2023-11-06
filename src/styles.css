@@ -148,7 +148,7 @@ button {
 }
 
 .login-box {
-    background-color: #444;
+    background-color: rgb(162, 3, 3);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -162,10 +162,10 @@ button {
 }
 
 .login-box input {
-    width: 100%;
+    width: 90%;
     padding: 10px;
     margin: 10px 0;
-    background-color: #666;
+    background-color: #ffffff;
     border: none;
     color: #fff;
     border-radius: 5px;
@@ -182,8 +182,13 @@ button {
     margin: 10px 0;
 }
 
-.login-box a {
-    color: #fff;
+.login-box a1 {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+}
+
+.login-box a2 {
+    color: blue;
     text-decoration: none;
 }
 
