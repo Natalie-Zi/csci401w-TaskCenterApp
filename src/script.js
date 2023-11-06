@@ -4,6 +4,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginButton = document.getElementById('login-button');
     const emailInput = document.getElementById('email-input');
     const passwordInput = document.getElementById('password-input');
+
+    // Sign up page functionality
+    const signupButton = document.getElementById('signup-button');
+    const fullNameInput = document.getElementById('full-name-input');
+    const signupEmailInput = document.getElementById('signup-email-input');
+    const signupPasswordInput = document.getElementById('signup-password-input');
+    const confirmPasswordInput = document.getElementById('confirm-password-input');
     
     loginButton.addEventListener('click', function() {
         if(emailInput.value === "" || passwordInput.value === "") {
@@ -49,4 +56,19 @@ document.addEventListener('DOMContentLoaded', function() {
             taskDetailsSection.appendChild(taskDetails);
         }
     });
+
+    signupButton.addEventListener('click', function() {
+        if(fullNameInput.value === "" || signupEmailInput.value === "" || signupPasswordInput.value === "" || confirmPasswordInput.value === "") {
+            alert("Please fill in all fields.");
+            return;
+        }
+    
+        if(signupPasswordInput.value !== confirmPasswordInput.value) {
+            alert("Passwords do not match!");
+            return;
+        }
+            
+    // TODO: Add your sign-up logic here
+    console.log("Signed up with email: " + signupEmailInput.value);
+    });   
 });

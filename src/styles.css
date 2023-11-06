@@ -2,11 +2,9 @@ body {
     font-family: Arial, sans-serif;
     background-color: #333;
     color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
     margin: 0;
+    padding: 0;
+    /* Removed flex properties */
 }
 
 nav {
@@ -14,11 +12,13 @@ nav {
     justify-content: space-between;
     padding: 10px 20px;
     background-color: #444;
+    width: 100%; /* Ensure nav spans the full width */
 }
 
 nav ul {
     list-style-type: none;
     padding: 0;
+    margin: 0; /* Reset default margin */
 }
 
 nav li {
@@ -30,12 +30,15 @@ header {
     text-align: center;
     padding: 20px 0;
     border-bottom: 1px solid #555;
+    width: 100%; /* Ensure header spans the full width */
 }
 
 .task-calendars {
     display: flex;
     justify-content: space-between;
     padding: 20px;
+    flex-wrap: wrap; /* Allow items to wrap as needed */
+    width: 100%; /* Ensure task calendars span the full width */
 }
 
 .calendar {
@@ -44,6 +47,7 @@ header {
     padding: 10px;
     border: 1px solid #555;
     text-align: center;
+    margin-bottom: 10px; /* Add space below calendars */
 }
 
 .school {
@@ -54,7 +58,7 @@ header {
     background-color: #28A745;
 }
 
-button {
+button.round-button { /* Class added for the round button */
     background-color: #666;
     color: #fff;
     border: none;
@@ -63,15 +67,20 @@ button {
     height: 50px;
     font-size: 24px;
     cursor: pointer;
+    margin-left: auto; /* Align button to the right */
+    margin-bottom: 10px; /* Add space below button */
 }
 
 .overview h2 {
     text-align: center;
+    width: 100%; /* Ensure overview heading spans the full width */
 }
 
 .task {
     padding: 10px 20px;
     border-bottom: 1px solid #555;
+    clear: both; /* Clear any floats */
+    width: 100%; /* Ensure tasks span the full width */
 }
 
 .task span {
@@ -79,12 +88,13 @@ button {
 }
 
 .login-container {
-    background-color: #f7f7f7;
+    background-color: #9c3838;
     padding: 40px;
     border-radius: 8px;
     width: 300px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
+    margin: 20px auto; /* Center the container */
 }
 
 h1 {
@@ -105,7 +115,6 @@ input[type="password"] {
     border: none;
     border-radius: 4px;
     background-color: #e6e6e6;
-    outline: none;
 }
 
 a {
@@ -116,6 +125,7 @@ a {
     margin: 5px 0;
 }
 
+/* Re-defined button style for other buttons */
 button {
     background-color: #000;
     color: #fff;
@@ -125,8 +135,58 @@ button {
     font-size: 16px;
     cursor: pointer;
     display: block;
-    margin: 20px auto 0;
-    width: 40px;
-    height: 40px;
-    line-height: 16px;
+    width: 100%; /* Adjusted to full width */
+    margin: 20px auto; /* Center the button */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #333;
+}
+
+.login-box {
+    background-color: #444;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 300px;
+    text-align: center;
+}
+
+.login-box h1, .login-box h2 {
+    color: #fff;
+    margin: 0 0 20px;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #666;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 10px;
+    background-color: #555;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+.login-box a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.login-box a:hover {
+    text-decoration: underline;
 }
