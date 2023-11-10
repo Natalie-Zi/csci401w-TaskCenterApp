@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <div class="container">
+        <div class="login-box">
+            <h1>TaskCenter</h1>
+            <h2>Sign Up</h2>
+            <input type="text" id="full-name-input" placeholder="Username">
+            <input type="email" id="signup-email-input" placeholder="Email">
+            <input type="password" id="signup-password-input" placeholder="Password">
+            <input type="password" id="confirm-password-input" placeholder="Confirm Password">
+            <button id="signup-button">Create Account</button>
+
+            <!-- Register buttons -->
+            <div class="text-center">
+                <p>Already have an account? <a href="/login">Log in here.</a></p>
+            </div>
+        </div>
+    </div>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TaskCenter - Sign Up</title>
+        <link rel="stylesheet" href="/stylesheets/styles.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $('#signup-button').click(function(){
+                    // Retrieve data from form fields
+                    var username = $('#full-name-input').val();
+                    var email = $('#signup-email-input').val();
+                    var password = $('#signup-password-input').val();
+                    var confirmPassword = $('#confirm-password-input').val();
+
+                
+                    // Create data object to send
+                    var dataToSend = {
+                        username: username,
+                        email: email,
+                        password: password,
+                        confirmPassword: confirmPassword
+                    };
+
+                    // Make HTTP request to your server
+                    $.ajax({
+                        type: 'POST',
+                        url: '/create-account',
+                        contentType: 'application/json',
+                        data: JSON.stringify(dataToSend),
+                        success: function(response) {
+                            // Handle success
+                            alert('Account created successfully!');
+                            console.log(response);
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle error
+                            console.error(xhr.responseText);  // Log the server response
+                            alert('An error occurred: ' + error);
+                        }
+                    });
+                });
+            });
+        </script>
+    </head>
+</body>
+</html>
