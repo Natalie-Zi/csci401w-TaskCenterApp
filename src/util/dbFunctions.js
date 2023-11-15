@@ -12,6 +12,17 @@ const createUser = async (username, email, userPassword) => {
     }
 };
 
+const login = async (email, userPassword) => {
+    try {
+        // Perform your authentication logic, e.g., querying the database
+        const sql = 'SELECT * FROM UserRegistration WHERE Email = ? AND UserPassword = ?';
+        const [rows, fields] = await pool.execute(sql, [email, userPassword]);
+    }
+    catch (error) {
+        throw error;
+    }
+};
+
 /// Function to check if the username is already in the database
 const isUsernameAvaliable = async (username) => {
     try {
@@ -40,5 +51,6 @@ const isEmailAvaliable = async (email) => {
 module.exports = {
     createUser: createUser,
     isUsernameAvaliable: isUsernameAvaliable,
-    isEmailAvaliable: isEmailAvaliable
+    isEmailAvaliable: isEmailAvaliable,
+    login: login
 };
