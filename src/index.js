@@ -20,10 +20,13 @@ app.get('/homepage', (req, res) => {
     res.render('index.ejs');
 });
 
-app.get('/login', (req, res) => {
-    res.render('login.ejs');
-});
-
+// Use the same route for rendering the login page and processing the login
+app.route('/login')
+    .get((req, res) => {
+        res.render('login.ejs');
+    })
+    .post(postController.login);
+    
 app.get('/register', (req, res) => {
     res.render('register.ejs');
 });
