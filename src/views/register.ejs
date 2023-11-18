@@ -34,7 +34,25 @@
                 return validRegex.test(email);
             }
 
-            $(document).ready(function () {
+        function validatePassword(password) {
+            const errors = [];
+
+            if (password.length < 8) {
+                errors.push('Password must be at least 8 characters');
+            }
+            if (password.search(/[a-z]/) < 0) {
+                errors.push('Password must contain at least one lowercase letter');
+            }
+            if (password.search(/[A-Z]/) < 0) {
+                errors.push('Password must contain at least one uppercase letter');
+            }
+            if (password.search(/[0-9]/) < 0) {
+                errors.push('Password must contain at least one number');
+            }
+            return errors;
+        }
+        
+        $(document).ready(function () {
                 $('#signup-button').click(function () {
                     // Retrieve data from form fields
                     var username = $('#username-input').val();
@@ -46,6 +64,17 @@
                     if (!validateEmail(email)) {
                         alert('Please enter a valid email address.');
                         return;
+                    }
+
+                    const passwordErrors = validatePassword(password);
+
+                    if (passwordErrors.length > 0) {
+                        // Handle errors, e.g., display them to the user
+                        alert(passwordErrors.join('\n'));
+                        return; //stop execution if requirements aren't met
+                    } else {
+                        // Password is valid, proceed with your logic
+                        console.log('Password is valid');
                     }
 
                     // Create data object to send
