@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-    
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,17 +63,16 @@
                             url: '/create-account',
                             contentType: 'application/json',
                             data: JSON.stringify(dataToSend),
-                            
 
                             success: function (response) {
                                 // Handle success
                                 alert('Account created successfully!');
-                                
-                                // Redirect to '/login' after 1 seconds
+
+                                //redirect to /login after 1 second
                                 setTimeout(function () {
                                     window.location.href = "/login";
-                                }, 1000); // milliseconds
-                                
+                                }, 500); //milliseconds
+
                                 console.log(response);
                             },
 
