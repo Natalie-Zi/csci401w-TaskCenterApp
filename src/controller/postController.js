@@ -19,7 +19,7 @@ const createAccount = async (req, res) => {
             return res.status(400).json({ message: 'Email is not available' });
         }
 
-        // Use your database functions to save the user data
+        // Use the database functions to save the user data
         const result = await createUser(username, email, password);
 
         // Send a response back to the client
