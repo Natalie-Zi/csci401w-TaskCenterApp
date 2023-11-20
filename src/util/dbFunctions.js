@@ -12,6 +12,7 @@ const createUser = async (username, email, userPassword) => {
     }
 };
 
+// Function to check the user login credentials. 
 const loginDB = async (email, userPassword) => {
     try {
         const sql = 'SELECT * FROM UserRegistration WHERE Email = ? AND UserPassword = ?';
