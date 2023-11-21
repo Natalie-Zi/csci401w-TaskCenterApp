@@ -1,5 +1,6 @@
 // Import the database functions
 const { createUser, isUsernameAvaliable, isEmailAvaliable, loginDB } = require('../util/dbFunctions');
+const { shareCalendar, retrieveCalendarIDByName, isCalendarOwnedByUser, retrieveUserIDByEmail } = require('../util/shareCalendar');
 
 // Define the route handler for creating a user account
 const createAccount = async (req, res) => {
