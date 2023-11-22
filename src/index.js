@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-
+const session = require('express-session');
 const bodyParser = require('body-parser');
 
 // Import your post function
@@ -8,6 +8,14 @@ const postController = require('./controller/postController');
 
 const app = express();
 const port = process.env.PORT || 3001;
+
+// Session middleware
+app.use(session({
+    secret: 'some secret', 
+    cookie: { maxAge: 3000 },
+    saveUninitialized: false,
+    resave: false,
+}));
 
 // Middleware to parse the request body as JSON
 app.use(bodyParser.json());
@@ -30,10 +38,28 @@ app.route('/login')
 app.get('/register', (req, res) => {
     res.render('register.ejs');
 });
+
+app.get('/logout', (req, res) => {
+    // Destroy the session
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Error destroying session:', err);
+            res.status(500).json({ message: 'Internal server error' });
+        } else {
+            // Reset the userId
+            postController.resetUserId(req);
+            // Redirect and send a response. 
+            res.redirect('/login'); 
+            res.status(200).json({ message: 'Logout successful' });
+        }
+    });
+});
 // End routes
 
 // Handle POST request for creating an account
 app.post('/create-account', postController.createAccount);
+app.post('/add-Calendar', postController.addCalendar);
+
 
 // app configuration
 app.use(express.static(path.join(__dirname, 'public')));

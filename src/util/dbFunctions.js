@@ -12,14 +12,14 @@ const createUser = async (username, email, userPassword) => {
     }
 };
 
-// Function to check the user login credentials. 
+// Function to check the user login credentials.
 const loginDB = async (email, userPassword) => {
     try {
-        const sql = 'SELECT * FROM UserRegistration WHERE Email = ? AND UserPassword = ?';
+         // SQL query to retrieve user ID and username based on email and password
+        const sql = 'SELECT UserID, Username FROM UserRegistration WHERE Email = ? AND UserPassword = ?';
         const [rows, fields] = await pool.execute(sql, [email, userPassword]);
-        return rows
-    }
-    catch (error) {
+        return rows;
+    } catch (error) {
         throw error;
     }
 };
@@ -48,10 +48,23 @@ const isEmailAvaliable = async (email) => {
     }
 };
 
+// Function to create a new user in the database
+const addCalendaQuery = async (calendarName, userID) => {
+    try {
+        const sql = 'INSERT INTO Calendars (CalendarName, UserID) VALUES (?, ?)';
+        const [rows, fields] = await pool.execute(sql, [calendarName, userID])
+        return rows;
+    } catch (error) {
+        throw error;
+    }
+};
+
 // Export both functions
 module.exports = {
     createUser: createUser,
     isUsernameAvaliable: isUsernameAvaliable,
     isEmailAvaliable: isEmailAvaliable,
-    loginDB: loginDB
+    loginDB: loginDB, 
+    addCalendaQuery: addCalendaQuery
+
 };

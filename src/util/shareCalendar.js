@@ -2,7 +2,7 @@
 const pool = require('./database');
 
 // Function to share a calendar with another user.
-const shareCalendar = async (calendarID, sharedWithID, UserID) => {
+const shareCalendarDB = async (calendarID, sharedWithID, UserID) => {
     try {
         const sql = "INSERT INTO UserSharing (CalendarID, SharedWithID, UserID) VALUES (?, ?, ?)";
         await connection.execute(sql, [calendarID, sharedWithID, UserID]);
@@ -24,7 +24,7 @@ const retrieveCalendarIDByName = async (calendarName) =>{
     }  catch (err) {
         console.error(err);
         return null;
-      }
+    }
 }
 
 // Function to check if a user is the owner of a calendar.
@@ -60,7 +60,7 @@ const isCalendarOwnedByUser = async (calendarID, userID) => {
 
 // Export both functions
 module.exports = {
-    shareCalendar: shareCalendar,
+    shareCalendarDB: shareCalendarDB,
     retrieveCalendarIDByName: retrieveCalendarIDByName,
     isCalendarOwnedByUser: isCalendarOwnedByUser,
     retrieveUserIDByEmail:retrieveUserIDByEmail
