@@ -1,5 +1,5 @@
 // Import the database functions
-const { createUser, isUsernameAvaliable, isEmailAvaliable, loginDB, addCalendaQuery, displayTask } = require('../util/dbFunctions');
+const { createUser, isUsernameAvaliable, isEmailAvaliable, loginDB, addCalendarDB, displayTask } = require('../util/dbFunctions');
 const { shareCalendarDB, retrieveCalendarIDByName, isCalendarOwnedByUser, retrieveUserIDByEmail } = require('../util/shareCalendar');
 const { removeTask, editTaskDB, retrieveTaskIDByName } = require('../util/edit&Delete');
 
@@ -75,7 +75,7 @@ const addCalendar = async (req, res) => {
     }
     
     // Use the userID (of the currently logged-in user) to associate the calendar with the user
-    await dbFunctions.addCalendaQuery(calendarName, loggedInUserID);
+    await dbFunctions.addCalendarDB(calendarName, loggedInUserID);
 
     console.log(`Calendar added successfully.`);
     res.status(201).json({ message: 'Calendar added successfully.' });
