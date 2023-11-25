@@ -59,7 +59,7 @@ const addCalendaQuery = async (calendarName, userID) => {
     }
 };
 
-// Function to create a new user in the database
+// Function to display the tasks of the user. 
 const displayTask = async (calendarID, createdByUserID) => {
     try {
          // SQL query to retrieve tasks based on CalendarID and CreatedByUserID
