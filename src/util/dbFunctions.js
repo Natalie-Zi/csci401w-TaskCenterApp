@@ -48,8 +48,8 @@ const isEmailAvaliable = async (email) => {
     }
 };
 
-// Function to create a new user in the database
-const addCalendaQuery = async (calendarName, userID) => {
+// Function to add a new calednar to  the database
+const addCalendarDB = async (calendarName, userID) => {
     try {
         const sql = 'INSERT INTO Calendars (CalendarName, UserID) VALUES (?, ?)';
         const [rows, fields] = await pool.execute(sql, [calendarName, userID])
@@ -77,6 +77,6 @@ module.exports = {
     isUsernameAvaliable: isUsernameAvaliable,
     isEmailAvaliable: isEmailAvaliable,
     loginDB: loginDB, 
-    addCalendaQuery: addCalendaQuery,
+    addCalendarDB: addCalendarDB,
     displayTask: displayTask
 };
