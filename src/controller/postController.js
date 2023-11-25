@@ -1,5 +1,5 @@
 // Import the database functions
-const { createUser, isUsernameAvaliable, isEmailAvaliable, loginDB, addCalendaQuery } = require('../util/dbFunctions');
+const { createUser, isUsernameAvaliable, isEmailAvaliable, loginDB, addCalendaQuery, displayTask } = require('../util/dbFunctions');
 const { shareCalendarDB, retrieveCalendarIDByName, isCalendarOwnedByUser, retrieveUserIDByEmail } = require('../util/shareCalendar');
 const { removeTask, editTaskDB, retrieveTaskIDByName } = require('../util/edit&Delete');
 

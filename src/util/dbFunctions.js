@@ -25,7 +25,7 @@ const loginDB = async (email, userPassword) => {
 };
 
 /// Function to check if the username is already in the database
-async function isUsernameAvaliable(username) {
+const isUsernameAvaliable = async (username) => {
     try {
         const sql = 'SELECT * FROM UserRegistration WHERE Username = ?';
         const [rows, fields] = await pool.execute(sql, [username]);
@@ -34,7 +34,7 @@ async function isUsernameAvaliable(username) {
     } catch (error) {
         throw error;
     }
-}
+};
 
 // Function to check if the email is already in the database
 const isEmailAvaliable = async (email) => {
@@ -59,12 +59,24 @@ const addCalendaQuery = async (calendarName, userID) => {
     }
 };
 
+// Function to create a new user in the database
+const displayTask = async (calendarID, createdByUserID) => {
+    try {
+         // SQL query to retrieve tasks based on CalendarID and CreatedByUserID
+        const sql = 'SELECT Title, DateDue, TimeDue FROM Task WHERE CalendarID = ? AND CreatedByUserID = ?';
+        const [rows, fields] = await pool.execute(sql, [calendarID, createdByUserID]);
+        return rows;
+      } catch (error) {
+        throw error;
+      }
+};
+
 // Export both functions
 module.exports = {
     createUser: createUser,
     isUsernameAvaliable: isUsernameAvaliable,
     isEmailAvaliable: isEmailAvaliable,
     loginDB: loginDB, 
-    addCalendaQuery: addCalendaQuery
-
+    addCalendaQuery: addCalendaQuery,
+    displayTask: displayTask
 };
