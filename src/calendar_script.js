@@ -1,185 +1,272 @@
 document.addEventListener('DOMContentLoaded', function() {
-    let tasks = {}; // Object to store tasks by date
-    let displayMonth = new Date().getMonth(); // Current displayed month
-    let displayYear = new Date().getFullYear(); // Current displayed year
-    let editingTask = null; // Store task being edited
+    let calendars = {
+        "My Calendar": {} // Default calendar
+    };
+    let currentCalendar = "My Calendar";
+    let editingTask = null;
 
-    // DOM element references
+    // DOM Elements
+    const calendarNameDisplay = document.getElementById('currentCalendarName');
+    const calendarSelect = document.getElementById('calendarSelect');
+    const createCalendarBtn = document.getElementById('createCalendarBtn');
+    const deleteCalendarBtn = document.getElementById('deleteCalendarBtn');
     const addTaskBtn = document.getElementById('addTaskBtn');
     const addTaskModal = document.getElementById('addTaskModal');
     const closeBtn = document.querySelector('.close');
-    const monthYearLabel = document.querySelector('.tc-month-year');
-    const daysContainer = document.querySelector('.tc-days');
+    const taskList = document.getElementById('taskList');
+    const monthYear = document.querySelector('.tc-month-year');
     const prevMonthBtn = document.querySelector('.tc-prev-month');
     const nextMonthBtn = document.querySelector('.tc-next-month');
+    const daysContainer = document.querySelector('.tc-days');
     
-    // Event listener to open the task modal for new tasks
-    addTaskBtn.addEventListener('click', function() {
-        editingTask = null; // Reset editing task
-        openTaskModal();
-    });
+    // Variables to track the current display month and year
+    let displayMonth = new Date().getMonth();
+    let displayYear = new Date().getFullYear();
+    
+    const calendarList = document.getElementById('calendarList'); // Assume this is the <ul> or <ol> element for calendar names
 
-    // Event listener to close the task modal
-    closeBtn.addEventListener('click', function() {
+    // Function to sort tasks by date and then by time
+    const sortTasks = (tasks) => {
+        return tasks.sort((a, b) => {
+            const dateA = new Date(`${a.date}T${a.time}`);
+            const dateB = new Date(`${b.date}T${b.time}`);
+            return dateA - dateB;
+        });
+    };
+
+    // Function to update the calendar title with the current calendar name and month
+    const updateCalendarTitle = () => {
+        calendarNameDisplay.textContent = currentCalendar;
+        monthYear.textContent = new Date(displayYear, displayMonth).toLocaleString('default', { month: 'long', year: 'numeric' });
+    };
+
+    // Function to update the list of tasks in the sidebar
+    const updateTaskList = () => {
+        taskList.innerHTML = '';
+        Object.keys(calendars[currentCalendar]).sort().forEach(date => {
+            calendars[currentCalendar][date] = sortTasks(calendars[currentCalendar][date]);
+            calendars[currentCalendar][date].forEach((task, index) => {
+                const listItem = document.createElement('li');
+                listItem.classList.add('task-item');
+    
+                const taskInfo = document.createElement('div');
+                taskInfo.classList.add('task-info');
+                // Format the time from 24-hour to 12-hour format
+                const timeString = new Date(`1970-01-01T${task.time}Z`).toLocaleTimeString('en-US', {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true
+                });
+                taskInfo.textContent = `${task.name} - ${date} at ${timeString}`; // Updated to use timeString
+                listItem.appendChild(taskInfo);
+    
+                const taskActions = document.createElement('div');
+                taskActions.classList.add('task-actions');
+    
+                const editBtn = document.createElement('button');
+                editBtn.textContent = 'Edit';
+                editBtn.classList.add('edit-button');
+                editBtn.addEventListener('click', () => editTask(date, index));
+                taskActions.appendChild(editBtn);
+    
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'Remove';
+                removeBtn.classList.add('remove-button');
+                removeBtn.addEventListener('click', () => removeTask(date, index));
+                taskActions.appendChild(removeBtn);
+    
+                listItem.appendChild(taskActions);
+                taskList.appendChild(listItem);
+            });
+        });
+    };
+    
+    // Function to show the task modal for adding or editing tasks
+    const openTaskModal = (task = null) => {
+        if (task) {
+            // Prefill form if editing
+            document.getElementById('taskName').value = task.name;
+            document.getElementById('taskDate').value = task.date;
+            document.getElementById('taskTime').value = task.time; // Assume this is already in 24-hour format
+            editingTask = task;
+        } else {
+            // Reset form if adding new task
+            document.getElementById('taskName').value = '';
+            document.getElementById('taskDate').value = '';
+            document.getElementById('taskTime').value = '';
+            editingTask = null;
+        }
+        addTaskModal.style.display = 'block';
+    };
+
+    // Function to close the task modal
+    const closeTaskModal = () => {
         addTaskModal.style.display = 'none';
-    });
+    };
 
-    // Event listener to close the modal when clicking outside of it
-    window.addEventListener('click', function(event) {
-        if (event.target === addTaskModal) {
-            addTaskModal.style.display = 'none';
+    // Function to add a new task to the current calendar
+    const addTask = (name, date, time) => {
+        const newTask = { name, date, time };
+        if (!calendars[currentCalendar][date]) {
+            calendars[currentCalendar][date] = [];
+        }
+        calendars[currentCalendar][date].push(newTask);
+        updateTaskList();
+        generateCalendar(); // Call to update the calendar display
+    };
+
+    // Function to start editing a task
+    const editTask = (date, index) => {
+        const task = calendars[currentCalendar][date][index];
+        openTaskModal(task);
+        // Assign current task as editing task
+        editingTask = { date, index };
+    };
+
+    // Function to remove a task from the current calendar
+    const removeTask = (date, index) => {
+        // Get the task name for confirmation message
+        const taskName = calendars[currentCalendar][date][index].name;
+        const isConfirmed = confirm(`Are you sure you want to remove the task "${taskName}"?`);
+        if (isConfirmed) {
+            // Proceed with the removal if the user confirmed
+            calendars[currentCalendar][date].splice(index, 1);
+            if (calendars[currentCalendar][date].length === 0) {
+                delete calendars[currentCalendar][date];
+            }
+            updateTaskList();
+            generateCalendar(); // Call to update the calendar display
+        }
+    };
+    
+    // Function to generate the calendar view for the current month
+    const generateCalendar = () => {
+        daysContainer.innerHTML = '';
+        const firstDayOfMonth = new Date(displayYear, displayMonth, 1).getDay();
+        const daysInMonth = new Date(displayYear, displayMonth + 1, 0).getDate();
+
+        for (let i = 0; i < firstDayOfMonth; i++) {
+            const emptyCell = document.createElement('div');
+            emptyCell.classList.add('tc-day', 'empty');
+            daysContainer.appendChild(emptyCell);
+        }
+
+        for (let i = 1; i <= daysInMonth; i++) {
+            const dayCell = document.createElement('div');
+            dayCell.classList.add('tc-day');
+            dayCell.textContent = i;
+
+            const dateStr = `${displayYear}-${String(displayMonth + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+            if (calendars[currentCalendar][dateStr] && calendars[currentCalendar][dateStr].length > 0) {
+                dayCell.classList.add('with-task');
+            }
+
+            daysContainer.appendChild(dayCell);
+        }
+    };
+    
+    // Function to update the options in the calendar selection dropdown
+    const updateCalendarSelectOptions = () => {
+        calendarSelect.innerHTML = '';
+        for (let calendarName in calendars) {
+            const option = document.createElement('option');
+            option.value = calendarName;
+            option.textContent = calendarName;
+            calendarSelect.appendChild(option);
+        }
+        deleteCalendarBtn.style.display = currentCalendar !== "My Calendar" ? 'block' : 'none';
+    };
+
+    // Delete calendar functionality
+    deleteCalendarBtn.addEventListener('click', () => {
+        if (currentCalendar !== "My Calendar") {
+            const confirmDeletion = confirm(`Are you sure you want to delete the calendar: ${currentCalendar}?`);
+            if (confirmDeletion) {
+                delete calendars[currentCalendar];
+                currentCalendar = "My Calendar"; // Revert to main calendar
+                updateCalendarSelectOptions();
+                updateCalendarTitle();
+                updateTaskList();
+                generateCalendar();
+            }
+        } else {
+            alert("Cannot delete the main calendar!");
         }
     });
 
-    // Event listener for task form submission
-    document.getElementById('addTaskForm').addEventListener('submit', function(event) {
+    // Event listener for creating a new calendar
+    createCalendarBtn.addEventListener('click', () => {
+        const newCalendarName = prompt('Enter new calendar name:');
+        if (newCalendarName && !calendars[newCalendarName]) {
+            calendars[newCalendarName] = {};
+            currentCalendar = newCalendarName;
+            updateCalendarSelectOptions(); // Update the calendar options dropdown
+            calendarSelect.value = newCalendarName;
+            updateCalendarTitle();
+            updateTaskList();
+            generateCalendar();
+        } else if (calendars[newCalendarName]) {
+            alert('Calendar already exists.');
+        }
+    });
+
+    // Event listener for the add task button
+    addTaskBtn.addEventListener('click', () => openTaskModal());
+
+    // Event listener for the close button of the task modal
+    closeBtn.addEventListener('click', closeTaskModal);
+
+    // Event listener for the task form submission
+    document.getElementById('addTaskForm').addEventListener('submit', (event) => {
         event.preventDefault();
         const taskName = document.getElementById('taskName').value;
         const taskDate = document.getElementById('taskDate').value;
         const taskTime = document.getElementById('taskTime').value;
-        const dateTime = `${taskDate}T${taskTime}:00`;
 
         if (editingTask) {
-            // Update existing task
-            tasks[editingTask.date][editingTask.index] = { name: taskName, dateTime: dateTime };
-        } else {
-            // Add new task
-            if (!tasks[taskDate]) {
-                tasks[taskDate] = [];
-            }
-            tasks[taskDate].push({ name: taskName, dateTime: dateTime });
+            removeTask(editingTask.date, editingTask.index);
         }
 
-        // Clear form fields, hide modal, and update UI
-        document.getElementById('taskName').value = '';
-        document.getElementById('taskDate').value = '';
-        document.getElementById('taskTime').value = '';
-        addTaskModal.style.display = 'none';
-        updateTaskList();
-        generateCalendar(displayMonth, displayYear);
+        addTask(taskName, taskDate, taskTime);
+        closeTaskModal();
     });
 
-    // Function to update the task list UI
-    function updateTaskList() {
-        const taskList = document.getElementById('taskList');
-        taskList.innerHTML = '';
-        Object.entries(tasks).forEach(([date, taskObjs]) => {
-            taskObjs.forEach((task, index) => {
-                const listItem = document.createElement('li');
-                listItem.textContent = `${task.name} - due by ${date} ${formatTime(task.dateTime)}`;
-
-                // Edit button
-                const editButton = document.createElement('button');
-                editButton.textContent = 'Edit';
-                editButton.onclick = () => editTask(date, index);
-
-                // Remove button
-                const removeButton = document.createElement('button');
-                removeButton.textContent = 'Remove';
-                removeButton.onclick = () => removeTask(date, index);
-
-                listItem.appendChild(editButton);
-                listItem.appendChild(removeButton);
-                taskList.appendChild(listItem);
-            });
-        });
-    }
-
-    // Function to open the task modal for adding/editing tasks
-    function openTaskModal() {
-        if (editingTask) {
-            // If editing, pre-fill the form with the task's current data
-            const { name, dateTime } = tasks[editingTask.date][editingTask.index];
-            const [date, time] = dateTime.split('T');
-            document.getElementById('taskName').value = name;
-            document.getElementById('taskDate').value = date;
-            document.getElementById('taskTime').value = time.slice(0, 5);
-        } else {
-            // If adding, clear the form
-            document.getElementById('taskName').value = '';
-            document.getElementById('taskDate').value = '';
-            document.getElementById('taskTime').value = '';
-        }
-        addTaskModal.style.display = 'block'; // Show the modal
-    }
-
-    // Function to edit a task
-    function editTask(date, index) {
-        editingTask = { date, index }; // Set the current task being edited
-        openTaskModal(); // Open the modal for editing
-    }
-
-    // Function to remove a task
-    function removeTask(date, index) {
-        tasks[date].splice(index, 1); // Remove the task from the array
-        if (tasks[date].length === 0) delete tasks[date]; // Clean up empty date entries
-        updateTaskList(); // Update the UI
-        generateCalendar(displayMonth, displayYear); // Refresh the calendar
-    }
-
-    // Function to format dateTime string to a readable format
-    function formatTime(dateTime) {
-        const [datePart, timePart] = dateTime.split('T');
-        const [hours, minutes] = timePart.split(':');
-        const ampm = hours >= 12 ? 'PM' : 'AM';
-        const formattedHours = hours % 12 || 12;
-        return `${formattedHours}:${minutes} ${ampm}`;
-    }
-
-    // Function to get the number of days in the specified month and year
-    function daysInMonth(month, year) {
-        return new Date(year, month + 1, 0).getDate();
-    }
-
-    // Function to get the first day of the specified month and year
-    function getFirstDayOfMonth(month, year) {
-        return new Date(year, month, 1).getDay();
-    }
-
-    // Function to generate the calendar UI for the specified month and year
-    function generateCalendar(month, year) {
-        daysContainer.innerHTML = ''; // Clear the calendar
-        monthYearLabel.textContent = new Date(year, month).toLocaleString('default', { month: 'long', year: 'numeric' }); // Set the month and year label
-
-        const firstDay = getFirstDayOfMonth(month, year);
-        const days = daysInMonth(month, year);
-
-        // Create blank days for alignment
-        for (let i = 0; i < firstDay; i++) {
-            daysContainer.innerHTML += '<div class="tc-day empty"></div>';
-        }
-
-        // Populate the calendar with day numbers
-        for (let i = 1; i <= days; i++) {
-            const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
-            let dayClass = 'tc-day';
-            if (tasks[dateStr]) {
-                dayClass += ' with-task'; // Highlight days with tasks
-            }
-            daysContainer.innerHTML += `<div class="${dayClass}" data-date="${dateStr}">${i}</div>`;
-        }
-    }
-
-    // Function to change the displayed month and update the calendar UI
-    function changeMonth(step) {
-        displayMonth += step;
-
-        // Handle year rollover
-        if (displayMonth > 11) {
-            displayMonth = 0;
-            displayYear++;
-        } else if (displayMonth < 0) {
+    // Event listener for previous month navigation
+    prevMonthBtn.addEventListener('click', () => {
+        displayMonth--;
+        if (displayMonth < 0) {
             displayMonth = 11;
             displayYear--;
         }
+        updateCalendarTitle();
+        generateCalendar();
+    });
 
-        generateCalendar(displayMonth, displayYear); // Regenerate the calendar with the new month
-    }
+    // Event listener for next month navigation
+    nextMonthBtn.addEventListener('click', () => {
+        displayMonth++;
+        if (displayMonth > 11) {
+            displayMonth = 0;
+            displayYear++;
+        }
+        updateCalendarTitle();
+        generateCalendar();
+    });
 
-    // Attach event listeners to navigation arrows for month switching
-    prevMonthBtn.addEventListener('click', () => changeMonth(-1)); // Previous month
-    nextMonthBtn.addEventListener('click', () => changeMonth(1)); // Next month
+    // Event listener for changing the selected calendar
+    calendarSelect.addEventListener('change', () => {
+        currentCalendar = calendarSelect.value;
+        deleteCalendarBtn.style.display = currentCalendar !== "My Calendar" ? 'block' : 'none';
+        updateCalendarTitle();
+        updateTaskList();
+        generateCalendar();
+    });
 
-    // Generate the initial calendar view
-    generateCalendar(displayMonth, displayYear);
+    // Initialize the calendar
+    updateCalendarTitle();
+    updateTaskList();
+    generateCalendar();
+
+    // Initial call to update the select options to ensure correct delete button visibility
+    updateCalendarSelectOptions();
 });
