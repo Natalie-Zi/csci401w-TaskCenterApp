@@ -71,6 +71,16 @@ const displayTask = async (calendarID, createdByUserID) => {
       }
 };
 
+
+const addTask = async () => {
+    try {
+
+
+      } catch (error) {
+        throw error;
+      }
+};
+
 // Export both functions
 module.exports = {
     createUser: createUser,

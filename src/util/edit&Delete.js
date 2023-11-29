@@ -13,7 +13,7 @@ const removeTask = async (taskId) => {
 };
 
 // Function to edit a task in the Task table
-const editTaskDB = async (taskId, updatedTitle, updatedDateDue, updatedTimeDue) => {
+const editTaskDB = async (updatedTitle, updatedDateDue, updatedTimeDue, taskId) => {
     try {
         const sql = 'UPDATE Task SET Title = ?, DateDue = ?, TimeDue = ? WHERE TaskID = ?';
         const [rows] = await connection.execute(sql, [updatedTitle, updatedDateDue, updatedTimeDue, taskId]);
