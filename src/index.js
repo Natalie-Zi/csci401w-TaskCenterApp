@@ -28,7 +28,11 @@ app.get('/homepage', (req, res) => {
     res.render('index.ejs');
 });
 
-// Use the same route for rendering the login page and processing the login
+app.get('/calendar', (req, res) => {
+    res.render('calendar.ejs');
+});
+
+// Use the same route for rendering the login page and processing the login.
 app.route('/login')
     .get((req, res) => {
         res.render('login.ejs');
