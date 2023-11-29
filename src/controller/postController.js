@@ -60,11 +60,11 @@ const login = async (req, res) => {
 };
 
 
-// Define route to handle the add calendar feature. 
+// Define route to handle the add calendar feature.
 const addCalendar = async (req, res) => {
   try {
     const { calendarName } = req.body;
-
+    
     // Get the UserID from the session
     const loggedInUserID = req.session.userId;
 
@@ -74,11 +74,11 @@ const addCalendar = async (req, res) => {
       return res.status(401).json({ message: 'User not logged in.' });
     }
     
-    // Use the userID (of the currently logged-in user) to associate the calendar with the user
-    await dbFunctions.addCalendarDB(calendarName, loggedInUserID);
+    // Use the userID (of the currently logged-in user) to add the calendar to the database
+    const result = await addCalendarDB(calendarName, loggedInUserID);
 
-    console.log(`Calendar added successfully.`);
-    res.status(201).json({ message: 'Calendar added successfully.' });
+    console.log('Calendar added successfully.');
+    res.status(201).json({ message: 'Calendar added successfully.', data: result });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
