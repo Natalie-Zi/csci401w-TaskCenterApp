@@ -3,7 +3,7 @@ const path = require('path');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 
-// Import your post function
+// Import the post function
 const postController = require('./controller/postController');
 
 const app = express();
@@ -12,7 +12,7 @@ const port = process.env.PORT || 3001;
 // Session middleware
 app.use(session({
     secret: 'some secret', 
-    cookie: { maxAge: 3000 },
+    cookie: { maxAge: 24 * 60 * 60 * 1000 }, // 1 day in milliseconds
     saveUninitialized: false,
     resave: false,
 }));
@@ -23,24 +23,21 @@ app.use(bodyParser.json());
 // View engine setup
 app.set('view engine', 'ejs');
 
-// Define routes
-app.get('/homepage', (req, res) => {
-    res.render('index.ejs');
-});
-
-app.get('/calendar', (req, res) => {
-    res.render('calendar.ejs');
-});
-
-// Use the same route for rendering the login page and processing the login.
+// Define routes ----- Start --------
 app.route('/login')
     .get((req, res) => {
+        // Use the same route for rendering the login page and processing the login.
         res.render('login.ejs');
     })
     .post(postController.login);
     
 app.get('/register', (req, res) => {
     res.render('register.ejs');
+});
+
+app.get('/calendar', (req, res) => {
+    // Home page 
+    res.render('calendar.ejs');
 });
 
 app.get('/logout', (req, res) => {
@@ -58,7 +55,7 @@ app.get('/logout', (req, res) => {
         }
     });
 });
-// End routes
+// Define routes ----- ENDS --------
 
 // Handle POST request for creating an account
 app.post('/create-account', postController.createAccount);
