@@ -47,14 +47,11 @@ app.get('/logout', (req, res) => {
             console.error('Error destroying session:', err);
             res.status(500).json({ message: 'Internal server error' });
         } else {
-            // Reset the userId
-            postController.resetUserId(req);
-            // Redirect and send a response. 
-            res.redirect('/login'); 
-            res.status(200).json({ message: 'Logout successful' });
+            res.redirect('/login');
         }
     });
 });
+
 // Define routes ----- ENDS --------
 
 // Handle POST request for creating an account
