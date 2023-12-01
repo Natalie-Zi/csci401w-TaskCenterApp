@@ -149,11 +149,6 @@ const deleteTask = async (req, res) => {
   }
 };
 
-// Define route to handle the reset userId
-const resetUserId = (req) => {
-  req.session.userId = null;
-};
-
 // Export the route handler as a function
 module.exports = {
     createAccount: createAccount,
@@ -163,5 +158,4 @@ module.exports = {
     shareCalendar: shareCalendar,
     editTask: editTask, 
     deleteTask: deleteTask,
-    resetUserId: resetUserId
 };
