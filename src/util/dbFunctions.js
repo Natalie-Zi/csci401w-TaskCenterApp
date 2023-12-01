@@ -48,17 +48,6 @@ const isEmailAvaliable = async (email) => {
     }
 };
 
-// Function to add a new calednar to  the database
-const addCalendarDB = async (calendarName, userID) => {
-    try {
-        const sql = 'INSERT INTO Calendars (CalendarName, UserID) VALUES (?, ?)';
-        const [rows, fields] = await pool.execute(sql, [calendarName, userID])
-        return rows;
-    } catch (error) {
-        throw error;
-    }
-};
-
 // Function to display the tasks of the user. 
 const displayTask = async (calendarID, createdByUserID) => {
     try {
@@ -70,7 +59,6 @@ const displayTask = async (calendarID, createdByUserID) => {
         throw error;
       }
 };
-
 
 const addTask = async () => {
     try {
@@ -87,6 +75,6 @@ module.exports = {
     isUsernameAvaliable: isUsernameAvaliable,
     isEmailAvaliable: isEmailAvaliable,
     loginDB: loginDB, 
-    addCalendarDB: addCalendarDB,
-    displayTask: displayTask
+    addTask: addTask,
+    displayTask: displayTask 
 };

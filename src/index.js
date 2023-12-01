@@ -61,6 +61,8 @@ app.get('/logout', (req, res) => {
 app.post('/create-account', postController.createAccount);
 app.post('/add-Calendar', postController.addCalendar);
 
+app.post('/get-CalendarName', postController.getCalendarNames);
+app.post('/share-Calendar', postController.shareCalendar);
 
 // app configuration
 app.use(express.static(path.join(__dirname, 'public')));

@@ -9,19 +9,48 @@
 .tc-header {
     background-color: #1a1a1a;
     padding: 10px;
-    display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.tc-menu-toggle {
-    cursor: pointer;
-    padding: 0 15px;
+.tc-nav {
+    background-color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    padding-bottom: 0;
+}
+
+.tc-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.tc-nav ul li {
+    margin-right: 20px; /* Spacing between nav items */
+}
+
+.tc-nav ul li:last-child {
+    margin-right: 0; 
+}
+
+.tc-nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.tc-nav ul li a:hover {
+    text-decoration: underline;
 }
 
 .tc-title {
     flex-grow: 1;
     text-align: center;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .tc-main {
@@ -220,6 +249,39 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+}
+
+.tc-calendar-title-box {
+    position: relative; 
+    text-align: center;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center; 
+    padding-bottom: 1%;
+}
+
+#currentCalendarName {
+    margin: 0;
+    flex-grow: 1; 
+}
+
+#shareCalendarBtn {
+    position: absolute; 
+    right: 0; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    padding: 5px 10px;
+    width: 7%;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap; 
+}
+
+#shareCalendarBtn:hover {
+    background-color: #2980b9;
 }
 
 #calendarSelect {
