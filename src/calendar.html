@@ -10,13 +10,21 @@
 <body>
     <div class="tc-container">
         <header class="tc-header">
-            <span class="tc-menu-toggle">☰</span>
+            <!-- Navigation Bar -->
+            <nav class="tc-nav">
+                <ul>
+                    <li><a href="#account">Account</a></li>
+                    <li><a href="#qa">Q&A</a></li>
+                    <li><a href="#logout">Logout</a></li>
+                </ul>
+            </nav>
             <h1 class="tc-title">TaskCenter</h1>
         </header>
         <main class="tc-main">
             <!-- Calendar Title Box -->
             <div class="tc-calendar-title-box">
                 <h2 id="currentCalendarName">My Calendar</h2>
+                <button id="shareCalendarBtn">Share</button>
             </div>
             <div class="tc-calendar-wrapper">
                 <div class="tc-calendar-container">

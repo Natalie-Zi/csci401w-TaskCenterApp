@@ -44,42 +44,53 @@ document.addEventListener('DOMContentLoaded', function() {
     const updateTaskList = () => {
         taskList.innerHTML = '';
         Object.keys(calendars[currentCalendar]).sort().forEach(date => {
-            calendars[currentCalendar][date] = sortTasks(calendars[currentCalendar][date]);
             calendars[currentCalendar][date].forEach((task, index) => {
+                // Create a list item for each task
                 const listItem = document.createElement('li');
                 listItem.classList.add('task-item');
     
+                // Create a div to display task information
                 const taskInfo = document.createElement('div');
                 taskInfo.classList.add('task-info');
-                // Format the time from 24-hour to 12-hour format
-                const timeString = new Date(`1970-01-01T${task.time}Z`).toLocaleTimeString('en-US', {
-                    hour: 'numeric',
-                    minute: '2-digit',
-                    hour12: true
-                });
-                taskInfo.textContent = `${task.name} - ${date} at ${timeString}`; // Updated to use timeString
+    
+                // Convert time from 24-hour to 12-hour format
+                const [hour, minute] = task.time.split(':');
+                const hour12 = hour % 12 || 12; // Convert 0 (midnight) to 12
+                const amPm = hour < 12 ? 'AM' : 'PM'; // Determine AM/PM
+                const timeString = `${hour12}:${minute} ${amPm}`;
+    
+                // Set the text content for taskInfo
+                taskInfo.textContent = `${task.name} - ${date} at ${timeString}`;
+    
+                // Append taskInfo to the list item
                 listItem.appendChild(taskInfo);
     
+                // Create a div for task actions (edit and remove)
                 const taskActions = document.createElement('div');
                 taskActions.classList.add('task-actions');
     
+                // Create Edit button
                 const editBtn = document.createElement('button');
                 editBtn.textContent = 'Edit';
                 editBtn.classList.add('edit-button');
                 editBtn.addEventListener('click', () => editTask(date, index));
                 taskActions.appendChild(editBtn);
     
+                // Create Remove button
                 const removeBtn = document.createElement('button');
                 removeBtn.textContent = 'Remove';
                 removeBtn.classList.add('remove-button');
                 removeBtn.addEventListener('click', () => removeTask(date, index));
                 taskActions.appendChild(removeBtn);
     
+                // Append taskActions to the list item
                 listItem.appendChild(taskActions);
+    
+                // Append the list item to the task list
                 taskList.appendChild(listItem);
             });
         });
-    };
+    };  
     
     // Function to show the task modal for adding or editing tasks
     const openTaskModal = (task = null) => {
@@ -118,10 +129,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to start editing a task
     const editTask = (date, index) => {
         const task = calendars[currentCalendar][date][index];
+        // Open the modal and fill in the task details
         openTaskModal(task);
-        // Assign current task as editing task
+        // Store the date and index of the task being edited
         editingTask = { date, index };
     };
+    
 
     // Function to remove a task from the current calendar
     const removeTask = (date, index) => {
@@ -219,17 +232,45 @@ document.addEventListener('DOMContentLoaded', function() {
     // Event listener for the task form submission
     document.getElementById('addTaskForm').addEventListener('submit', (event) => {
         event.preventDefault();
+    
         const taskName = document.getElementById('taskName').value;
         const taskDate = document.getElementById('taskDate').value;
         const taskTime = document.getElementById('taskTime').value;
-
+    
         if (editingTask) {
-            removeTask(editingTask.date, editingTask.index);
+            // Update the task directly in the data structure
+            calendars[currentCalendar][editingTask.date][editingTask.index] = {
+                name: taskName,
+                date: taskDate,
+                time: taskTime
+            };
+    
+            // If the task date has changed, handle moving the task
+            if (editingTask.date !== taskDate) {
+                // Remove task from the old date
+                calendars[currentCalendar][editingTask.date].splice(editingTask.index, 1);
+                // Add task to the new date
+                if (!calendars[currentCalendar][taskDate]) {
+                    calendars[currentCalendar][taskDate] = [];
+                }
+                calendars[currentCalendar][taskDate].push({
+                    name: taskName,
+                    date: taskDate,
+                    time: taskTime
+                });
+            }
+        } else {
+            // If adding a new task
+            addTask(taskName, taskDate, taskTime);
         }
-
-        addTask(taskName, taskDate, taskTime);
+    
         closeTaskModal();
+        updateTaskList();
+        generateCalendar(); // Update the calendar display
+        editingTask = null; // Reset editingTask
     });
+    
+    
 
     // Event listener for previous month navigation
     prevMonthBtn.addEventListener('click', () => {
