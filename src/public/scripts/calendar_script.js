@@ -166,15 +166,40 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     
     // Function to update the options in the calendar selection dropdown
-    const updateCalendarSelectOptions = () => {
-        calendarSelect.innerHTML = '';
-        for (let calendarName in calendars) {
-            const option = document.createElement('option');
-            option.value = calendarName;
-            option.textContent = calendarName;
-            calendarSelect.appendChild(option);
+    const updateCalendarSelectOptions = async () => {
+        try {
+            // Make a POST request to fetch calendar names
+            const response = await fetch('/get-CalendarName', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                // No data is passed by the frontend for this request
+                body: JSON.stringify({ /*        */ })
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to fetch calendar names');
+            }
+    
+            const { calendarNames } = await response.json();
+    
+            // Clear the existing options in the calendar selection dropdown
+            calendarSelect.innerHTML = '';
+    
+            // Populate the calendar selection dropdown with the fetched calendar names
+            calendarNames.forEach(calendarName => {
+                const option = document.createElement('option');
+                option.value = calendarName;
+                option.textContent = calendarName;
+                calendarSelect.appendChild(option);
+            });
+    
+            // Update the display of the deleteCalendarBtn based on the currentCalendar
+            deleteCalendarBtn.style.display = currentCalendar !== "My Calendar" ? 'block' : 'none';
+        } catch (error) {
+            console.error('Error updating calendar select options:', error);
         }
-        deleteCalendarBtn.style.display = currentCalendar !== "My Calendar" ? 'block' : 'none';
     };
 
     // Delete calendar functionality
@@ -194,19 +219,40 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Event listener for creating a new calendar
-    createCalendarBtn.addEventListener('click', () => {
-        const newCalendarName = prompt('Enter new calendar name:');
-        if (newCalendarName && !calendars[newCalendarName]) {
-            calendars[newCalendarName] = {};
-            currentCalendar = newCalendarName;
-            updateCalendarSelectOptions(); // Update the calendar options dropdown
-            calendarSelect.value = newCalendarName;
-            updateCalendarTitle();
-            updateTaskList();
-            generateCalendar();
-        } else if (calendars[newCalendarName]) {
-            alert('Calendar already exists.');
+// Event listener for creating a new calendar
+createCalendarBtn.addEventListener('click', async () => {
+    const newCalendarName = prompt('Enter new calendar name:');
+        try {
+             // Make HTTP request to the server
+            const response = await fetch('/add-Calendar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ calendarName: newCalendarName }),
+            });
+    
+            const responseData = await response.json();
+    
+            if (response.ok) {
+                alert(responseData.message);
+                calendars[newCalendarName] = {}; 
+                currentCalendar = newCalendarName;
+                updateCalendarSelectOptions();
+                calendarSelect.value = newCalendarName;
+                updateCalendarTitle();
+                updateTaskList();
+                generateCalendar();
+            } else {
+                if (response.status === 400 && responseData.message === 'Calendar already exists. Try adding another name') {
+                    alert(responseData.message);
+                } else {
+                    alert(`Error: ${responseData.message}`);
+                }
+            }
+        } catch (error) {
+            console.error('Error adding calendar:', error);
+            alert('Error adding calendar. Please try again.');
         }
     });
 

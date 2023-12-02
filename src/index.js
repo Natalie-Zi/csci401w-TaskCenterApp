@@ -48,10 +48,11 @@ app.get('/logout', (req, res) => {
             res.status(500).json({ message: 'Internal server error' });
         } else {
             res.redirect('/login');
+            // Print to console that the user ID has logout
+             console.log(`User has succesfully logout.`);
         }
     });
 });
-
 // Define routes ----- ENDS --------
 
 // Handle POST request for creating an account

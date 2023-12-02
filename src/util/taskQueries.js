@@ -63,7 +63,6 @@ const editTaskDB = async (updatedTitle, updatedDateDue, updatedTimeDue, taskID, 
     }
 };
 
-
 // Export both functions
 module.exports = {
     removeTask: removeTask, 
