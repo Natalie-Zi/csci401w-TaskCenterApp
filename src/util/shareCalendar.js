@@ -13,10 +13,10 @@ const shareCalendarDB = async (calendarID, sharedWithID, userID) => {
 
 // Function to get the calendar ID by name. 
 // Note: Should be use when asking user 'Enter the Calendar Name you want to share: 
-const retrieveCalendarIDByName = async (calendarName) =>{
+const retrieveCalendarIDByName = async (calendarName, userID) =>{
     try {
         const sql = 'SELECT CalendarID FROM Calendars WHERE CalendarName = ? AND UserID = ?';
-        const [results] = await connection.execute(sql, [calendarName, UserID]);
+        const [results] = await connection.execute(sql, [calendarName, userID]);
         if (results.length === 1) {
             return results[0].CalendarID;
         }
