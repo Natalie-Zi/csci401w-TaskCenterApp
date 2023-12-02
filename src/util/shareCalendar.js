@@ -2,10 +2,10 @@
 const pool = require('./database');
 
 // Function to share a calendar with another user.
-const shareCalendarDB = async (calendarID, sharedWithID, UserID) => {
+const shareCalendarDB = async (calendarID, sharedWithID, userID) => {
     try {
         const sql = "INSERT INTO UserSharing (CalendarID, SharedWithID, UserID) VALUES (?, ?, ?)";
-        await connection.execute(sql, [calendarID, sharedWithID, UserID]);
+        await connection.execute(sql, [calendarID, sharedWithID, userID]);
     } catch (error) {
         throw error;
     }
