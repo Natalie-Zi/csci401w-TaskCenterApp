@@ -1,9 +1,9 @@
 // Import the database functions
-const { createUser, isUsernameAvaliable, isEmailAvaliable, loginDB, displayTask } = require('../util/dbFunctions');
+const { createUser, isUsernameAvaliable, isEmailAvaliable, loginDB,  } = require('../util/dbFunctions');
 const { shareCalendarDB, retrieveCalendarIDByName, isCalendarOwnedByUser, retrieveUserIDByEmail } = require('../util/shareCalendar');
-const { removeTask, editTaskDB, retrieveTaskIDByName } = require('../util/edit&Delete');
 
-const { addCalendarDB, isCalendarNameAvailable, retrieveCalendarNames, checkCalendarOwner } = require('../util/addCalendar');
+const { removeTask, editTaskDB, addTask, displayTask, retrieveTaskIDByName} = require('../util/taskQueries');
+const { addCalendarDB, isCalendarNameAvailable, retrieveCalendarNames  } = require('../util/addCalendar');
 
 
 // Define route to handle the create a user account

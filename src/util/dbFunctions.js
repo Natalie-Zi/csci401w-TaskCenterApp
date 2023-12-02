@@ -48,33 +48,10 @@ const isEmailAvaliable = async (email) => {
     }
 };
 
-// Function to display the tasks of the user. 
-const displayTask = async (calendarID, createdByUserID) => {
-    try {
-         // SQL query to retrieve tasks based on CalendarID and CreatedByUserID
-        const sql = 'SELECT Title, DateDue, TimeDue FROM Task WHERE CalendarID = ? AND CreatedByUserID = ?';
-        const [rows, fields] = await pool.execute(sql, [calendarID, createdByUserID]);
-        return rows;
-      } catch (error) {
-        throw error;
-      }
-};
-
-const addTask = async () => {
-    try {
-
-
-      } catch (error) {
-        throw error;
-      }
-};
-
 // Export both functions
 module.exports = {
     createUser: createUser,
     isUsernameAvaliable: isUsernameAvaliable,
     isEmailAvaliable: isEmailAvaliable,
     loginDB: loginDB, 
-    addTask: addTask,
-    displayTask: displayTask 
 };
