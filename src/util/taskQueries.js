@@ -41,13 +41,15 @@ const displayTask = async (calendarID, createdByUserID) => {
       }
 };
 
-const addTask = async () => {
+const addTask = async (title, dateDue, timeDue, calendarID, createdByUserID) => {
     try {
-
-
-      } catch (error) {
+        // SQL query to insert a new task
+        const sql = 'INSERT INTO Task (Title, DateDue, TimeDue, CalendarID, CreatedByUserID) VALUES (?, ?, ?, ?, ?)';
+        const [result] = await pool.execute(sql, [title, dateDue, timeDue, calendarID, createdByUserID]);
+        return result;
+    } catch (error) {
         throw error;
-      }
+    }
 };
 
 
