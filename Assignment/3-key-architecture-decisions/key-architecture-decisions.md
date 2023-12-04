@@ -83,6 +83,10 @@ Yes we found various resources we can use for our project.
 How easy do you believe it will be to adapt or extend the technology choices you’ve made in the future based on your current knowledge?
 We think it would be fairly duable to adapt and extwnd our technology choices.
 
+### 4.4. Constraints
+
+Single-User Scope: The project's architecture is designed for a single-user login at any given time. The application isn't designed to facilitate multiple concurrent user logins. 
+
 ---
 
 ## 5. Decision Log
@@ -95,7 +99,7 @@ Here, you'll log key decisions made and the rationale behind them. Here's an exa
 |2023-10-10| Change from mobile app to web app| We believe that we're able to better work with a website and it seemed interesting to learn more about.|
 | 2023-10-10 | Chose Javascript for backend   | Our team found that it would be easier to use javascript for backend because we're developing a web application.|
 |2023-16-10| Chose Node.js | We decided to use node.js as our backend framework|
-|2023-16-10| Chose Angular Material | Angular Material will be used for frontend|
+|2023-16-10| Chose jQuery | jQuery will be used for frontend|
 
 
 Note: As you progress, keep adding to this log. It will not only help you track your decisions but also offer insights into your evolving
