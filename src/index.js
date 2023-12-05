@@ -3,11 +3,13 @@ const path = require('path');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 
-// Import the post function
-const postController = require('./controller/postController');
-
 const app = express();
 const port = process.env.PORT || 3001;
+
+// Import the post function
+const postController = require('./controller/postController');
+const AddCalPost = require('./controller/AddCalPost');
+const shareCalPost = require('./controller/shareCalPost');
 
 // Session middleware
 app.use(session({
@@ -57,10 +59,10 @@ app.get('/logout', (req, res) => {
 
 // Handle POST request for creating an account
 app.post('/create-account', postController.createAccount);
-app.post('/add-Calendar', postController.addCalendar);
+app.post('/add-Calendar', AddCalPost.addCalendar);
 
-app.post('/get-CalendarName', postController.getCalendarNames);
-app.post('/share-Calendar', postController.shareCalendar);
+app.post('/get-CalendarName', AddCalPost.getCalendarNames);
+app.post('/share-Calendar', shareCalPost.shareCalendar);
 
 // app configuration
 app.use(express.static(path.join(__dirname, 'public')));

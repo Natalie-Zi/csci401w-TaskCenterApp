@@ -70,4 +70,5 @@ module.exports = {
     addCalendarDB: addCalendarDB,
     isCalendarNameAvailable: isCalendarNameAvailable,
     retrieveCalendarNames: retrieveCalendarNames,
+    retrieveCalendarIDByName: retrieveCalendarIDByName
 };

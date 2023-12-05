@@ -1,10 +1,6 @@
 // Import the database functions
 const { createUser, isUsernameAvaliable, isEmailAvaliable, loginDB,  } = require('../util/dbFunctions');
-const { shareCalendarDB, retrieveCalendarIDByName, isCalendarOwnedByUser, retrieveUserIDByEmail } = require('../util/shareCalendar');
-
-const { removeTask, editTaskDB, addTask, displayTask, retrieveTaskIDByName} = require('../util/taskQueries');
-const { addCalendarDB, isCalendarNameAvailable, retrieveCalendarNames  } = require('../util/addCalendar');
-
+const { removeTask, editTaskDB, addTask, displayEditTask, retrieveTaskIDByName} = require('../util/taskQueries');
 
 // Define route to handle the create a user account
 const createAccount = async (req, res) => {
@@ -62,75 +58,48 @@ const login = async (req, res) => {
     }
 };
 
-// Define route to handle the add calendar feature.
-const addCalendar = async (req, res) => {
+// Define route to handle the edit task info. 
+const editTask = async (req, res) => {
   try {
-    const { calendarName } = req.body;
-    
+    const { title, dueDate, dueTume } = req.body;
+
     // Get the UserID from the session
     const loggedInUserID = req.session.userId;
 
-    // Ensure the user is logged in
-    // Check cookie maxage works 
-    if (!loggedInUserID) {
-      console.log('User not logged in.');
-      return res.status(401).json({ message: 'User not logged in.' });
-    }
+ 
 
-    const CalendarNameAvailable = await isCalendarNameAvailable(loggedInUserID, calendarName);
-
-    if (!CalendarNameAvailable) {
-        return res.status(400).json({ message: 'Calendar already exists. Try adding another name' });
-    }
-    
-    // Use the userID (of the currently logged-in user) to add the calendar to the database
-    const result = await addCalendarDB(calendarName, loggedInUserID);
-
-    console.log('Calendar added successfully.');
-    res.status(201).json({ message: 'Calendar added successfully.', data: result });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
 
-// Define route to handle getting Calendar Names associated with the logged-in user. 
-const getCalendarNames = async (req, res) => {
+//  Define route to handle getting task info  based on taskID.  
+const showEditingTask = async (req, res) => {
   try {
-      const loggedInUserID = req.session.userId; 
+      const { taskID, calendarID } = req.body;
+      
+      const loggedInUserID = req.session.userId;
 
-      // Ensure the user is logged in and Checks cookie maxage works 
       if (!loggedInUserID) {
-        console.log('User not logged in.');
-        return res.status(401).json({ message: 'User not logged in.' });
+          console.log('User not logged in.');
+          return res.status(401).json({ message: 'User not logged in.' });
       }
 
-      // Retrieve calendar names associated with the logged-in user
-      const calendarNames = await retrieveCalendarNames(loggedInUserID);
+      // Retrieve task details associated with the logged-in user, CalendarID, and TaskID
+      const taskDetails = await displayEditTask(calendarID, taskID, loggedInUserID);
 
-      // Send the retrieved calendar names as a response
-      res.status(200).json({ calendarNames });
+      // Send the retrieved task details as a response
+      res.status(200).json({ taskDetails });
   } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal server error' });
   }
 };
- 
-// Define route to handle the share Calendar feature. 
-const shareCalendar = async (req, res) => {
+
+
+const displayTask = async (req, res) => {
   try {
-
-
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-};
-
-// Define route to handle the edit task info. 
-const editTask = async (req, res) => {
-  try {
-
 
   } catch (error) {
     console.error(error);
@@ -151,11 +120,9 @@ const deleteTask = async (req, res) => {
 
 // Export the route handler as a function
 module.exports = {
-    createAccount: createAccount,
-    login: login,
-    addCalendar: addCalendar,
-    getCalendarNames: getCalendarNames, 
-    shareCalendar: shareCalendar,
-    editTask: editTask, 
-    deleteTask: deleteTask,
+  createAccount: createAccount,
+  login: login,
+  editTask: editTask, 
+  showEditingTask: showEditingTask, 
+  deleteTask: deleteTask,
 };

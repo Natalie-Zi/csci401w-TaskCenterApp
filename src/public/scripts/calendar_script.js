@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 listItem.appendChild(taskActions);
                 taskList.appendChild(listItem);
             });
-        });
+        }); 
     };
     
     // Function to show the task modal for adding or editing tasks
@@ -219,40 +219,90 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-// Event listener for creating a new calendar
-createCalendarBtn.addEventListener('click', async () => {
-    const newCalendarName = prompt('Enter new calendar name:');
-        try {
-             // Make HTTP request to the server
-            const response = await fetch('/add-Calendar', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ calendarName: newCalendarName }),
-            });
-    
-            const responseData = await response.json();
-    
-            if (response.ok) {
-                alert(responseData.message);
-                calendars[newCalendarName] = {}; 
-                currentCalendar = newCalendarName;
-                updateCalendarSelectOptions();
-                calendarSelect.value = newCalendarName;
-                updateCalendarTitle();
-                updateTaskList();
-                generateCalendar();
-            } else {
-                if (response.status === 400 && responseData.message === 'Calendar already exists. Try adding another name') {
+    // Event listener for creating a new calendar
+    createCalendarBtn.addEventListener('click', async () => {
+        const newCalendarName = prompt('Enter new calendar name:');
+            try {
+                // Make HTTP request to the server
+                const response = await fetch('/add-Calendar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ calendarName: newCalendarName }),
+                });
+        
+                const responseData = await response.json();
+        
+                if (response.ok) {
                     alert(responseData.message);
+                    calendars[newCalendarName] = {}; 
+                    currentCalendar = newCalendarName;
+                    updateCalendarSelectOptions();
+                    calendarSelect.value = newCalendarName;
+                    updateCalendarTitle();
+                    updateTaskList();
+                    generateCalendar();
+                } else {
+                    if (response.status === 400 && responseData.message === 'Calendar already exists. Try adding another name') {
+                        alert(responseData.message);
+                    } else {
+                        alert(`Error: ${responseData.message}`);
+                    }
+                }
+            } catch (error) {
+                console.error('Error adding calendar:', error);
+                alert('Error adding calendar. Please try again.');
+            }
+    });
+    
+    // Event listener for sharing the calendar
+    shareCalendarBtn.addEventListener('click', async () => {
+        const email = prompt('Enter the email to share the calendar with:');
+        const calendarName = prompt('Enter the name of the calendar to share');
+        const permission = prompt('Enter the permission level (view or Edit):');
+
+        const permissionLower = permission.toLowerCase();
+         // This block will execute if the user enters 'view', 'View', 'VIEW', etc.
+        if (permissionLower === 'view'){
+            // This block will execute if the user enters 'edit', 'Edit', 'EDIT', etc.
+        }else if ((permissionLower === 'edit')){
+            // Handle invalid input
+        } else{
+            alert('Please enter a valid permission level ("view" or "Edit").');
+        }
+        
+        if (email && permission && calendarName) {
+            try {
+                // Make an HTTP request to the server to share the calendar
+                const response = await fetch('/share-calendar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        calendarName,
+                        email,
+                        permission
+                    }),
+                });
+
+                const responseData = await response.json();
+
+                if (response.ok) {
+                    alert(`Calendar shared with ${email} successfully!`);
+                    // Assuming your server returns updated information or confirmation
+                    // Here you might want to handle the response data accordingly
+                    console.log(responseData);
                 } else {
                     alert(`Error: ${responseData.message}`);
                 }
+            } catch (error) {
+                console.error('Error sharing calendar:', error);
+                alert('Error sharing calendar. Please try again.');
             }
-        } catch (error) {
-            console.error('Error adding calendar:', error);
-            alert('Error adding calendar. Please try again.');
+        } else {
+            alert('Please provide valid email and permission.');
         }
     });
 

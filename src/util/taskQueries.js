@@ -29,16 +29,38 @@ const retrieveTaskIDByName = async (title, userID) => {
     }
 };
 
-// Function to display the tasks of the user. 
-const displayTask = async (calendarID, createdByUserID) => {
+const displayEditTask = async (calendarID, taskID, createdByUserID) => {
     try {
-         // SQL query to retrieve tasks based on CalendarID and CreatedByUserID
-        const sql = 'SELECT Title, DateDue, TimeDue FROM Task WHERE CalendarID = ? AND CreatedByUserID = ?';
-        const [rows, fields] = await pool.execute(sql, [calendarID, createdByUserID]);
+        // SQL query to get tasks based on CalendarID, TaskID, and CreatedByUserID
+        const sql = 'SELECT Title, DateDue, TimeDue FROM Task WHERE CalendarID = ? AND TaskID = ? AND CreatedByUserID = ?';
+        const [rows, fields] = await pool.execute(sql, [calendarID, taskID, createdByUserID]);
         return rows;
-      } catch (error) {
+    } catch (error) {
         throw error;
-      }
+    }
+};
+
+const displayTask = async ( createdByUserID, calendarID) => {
+    try {
+        // SQL query to get a task by name, date, time, ID, CreatedByUserID, and CalendarID
+        const sql = 'SELECT TaskID, Title, DateDue, TimeDue FROM Task WHERE CreatedByUserID = ? AND CalendarID = ?';
+        const [rows] = await pool.execute(sql, [createdByUserID, calendarID]);
+        return rows;
+    } catch (error) {
+        throw error;
+    }
+};
+
+const isTaskOwnedByUser = async (taskID, userID) => {
+    try {
+      // SQL query to check if the task belongs to the user
+      const sql = 'SELECT COUNT(*) AS count FROM Task WHERE TaskID = ? AND UserID = ?';
+      const [rows] = await pool.execute(sql, [taskID, userID]);
+      // Check if the count of rows is greater than 0, indicating ownership of the task
+      return rows[0].count > 0;
+    } catch (error) {
+      throw error;
+    }
 };
 
 const addTask = async (title, dateDue, timeDue, calendarID, createdByUserID) => {
@@ -51,7 +73,6 @@ const addTask = async (title, dateDue, timeDue, calendarID, createdByUserID) => 
         throw error;
     }
 };
-
 
 // Function to edit a task in the Task table
 const editTaskDB = async (updatedTitle, updatedDateDue, updatedTimeDue, taskID, userID ) => {
@@ -70,6 +91,7 @@ module.exports = {
     removeTask: removeTask, 
     editTaskDB: editTaskDB, 
     addTask: addTask, 
-    displayTask: displayTask, 
+    displayEditTask: displayEditTask, 
+    isTaskOwnedByUser: isTaskOwnedByUser,
     retrieveTaskIDByName: retrieveTaskIDByName
 };

@@ -2,66 +2,77 @@
 const pool = require('./database');
 
 // Function to share a calendar with another user.
-const shareCalendarDB = async (calendarID, sharedWithID, userID) => {
+const shareCalendarDB = async (userID, calendarID, sharedWithID, permissionLevel) => {
     try {
-        const sql = "INSERT INTO UserSharing (CalendarID, SharedWithID, UserID) VALUES (?, ?, ?)";
-        await connection.execute(sql, [calendarID, sharedWithID, userID]);
+         // SQL insert into UserSharing based on UserID, CalendarID, SharedWithID and  PermissionLevel. 
+        const sql = "INSERT INTO UserSharing (UserID, CalendarID, SharedWithID, PermissionLevel) VALUES (?, ?, ?, ?)";
+        const [rows] = await pool.execute(sql, [userID, calendarID, sharedWithID, permissionLevel]);
+        return rows;
+    } catch (error) {
+        console.error('Error sharing calendar:', error);
+        throw error;
+    }
+};
+
+// Function to check the is Calendar Owned By User
+const isCalendarOwnedByUser = async (userID, calendarName) => {
+    try {
+        const sql = 'SELECT CalendarID FROM Calendars WHERE UserID = ? AND CalendarName = ?';
+        const [rows] = await pool.execute(sql, [userID, calendarName]);
+
+        // Check if there's a match for the provided UserID and CalendarName
+        return rows.length > 0;
     } catch (error) {
         throw error;
     }
 };
 
-// Function to get the calendar ID by name. 
-// Note: Should be use when asking user 'Enter the Calendar Name you want to share: 
-const retrieveCalendarIDByName = async (calendarName, userID) =>{
+const retrieveUserIDByEmail = async (email) => {
     try {
-        const sql = 'SELECT CalendarID FROM Calendars WHERE CalendarName = ? AND UserID = ?';
-        const [results] = await connection.execute(sql, [calendarName, userID]);
-        if (results.length === 1) {
-            return results[0].CalendarID;
-        }
-        return null;
-    }  catch (err) {
-        console.error(err);
-        return null;
-    }
-}
-
-// Function to check if a user is the owner of a calendar.
-// Note: Should be use to check if the calendar being shared is owned by the user login
-const isCalendarOwnedByUser = async (calendarID, userID) => {
-    try {
-        const sql = 'SELECT COUNT(*) FROM Calendars WHERE CalendarID = ? AND UserID = ?';
-        const [results] = await connection.execute(sql, [calendarID, userID]);
-        // Check if the count of rows is greater than 0, showing the ownership of Calendars.
-        return results[0]['COUNT(*)'] > 0; 
-    } catch (error) {
-        throw error;
-    }
-};
-
-/* Note: Get User ID by Email: 
-  The user enters the email address of the person they want to share the calendar with. 
-  The share calendar post should use the retrieveUserIDByEmail function 
-  to retrieve the user ID associated with that email. */
-  const retrieveUserIDByEmail = async (email) => {
-    try {
+        // SQL query selects UserID from UserRegistration table based on Email
         const sql = 'SELECT UserID FROM UserRegistration WHERE Email = ?';
-        const [results] = await connection.execute(sql, [email]);
-        if (results.length === 1) {
-            return results[0].UserID; 
+        const [rows] = await pool.execute(sql, [email]);
+        if (rows.length === 1) {
+            return rows[0].UserID;
         }
-        console.log(`User not found for email: ${email}`);
-        return null;
+    } catch (error) {
+        console.error('Error retrieve UserID by email:', error);
+        throw error;
+    }
+};
+
+const retrieveCalendarIDByName = async (userID, calendarName) => {
+    try {
+         // SQL query selects CalendarName based on UserID and calendarName
+         const sql = 'SELECT CalendarID FROM Calendars WHERE UserID = ? and CalendarName = ? ';
+         const [rows] = await pool.execute(sql, [userID, calendarName]);
+         if (rows.length === 1) {
+            return rows[0].CalendarID; 
+         }
+    } catch (error) {
+        console.error('Error retrieve calendarID by calendarName:', error);
+        throw error;
+    }
+};
+
+const checkEditPermission = async (userID, calendarID) => {
+    try {
+        // SQL query to check if the user has Edit permission for the calendar
+        const sql = 'SELECT * FROM UserSharing WHERE UserID = ? AND CalendarID = ? AND PermissionLevel = "Edit"';
+        const [rows] = await pool.execute(sql, [userID, calendarID]);
+        
+        // Check if there are rows returned (indicating Edit permission)
+        return rows.length > 0;
     } catch (error) {
         throw error;
     }
 };
 
-// Export both functions
+// Export Functions 
 module.exports = {
-    shareCalendarDB: shareCalendarDB,
+    shareCalendarDB: shareCalendarDB, 
+    isCalendarOwnedByUser: isCalendarOwnedByUser, 
+    retrieveUserIDByEmail: retrieveUserIDByEmail,
     retrieveCalendarIDByName: retrieveCalendarIDByName,
-    isCalendarOwnedByUser: isCalendarOwnedByUser,
-    retrieveUserIDByEmail:retrieveUserIDByEmail
-};
+    checkEditPermission: checkEditPermission 
+}
