@@ -42,6 +42,11 @@ app.get('/calendar', (req, res) => {
     res.render('calendar.ejs');
 });
 
+app.get('/help', (req, res) => {
+    // Q&A page 
+    res.render('help.ejs');
+});
+
 app.get('/logout', (req, res) => {
     // Destroy the session
     req.session.destroy((err) => {
