@@ -1,4 +1,5 @@
-const { addTaskDB } = require('../util/addTask');
+const { addTaskDB } = require('../util/taskQueries');
+const { retrieveCalendarIDByName } = require('../util/addCalendar');
 
 // Define route to handle adding a task.
 const addTask = async (req, res) => {
@@ -12,6 +13,12 @@ const addTask = async (req, res) => {
         if (!loggedInUserID) {
             console.log('User not logged in.');
             return res.status(401).json({ message: 'User not logged in.' });
+        }
+
+        // Check if the calendar name is provided in the user input
+        if (!calendarName) {
+            console.log('Calendar name not provided.');
+            return res.status(400).json({ message: 'Calendar name not provided.' });
         }
 
         // You need to obtain the CalendarID based on the calendarName

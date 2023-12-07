@@ -10,7 +10,7 @@ const port = process.env.PORT || 3001;
 const postController = require('./controller/postController');
 const AddCalPost = require('./controller/AddCalPost');
 const shareCalPost = require('./controller/shareCalPost');
-const taskPost = require('./controller/addTaskPost'); // Add this line to import taskPost
+const addTaskPost = require('./controller/addTaskPost');
 
 // Session middleware
 app.use(session({
@@ -43,6 +43,11 @@ app.get('/calendar', (req, res) => {
     res.render('calendar.ejs');
 });
 
+app.get('/help', (req, res) => {
+    // Q&A page 
+    res.render('help.ejs');
+});
+
 app.get('/logout', (req, res) => {
     // Destroy the session
     req.session.destroy((err) => {
@@ -65,7 +70,7 @@ app.post('/add-Calendar', AddCalPost.addCalendar);
 app.post('/get-CalendarName', AddCalPost.getCalendarNames);
 app.post('/share-Calendar', shareCalPost.shareCalendar);
 
-app.post('/add-task', taskPost.addTask);
+app.post('/add-task', addTaskPost.addTask);
 
 // app configuration
 app.use(express.static(path.join(__dirname, 'public')));
