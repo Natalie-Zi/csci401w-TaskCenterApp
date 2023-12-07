@@ -3,22 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TaskCenter - Sign Up</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Signup Page</title>
 </head>
 <body>
-    <div class="container">
-        <div class="login-box">
-            <h1>TaskCenter</h1>
-            <h2>Sign Up</h2>
-            <input type="text" id="full-name-input" placeholder="Username">
-            <input type="email" id="signup-email-input" placeholder="Email">
-            <input type="password" id="signup-password-input" placeholder="Password">
-            <input type="password" id="confirm-password-input" placeholder="Confirm Password">
-            <button id="signup-button">Create Account</button>
-            <a1 href="#">Already have an account? </a1> <a2 href="#">Log in</a2>
-        </div>
-    </div>
-    <script src="scripts.js"></script>
+    <h1>Sign Up</h1> <!-- The page heading: Sign Up -->
+
+    <!-- The form element for user registration -->
+    <form id="signupForm" action="/signup" method="post">
+        <ul> <!-- Start of an unordered list for structuring form elements -->
+
+            <!-- First Name Input -->
+            <li> <!-- List item for First Name -->
+                <label for="first_name">First Name:</label> <!-- Label for the First Name input field -->
+            </li>
+            <input type="text" id="first_name" name="first_name" required> <!-- Input field for First Name with required attribute -->
+
+            <!-- Last Name Input -->
+            <li> <!-- List item for Last Name -->
+                <label for="last_name">Last Name:</label> <!-- Label for the Last Name input field -->
+            </li>
+            <input type="text" id="last_name" name="last_name" required> <!-- Input field for Last Name with required attribute -->
+
+            <!-- Username Input -->
+            <li> <!-- List item for Username -->
+                <label for="username">Username:</label> <!-- Label for the Username input field -->
+            </li>
+            <input type="text" id="username" name="username" required> <!-- Input field for Username with required attribute -->
+
+            <!-- Password Input -->
+            <li> <!-- List item for Password -->
+                <label for="password">Password:</label> <!-- Label for the Password input field -->
+            </li>
+            <input type="password" id="password" name="password" required> <!-- Input field for Password with required attribute -->
+
+            <!-- Email Input -->
+            <li> <!-- List item for Email -->
+                <label for="email">Email:</label> <!-- Label for the Email input field -->
+            </li>
+            <input type="email" id="email" name="email" required> <!-- Input field for Email with required attribute -->
+
+        </ul> <!-- End of the unordered list containing form elements -->
+        
+        <button type="submit">Sign Up</button> <!-- The "Sign Up" button for submitting the form -->
+    </form> <!-- End of the user registration form -->
 </body>
 </html>

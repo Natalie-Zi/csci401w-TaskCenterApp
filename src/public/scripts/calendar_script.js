@@ -307,44 +307,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Event listener for the add task button
-addTaskBtn.addEventListener('click', async () => {
-    const calendarName = document.getElementById('calendarName').value;
-    const taskName = document.getElementById('taskName').value;
-    const taskDate = document.getElementById('taskDate').value;
-    const taskTime = document.getElementById('taskTime').value;
-
-    // Assuming you have an API endpoint for adding a task, replace '/add-task' with the actual endpoint
-    const apiUrl = '/add-task';
-
-    try {
-        const response = await fetch(apiUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                calendarName,
-                taskName,
-                taskDate,
-                taskTime,
-            }),
-        });
-
-        const responseData = await response.json();
-
-        if (response.ok) {
-            // Handle successful response, if needed
-            alert(responseData.message);
-            // You might want to update the UI or perform other actions
-        } else {
-            // Handle error response
-            alert(`Error: ${responseData.message}`);
-        }
-    } catch (error) {
-        console.error('Error adding task:', error);
-        alert('Error adding task. Please try again.');
-    }
-});
+    addTaskBtn.addEventListener('click', () => openTaskModal());
 
     // Event listener for the close button of the task modal
     closeBtn.addEventListener('click', closeTaskModal);
