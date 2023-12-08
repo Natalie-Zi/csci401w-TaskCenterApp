@@ -65,10 +65,11 @@ const retrieveCalendarIDByName = async (userID, calendarName) => {
     }
 };
 
+
 // Export both functions
 module.exports = {    
     addCalendarDB: addCalendarDB,
     isCalendarNameAvailable: isCalendarNameAvailable,
     retrieveCalendarNames: retrieveCalendarNames,
-    retrieveCalendarIDByName: retrieveCalendarIDByName
+    retrieveCalendarIDByName: retrieveCalendarIDByName,
 };

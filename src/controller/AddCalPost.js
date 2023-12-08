@@ -34,25 +34,29 @@ const addCalendar = async (req, res) => {
   
 // Define route to handle getting Calendar Names associated with the logged-in user. 
 const getCalendarNames = async (req, res) => {
-    try {
-        const loggedInUserID = req.session.userId; 
-  
-        // Ensure the user is logged in and Checks cookie maxage works 
-        if (!loggedInUserID) {
-          console.log('User not logged in.');
-          return res.status(401).json({ message: 'User not logged in.' });
-        }
-  
-        // Retrieve calendar names associated with the logged-in user
-        const calendarNames = await retrieveCalendarNames(loggedInUserID);
-  
-        // Send the retrieved calendar names as a response
-        res.status(200).json({ calendarNames });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Internal server error' });
+  try {
+    // Get the UserID from the session
+    const loggedInUserID = req.session.userId; 
+
+    // Ensure the user is logged in and Checks cookie maxage works 
+    if (!loggedInUserID) {
+      console.log('User not logged in.');
+      return res.status(401).json({ message: 'User not logged in.' });
     }
-};
+
+    // Retrieve calendar names associated with the logged-in user
+    const calendarNames = await retrieveCalendarNames(loggedInUserID);
+
+    // Send the retrieved calendar names as a response
+    res.status(200).json({ calendarNames });
+  } catch (error){
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
+
+
 
 // Export the route handler as a function
 module.exports = {

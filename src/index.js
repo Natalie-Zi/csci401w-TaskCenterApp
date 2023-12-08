@@ -10,6 +10,7 @@ const port = process.env.PORT || 3001;
 const postController = require('./controller/postController');
 const AddCalPost = require('./controller/AddCalPost');
 const shareCalPost = require('./controller/shareCalPost');
+const addTaskPost = require('./controller/addTaskPost');
 
 // Session middleware
 app.use(session({
@@ -68,6 +69,7 @@ app.post('/add-Calendar', AddCalPost.addCalendar);
 
 app.post('/get-CalendarName', AddCalPost.getCalendarNames);
 app.post('/share-Calendar', shareCalPost.shareCalendar);
+app.post('/add-task', addTaskPost.addTask);
 
 // app configuration
 app.use(express.static(path.join(__dirname, 'public')));

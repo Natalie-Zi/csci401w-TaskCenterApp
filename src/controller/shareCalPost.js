@@ -1,4 +1,4 @@
-const { shareCalendarDB, retrieveCalendarIDByName, isCalendarOwnedByUser, retrieveUserIDByEmail } = require('../util/shareCalendar');
+const { shareCalendarDB, retrieveCalendarIDByName, isCalendarOwnedByUser, retrieveUserIDByEmail, retrievesSharedCalName } = require('../util/shareCalendar');
 
 const shareCalendar = async (req, res) => {
   try {
@@ -48,6 +48,31 @@ const shareCalendar = async (req, res) => {
   }
 };
 
+// Define route to handle getting shared Calendar Names associated with the logged-in user. 
+const getSharedCalNames = async (req, res) => {
+  try {
+    // Get the UserID from the session
+    const loggedInUserID = req.session.userId; 
+
+    // Ensure the user is logged in and Checks cookie maxage works 
+    if (!loggedInUserID) {
+      console.log('User not logged in.');
+      return res.status(401).json({ message: 'User not logged in.' });
+    }
+
+    // Retrieve calendar names associated with the logged-in user
+    const sharedCalendarNames = await retrievesSharedCalName(loggedInUserID);
+
+    // Send the retrieved calendar names as a response
+    res.status(200).json({ sharedCalendarNames });
+
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 module.exports = {
-  shareCalendar
+  shareCalendar: shareCalendar, 
+  getSharedCalNames: getSharedCalNames
 };

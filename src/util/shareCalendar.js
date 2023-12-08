@@ -55,18 +55,24 @@ const retrieveCalendarIDByName = async (userID, calendarName) => {
     }
 };
 
-const checkEditPermission = async (userID, calendarID) => {
+
+const retrievesSharedCalName = async (userID) => {
     try {
-        // SQL query to check if the user has Edit permission for the calendar
-        const sql = 'SELECT * FROM UserSharing WHERE UserID = ? AND CalendarID = ? AND PermissionLevel = "Edit"';
-        const [rows] = await pool.execute(sql, [userID, calendarID]);
-        
-        // Check if there are rows returned (indicating Edit permission)
-        return rows.length > 0;
+        const sql = ` SELECT Calendars.CalendarName
+            FROM Calendars
+            INNER JOIN UserSharing ON Calendars.CalendarID = UserSharing.CalendarID
+            WHERE UserSharing.SharedWithID = ? `;
+    
+        // Assuming direct execution of SQL query without an alias
+        const [rows, fields] = await execute(sql, [userID]);
+
+        // Extracts the CalendarName only from each row and returns an array of shared calendar names
+        return rows.map(row => row.CalendarName);
     } catch (error) {
         throw error;
     }
 };
+
 
 // Export Functions 
 module.exports = {
@@ -74,5 +80,5 @@ module.exports = {
     isCalendarOwnedByUser: isCalendarOwnedByUser, 
     retrieveUserIDByEmail: retrieveUserIDByEmail,
     retrieveCalendarIDByName: retrieveCalendarIDByName,
-    checkEditPermission: checkEditPermission 
+    retrievesSharedCalName: retrievesSharedCalName
 }

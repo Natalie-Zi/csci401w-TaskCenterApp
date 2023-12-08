@@ -88,12 +88,14 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('taskName').value = task.name;
             document.getElementById('taskDate').value = task.date;
             document.getElementById('taskTime').value = task.time; // Assume this is already in 24-hour format
+            document.getElementById('calendarName').value = task.calendarNameDB; // Set calendarName based on task
             editingTask = task;
         } else {
             // Reset form if adding new task
             document.getElementById('taskName').value = '';
             document.getElementById('taskDate').value = '';
             document.getElementById('taskTime').value = '';
+            document.getElementById('calendarName').value = '';
             editingTask = null;
         }
         addTaskModal.style.display = 'block';
@@ -104,15 +106,42 @@ document.addEventListener('DOMContentLoaded', function() {
         addTaskModal.style.display = 'none';
     };
 
-    // Function to add a new task to the current calendar
-    const addTask = (name, date, time) => {
-        const newTask = { name, date, time };
-        if (!calendars[currentCalendar][date]) {
-            calendars[currentCalendar][date] = [];
+    const addTask = async (taskTitle, dueDate, dueTime, calendarName) => {
+        try {
+            const response = await fetch('/add-task', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    taskTitle,
+                    dueDate,
+                    dueTime,
+                    calendarName
+                }),
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to add task');
+            }
+    
+            const responseData = await response.json();
+            console.log('Task added:', responseData);
+    
+            // Update the local calendars object after a successful addition in the backend
+            const newTask = { name: taskTitle, date: dueDate, time: dueTime };
+            if (!calendars[currentCalendar][dueDate]) {
+                calendars[currentCalendar][dueDate] = [];
+            }
+            calendars[currentCalendar][dueDate].push(newTask);
+    
+            // Update the UI after adding the task
+            updateTaskList();
+            generateCalendar();
+        } catch (error) {
+            console.error('Error adding task:', error);
+            // Handle errors or show an error message to the user
         }
-        calendars[currentCalendar][date].push(newTask);
-        updateTaskList();
-        generateCalendar(); // Call to update the calendar display
     };
 
     // Function to start editing a task
@@ -318,14 +347,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const taskName = document.getElementById('taskName').value;
         const taskDate = document.getElementById('taskDate').value;
         const taskTime = document.getElementById('taskTime').value;
+        const calendarName = document.getElementById('calendarName').value; // Get calendarName value
 
         if (editingTask) {
             removeTask(editingTask.date, editingTask.index);
         }
 
-        addTask(taskName, taskDate, taskTime);
+        addTask(taskName, taskDate, taskTime, calendarName); // Pass calendarName to addTask function
         closeTaskModal();
     });
+
 
     // Event listener for previous month navigation
     prevMonthBtn.addEventListener('click', () => {
