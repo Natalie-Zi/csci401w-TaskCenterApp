@@ -1,4 +1,4 @@
-/* Calendar Page Styles */
+/* Main Container */
 .tc-container {
     display: flex;
     flex-direction: column;
@@ -6,6 +6,7 @@
     color: #fff;
 }
 
+/* Header */
 .tc-header {
     background-color: #1a1a1a;
     padding: 10px;
@@ -13,6 +14,7 @@
     align-items: center;
 }
 
+/* Navigation Bar */
 .tc-nav {
     background-color: #1a1a1a;
     display: flex;
@@ -53,6 +55,7 @@
     padding-bottom: 0;
 }
 
+/* Main Content */
 .tc-main {
     display: flex;
     flex-direction: column;
@@ -60,12 +63,40 @@
     align-items: center;
 }
 
+/* Calendar Title Box */
 .tc-calendar-title-box {
+    position: relative; 
     text-align: center;
     margin: 20px 0;
-    width: 100%;
+    display: flex;
+    justify-content: center; 
+    padding-bottom: 1%;
 }
 
+#currentCalendarName {
+    margin: 0;
+    flex-grow: 1; 
+}
+
+#shareCalendarBtn {
+    position: fixed; 
+    right: 0; 
+    top: 20%;
+    padding: 5px 10px;
+    width: 7%;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap; 
+}
+
+#shareCalendarBtn:hover {
+    background-color: #2980b9;
+}
+
+/* Calendar Container */
 .tc-calendar-wrapper {
     display: flex;
     width: 100%;
@@ -121,76 +152,7 @@
     cursor: default;
 }
 
-/* Left Floating Action Container */
-.left-floating-action-container {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    display: flex;
-}
-
-.tc-calendar-select {
-    background-color: #2c3e50;
-    padding: 10px;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-}
-
-/* Right Floating Action Container */
-.right-floating-action-container {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-}
-
-.tc-add-task-button {
-    background-color: #3498db;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 36px;
-    cursor: pointer;
-    color: #fff;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
+/* Task Details Sidebar */
 .tc-task-details {
     background-color: #34495e;
     padding: 20px;
@@ -243,6 +205,7 @@
     background-color: #d9534f;
 }
 
+/* Footer */
 .tc-footer {
     background-color: #1a1a1a;
     padding: 10px;
@@ -251,46 +214,32 @@
     align-items: center;
 }
 
-.tc-calendar-title-box {
-    position: relative; 
-    text-align: center;
-    margin: 20px 0;
+/* Floating Action Containers */
+.left-floating-action-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
     display: flex;
-    justify-content: center; 
-    padding-bottom: 1%;
+    flex-direction: row; /* Changed to row */
 }
 
-#currentCalendarName {
-    margin: 0;
-    flex-grow: 1; 
-}
-
-#shareCalendarBtn {
-    position: absolute; 
-    right: 0; 
-    top: 50%; 
-    transform: translateY(-50%); 
-    padding: 5px 10px;
-    width: 7%;
-    background-color: #3498db;
-    color: white;
-    border: none;
+/* Calendar Selections */
+.tc-calendar-select, .tc-shared-calendar-select {
+    background-color: #2c3e50;
+    padding: 10px;
     border-radius: 4px;
-    cursor: pointer;
-    white-space: nowrap; 
+    display: flex;
+    align-items: center;
+    margin-right: 10px; /* Added margin between selections */
 }
 
-#shareCalendarBtn:hover {
-    background-color: #2980b9;
-}
-
-#calendarSelect {
+#calendarSelect, #sharedCalendarSelect {
     padding: 5px;
     border-radius: 4px;
     border: 1px solid #ddd;
 }
 
-#createCalendarBtn, #deleteCalendarBtn {
+#createCalendarBtn, #deleteCalendarBtn, #addSharedCalendarBtn {
     padding: 5px 15px;
     background-color: #28a745;
     color: white;
@@ -300,7 +249,7 @@
     margin-left: 10px;
 }
 
-#createCalendarBtn:hover {
+#createCalendarBtn:hover, #addSharedCalendarBtn:hover {
     background-color: #218838;
 }
 
@@ -310,4 +259,59 @@
 
 #deleteCalendarBtn:hover {
     background-color: #c9302c;
+}
+
+/* Right Floating Action Container */
+.right-floating-action-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.tc-add-task-button {
+    background-color: #3498db;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    cursor: pointer;
+    color: #fff;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }
