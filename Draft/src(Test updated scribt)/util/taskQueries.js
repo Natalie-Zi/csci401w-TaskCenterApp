@@ -64,17 +64,6 @@ const displayEditTask = async (calendarID, taskID, createdByUserID) => {
     }
 };
 
-const displayTask = async ( createdByUserID, calendarID) => {
-    try {
-        // SQL query to get a task by name, date, time, ID, CreatedByUserID, and CalendarID
-        const sql = 'SELECT TaskID, Title, DateDue, TimeDue FROM Task WHERE CreatedByUserID = ? AND CalendarID = ?';
-        const [rows] = await pool.execute(sql, [createdByUserID, calendarID]);
-        return rows;
-    } catch (error) {
-        throw error;
-    }
-};
-
 // Function to edit a task in the Task table
 const editTaskDB = async (updatedTitle, updatedDateDue, updatedTimeDue, taskID, userID ) => {
     try {
@@ -112,6 +101,18 @@ const getUserPermissionLevel = async (userID, calendarID) => {
     }
 };
 
+const retrieveTasksForCalendar = async (loggedInUserID, calendarID) => {
+    try {
+        // Retrieve tasks for the specified calendar that are owned by the logged-in user
+        const sql = 'SELECT * FROM Task WHERE CalendarID = ? AND CreatedByUserID = ?';
+        const [rows] = await pool.execute(sql, [calendarID, loggedInUserID]);
+        // Return the tasks associated with the calendar for the logged-in user
+        return rows;
+    } catch (error) {
+        throw error;
+    }
+};
+
 // Export both functions
 module.exports = {   
     addTaskDB: addTaskDB, 
@@ -119,8 +120,9 @@ module.exports = {
     isTaskOwnedByUser: isTaskOwnedByUser, 
     removeTask: removeTask,
     displayEditTask: displayEditTask,  
-    displayTask: displayTask, 
     editTaskDB: editTaskDB,
-    checkEditPermission: checkEditPermission,
-    getUserPermissionLevel: getUserPermissionLevel
+
+    checkEditPermission,
+    getUserPermissionLevel,
+    retrieveTasksForCalendar
 };
