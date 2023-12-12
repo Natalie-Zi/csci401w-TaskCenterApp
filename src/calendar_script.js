@@ -180,3 +180,4 @@ document.addEventListener('DOMContentLoaded', function() {
     updateCalendarSelectOptions();
     updateSharedCalendarSelectOptions();
 });
+
