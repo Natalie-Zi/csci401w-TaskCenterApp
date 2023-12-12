@@ -46,6 +46,7 @@ const retrieveCalendarIDByName = async (userID, calendarName) => {
          // SQL query selects CalendarName based on UserID and calendarName
          const sql = 'SELECT CalendarID FROM Calendars WHERE UserID = ? and CalendarName = ? ';
          const [rows] = await pool.execute(sql, [userID, calendarName]);
+         
          if (rows.length === 1) {
             return rows[0].CalendarID; 
          }
