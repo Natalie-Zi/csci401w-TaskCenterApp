@@ -117,6 +117,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     sharedCalendarSelect.addEventListener('change', () => {
         // Logic for handling shared calendar selection
+        currentCalendar = sharedCalendarSelect.value;
+        updateCalendarTitle();
+        updateTaskList();
+        generateCalendar()
     });
 
     createCalendarBtn.addEventListener('click', () => {
