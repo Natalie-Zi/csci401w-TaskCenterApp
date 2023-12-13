@@ -1,313 +1,426 @@
-/* Calendar Page Styles */
-.tc-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    color: #fff;
-}
+document.addEventListener('DOMContentLoaded', function() {
+    let calendars = {
+        "My Calendar": {} // Default calendar
+    };
+    let currentCalendar = "My Calendar";
+    let editingTask = null;
 
-.tc-header {
-    background-color: #1a1a1a;
-    padding: 10px;
-    justify-content: space-between;
-    align-items: center;
-}
+    // DOM Elements
+    const calendarNameDisplay = document.getElementById('currentCalendarName');
+    const calendarSelect = document.getElementById('calendarSelect');
+    const createCalendarBtn = document.getElementById('createCalendarBtn');
+    const deleteCalendarBtn = document.getElementById('deleteCalendarBtn');
+    const addTaskBtn = document.getElementById('addTaskBtn');
+    const addTaskModal = document.getElementById('addTaskModal');
+    const closeBtn = document.querySelector('.close');
+    const taskList = document.getElementById('taskList');
+    const monthYear = document.querySelector('.tc-month-year');
+    const prevMonthBtn = document.querySelector('.tc-prev-month');
+    const nextMonthBtn = document.querySelector('.tc-next-month');
+    const daysContainer = document.querySelector('.tc-days');
+    
+    // Variables to track the current display month and year
+    let displayMonth = new Date().getMonth();
+    let displayYear = new Date().getFullYear();
+    
+    const calendarList = document.getElementById('calendarList'); // Assume this is the <ul> or <ol> element for calendar names
 
-.tc-nav {
-    background-color: #1a1a1a;
-    display: flex;
-    align-items: center;
-    padding-bottom: 0;
-}
+    // Function to sort tasks by date and then by time
+    const sortTasks = (tasks) => {
+        return tasks.sort((a, b) => {
+            const dateA = new Date(`${a.date}T${a.time}`);
+            const dateB = new Date(`${b.date}T${b.time}`);
+            return dateA - dateB;
+        });
+    };
 
-.tc-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    align-items: center;
-}
+    // Function to update the calendar title with the current calendar name and month
+    const updateCalendarTitle = () => {
+        calendarNameDisplay.textContent = currentCalendar;
+        monthYear.textContent = new Date(displayYear, displayMonth).toLocaleString('default', { month: 'long', year: 'numeric' });
+    };
 
-.tc-nav ul li {
-    margin-right: 20px; /* Spacing between nav items */
-}
+    // Function to update the list of tasks in the sidebar
+    const updateTaskList = () => {
+        taskList.innerHTML = '';
+        Object.keys(calendars[currentCalendar]).sort().forEach(date => {
+            calendars[currentCalendar][date] = sortTasks(calendars[currentCalendar][date]);
+            calendars[currentCalendar][date].forEach((task, index) => {
+                const listItem = document.createElement('li');
+                listItem.classList.add('task-item');
+    
+                const taskInfo = document.createElement('div');
+                taskInfo.classList.add('task-info');
+                // Format the time from 24-hour to 12-hour format
+                const timeString = new Date(`1970-01-01T${task.time}Z`).toLocaleTimeString('en-US', {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true
+                });
+                taskInfo.textContent = `${task.name} - ${date} at ${timeString}`; // Updated to use timeString
+                listItem.appendChild(taskInfo);
+    
+                const taskActions = document.createElement('div');
+                taskActions.classList.add('task-actions');
+    
+                const editBtn = document.createElement('button');
+                editBtn.textContent = 'Edit';
+                editBtn.classList.add('edit-button');
+                editBtn.addEventListener('click', () => editTask(date, index));
+                taskActions.appendChild(editBtn);
+    
+                const removeBtn = document.createElement('button');
+                removeBtn.textContent = 'Remove';
+                removeBtn.classList.add('remove-button');
+                removeBtn.addEventListener('click', () => removeTask(date, index));
+                taskActions.appendChild(removeBtn);
+    
+                listItem.appendChild(taskActions);
+                taskList.appendChild(listItem);
+            });
+        }); 
+    };
+    
+    // Function to show the task modal for adding or editing tasks
+    const openTaskModal = (task = null) => {
+        if (task) {
+            // Prefill form if editing
+            document.getElementById('taskName').value = task.name;
+            document.getElementById('taskDate').value = task.date;
+            document.getElementById('taskTime').value = task.time; // Assume this is already in 24-hour format
+            document.getElementById('calendarName').value = task.calendarNameDB; // Set calendarName based on task
+            editingTask = task;
+        } else {
+            // Reset form if adding new task
+            document.getElementById('taskName').value = '';
+            document.getElementById('taskDate').value = '';
+            document.getElementById('taskTime').value = '';
+            document.getElementById('calendarName').value = '';
+            editingTask = null;
+        }
+        addTaskModal.style.display = 'block';
+    };
 
-.tc-nav ul li:last-child {
-    margin-right: 0; 
-}
+    // Function to close the task modal
+    const closeTaskModal = () => {
+        addTaskModal.style.display = 'none';
+    };
 
-.tc-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-}
+    const addTask = async (taskTitle, dueDate, dueTime, calendarName) => {
+        try {
+            const response = await fetch('/add-task', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    taskTitle,
+                    dueDate,
+                    dueTime,
+                    calendarName
+                }),
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to add task');
+            }
+    
+            const responseData = await response.json();
+            console.log('Task added:', responseData);
+    
+            // Update the local calendars object after a successful addition in the backend
+            const newTask = { name: taskTitle, date: dueDate, time: dueTime };
+            if (!calendars[currentCalendar][dueDate]) {
+                calendars[currentCalendar][dueDate] = [];
+            }
+            calendars[currentCalendar][dueDate].push(newTask);
+    
+            // Update the UI after adding the task
+            updateTaskList();
+            generateCalendar();
+        } catch (error) {
+            console.error('Error adding task:', error);
+            // Handle errors or show an error message to the user
+        }
+    };
 
-.tc-nav ul li a:hover {
-    text-decoration: underline;
-}
+    // Function to start editing a task
+    const editTask = (date, index) => {
+        const task = calendars[currentCalendar][date][index];
+        openTaskModal(task);
+        // Assign current task as editing task
+        editingTask = { date, index };
+    };
 
-.tc-title {
-    flex-grow: 1;
-    text-align: center;
-    padding-top: 0;
-    padding-bottom: 0;
-}
+    // Function to remove a task from the current calendar
+    const removeTask = (date, index) => {
+        // Get the task name for confirmation message
+        const taskName = calendars[currentCalendar][date][index].name;
+        const isConfirmed = confirm(`Are you sure you want to remove the task "${taskName}"?`);
+        if (isConfirmed) {
+            // Proceed with the removal if the user confirmed
+            calendars[currentCalendar][date].splice(index, 1);
+            if (calendars[currentCalendar][date].length === 0) {
+                delete calendars[currentCalendar][date];
+            }
+            updateTaskList();
+            generateCalendar(); // Call to update the calendar display
+        }
+    };
+    
+    // Function to generate the calendar view for the current month
+    const generateCalendar = () => {
+        daysContainer.innerHTML = '';
+        const firstDayOfMonth = new Date(displayYear, displayMonth, 1).getDay();
+        const daysInMonth = new Date(displayYear, displayMonth + 1, 0).getDate();
 
-.tc-main {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    align-items: center;
-}
+        for (let i = 0; i < firstDayOfMonth; i++) {
+            const emptyCell = document.createElement('div');
+            emptyCell.classList.add('tc-day', 'empty');
+            daysContainer.appendChild(emptyCell);
+        }
 
-.tc-calendar-title-box {
-    text-align: center;
-    margin: 20px 0;
-    width: 100%;
-}
+        for (let i = 1; i <= daysInMonth; i++) {
+            const dayCell = document.createElement('div');
+            dayCell.classList.add('tc-day');
+            dayCell.textContent = i;
 
-.tc-calendar-wrapper {
-    display: flex;
-    width: 100%;
-}
+            const dateStr = `${displayYear}-${String(displayMonth + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+            if (calendars[currentCalendar][dateStr] && calendars[currentCalendar][dateStr].length > 0) {
+                dayCell.classList.add('with-task');
+            }
 
-.tc-calendar-container {
-    background-color: #2c3e50;
-    padding: 20px;
-    flex-grow: 2;
-}
+            daysContainer.appendChild(dayCell);
+        }
+    };
+    
+    // Function to update the options in the calendar selection dropdown
+    const updateCalendarSelectOptions = async () => {
+        try {
+            // Make a POST request to fetch calendar names
+            const response = await fetch('/get-CalendarName', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                // No data is passed by the frontend for this request
+                body: JSON.stringify({ /*        */ })
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to fetch calendar names');
+            }
+    
+            const { calendarNames } = await response.json();
+    
+            // Clear the existing options in the calendar selection dropdown
+            calendarSelect.innerHTML = '';
+    
+            // Populate the calendar selection dropdown with the fetched calendar names
+            calendarNames.forEach(calendarName => {
+                const option = document.createElement('option');
+                option.value = calendarName;
+                option.textContent = calendarName;
+                calendarSelect.appendChild(option);
+            });
+    
+            // Update the display of the deleteCalendarBtn based on the currentCalendar
+            deleteCalendarBtn.style.display = currentCalendar !== "My Calendar" ? 'block' : 'none';
+        } catch (error) {
+            console.error('Error updating calendar select options:', error);
+        }
+    };
 
-.tc-month-navigation {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1.5em;
-    margin-bottom: 20px;
-}
+    // Delete calendar functionality
+    deleteCalendarBtn.addEventListener('click', async () => {
+        const deleteCalendarName = prompt('Enter name of calendar you want to delete:');
+            try {
+                // Make HTTP request to the server
+                const response = await fetch('/delete-Calendar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ calendarName: deleteCalendarName }),
+                });
 
-.tc-prev-month, .tc-next-month {
-    cursor: pointer;
-}
+                const responseData = await response.json();
 
-.tc-weekdays {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    text-align: center;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
+                if (deleteCalendarName !== "My Calendar") {
+                    const confirmDeletion = confirm(`Are you sure you want to delete the calendar: ${deleteCalendarName}?`);
+                    if (confirmDeletion) {
+                        if (response.ok) {
+                            alert(responseData.message);
+                            delete calendars[deleteCalendarName];
+                            currentCalendar = "My Calendar"; // Revert to main calendar
+                            updateCalendarSelectOptions();
+                            updateCalendarTitle();
+                            updateTaskList();
+                            generateCalendar();
+                        } else {
+                            if (response.status === 400 && responseData.message === 'A calendar by that name does not exist.') {
+                                alert(responseData.message);
+                            } else {
+                                alert(`Error: ${responseData.message}`);
+                            }
+                        } 
+                    }
+                } else {
+                    alert("Cannot delete the main calendar!");
+                }
 
-.tc-days {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-gap: 10px;
-}
+            } catch (error) {
+            console.error('Error deleting calendar:', error);
+            alert('Error deleting calendar. Please try again.');
+            }
+    });
 
-.tc-day {
-    background-color: #34495e;
-    text-align: center;
-    padding: 10px;
-    border-radius: 4px;
-}
+    // Event listener for creating a new calendar
+    createCalendarBtn.addEventListener('click', async () => {
+        const newCalendarName = prompt('Enter new calendar name:');
+            try {
+                // Make HTTP request to the server
+                const response = await fetch('/add-Calendar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ calendarName: newCalendarName }),
+                });
+        
+                const responseData = await response.json();
+        
+                if (response.ok) {
+                    alert(responseData.message);
+                    calendars[newCalendarName] = {}; 
+                    currentCalendar = newCalendarName;
+                    updateCalendarSelectOptions();
+                    calendarSelect.value = newCalendarName;
+                    updateCalendarTitle();
+                    updateTaskList();
+                    generateCalendar();
+                } else {
+                    if (response.status === 400 && responseData.message === 'Calendar already exists. Try adding another name') {
+                        alert(responseData.message);
+                    } else {
+                        alert(`Error: ${responseData.message}`);
+                    }
+                }
+            } catch (error) {
+                console.error('Error adding calendar:', error);
+                alert('Error adding calendar. Please try again.');
+            }
+    });
+    
+    // Event listener for sharing the calendar
+    shareCalendarBtn.addEventListener('click', async () => {
+        const email = prompt('Enter the email to share the calendar with:');
+        const calendarName = prompt('Enter the name of the calendar to share');
+        const permission = prompt('Enter the permission level (view or Edit):');
 
-.tc-day.with-task {
-    background-color: #3498db;
-    color: white;
-    font-weight: bold;
-}
+        const permissionLower = permission.toLowerCase();
+         // This block will execute if the user enters 'view', 'View', 'VIEW', etc.
+        if (permissionLower === 'view'){
+            // This block will execute if the user enters 'edit', 'Edit', 'EDIT', etc.
+        }else if ((permissionLower === 'edit')){
+            // Handle invalid input
+        } else{
+            alert('Please enter a valid permission level ("view" or "Edit").');
+        }
+        
+        if (email && permission && calendarName) {
+            try {
+                // Make an HTTP request to the server to share the calendar
+                const response = await fetch('/share-calendar', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        calendarName,
+                        email,
+                        permission
+                    }),
+                });
 
-.tc-day.empty {
-    background-color: transparent;
-    cursor: default;
-}
+                const responseData = await response.json();
 
-/* Left Floating Action Container */
-.left-floating-action-container {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    display: flex;
-}
+                if (response.ok) {
+                    alert(`Calendar shared with ${email} successfully!`);
+                    // Assuming your server returns updated information or confirmation
+                    // Here you might want to handle the response data accordingly
+                    console.log(responseData);
+                } else {
+                    alert(`Error: ${responseData.message}`);
+                }
+            } catch (error) {
+                console.error('Error sharing calendar:', error);
+                alert('Error sharing calendar. Please try again.');
+            }
+        } else {
+            alert('Please provide valid email and permission.');
+        }
+    });
 
-.tc-calendar-select {
-    background-color: #2c3e50;
-    padding: 10px;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-}
+    // Event listener for the add task button
+    addTaskBtn.addEventListener('click', () => openTaskModal());
 
-/* Right Floating Action Container */
-.right-floating-action-container {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-}
+    // Event listener for the close button of the task modal
+    closeBtn.addEventListener('click', closeTaskModal);
 
-.tc-add-task-button {
-    background-color: #3498db;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 36px;
-    cursor: pointer;
-    color: #fff;
-}
+    // Event listener for the task form submission
+    document.getElementById('addTaskForm').addEventListener('submit', (event) => {
+        event.preventDefault();
+        const taskName = document.getElementById('taskName').value;
+        const taskDate = document.getElementById('taskDate').value;
+        const taskTime = document.getElementById('taskTime').value;
+        const calendarName = document.getElementById('calendarName').value; // Get calendarName value
 
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
-}
+        if (editingTask) {
+            removeTask(editingTask.date, editingTask.index);
+        }
 
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-}
+        addTask(taskName, taskDate, taskTime, calendarName); // Pass calendarName to addTask function
+        closeTaskModal();
+    });
 
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
 
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
+    // Event listener for previous month navigation
+    prevMonthBtn.addEventListener('click', () => {
+        displayMonth--;
+        if (displayMonth < 0) {
+            displayMonth = 11;
+            displayYear--;
+        }
+        updateCalendarTitle();
+        generateCalendar();
+    });
 
-.tc-task-details {
-    background-color: #34495e;
-    padding: 20px;
-    border-radius: 4px;
-    width: 300px;
-}
+    // Event listener for next month navigation
+    nextMonthBtn.addEventListener('click', () => {
+        displayMonth++;
+        if (displayMonth > 11) {
+            displayMonth = 0;
+            displayYear++;
+        }
+        updateCalendarTitle();
+        generateCalendar();
+    });
 
-.tc-task-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
+    // Event listener for changing the selected calendar
+    calendarSelect.addEventListener('change', () => {
+        currentCalendar = calendarSelect.value;
+        deleteCalendarBtn.style.display = currentCalendar !== "My Calendar" ? 'block' : 'none';
+        updateCalendarTitle();
+        updateTaskList();
+        generateCalendar();
+    });
 
-.task-item {
-    background-color: #34495e;
-    color: white;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
+    // Initialize the calendar
+    updateCalendarTitle();
+    updateTaskList();
+    generateCalendar();
 
-.task-info {
-    margin-bottom: 5px;
-}
-
-.task-actions {
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
-    margin-top: 5px;
-}
-
-.edit-button, .remove-button {
-    padding: 5px 10px;
-    font-size: 0.8em;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    color: white;
-}
-
-.edit-button {
-    background-color: #f0ad4e;
-}
-
-.remove-button {
-    background-color: #d9534f;
-}
-
-.tc-footer {
-    background-color: #1a1a1a;
-    padding: 10px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.tc-calendar-title-box {
-    position: relative; 
-    text-align: center;
-    margin: 20px 0;
-    display: flex;
-    justify-content: center; 
-    padding-bottom: 1%;
-}
-
-#currentCalendarName {
-    margin: 0;
-    flex-grow: 1; 
-}
-
-#shareCalendarBtn {
-    position: absolute; 
-    right: 0; 
-    top: 50%; 
-    transform: translateY(-50%); 
-    padding: 5px 10px;
-    width: 7%;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    white-space: nowrap; 
-}
-
-#shareCalendarBtn:hover {
-    background-color: #2980b9;
-}
-
-#calendarSelect {
-    padding: 5px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-}
-
-#createCalendarBtn, #deleteCalendarBtn {
-    padding: 5px 15px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-left: 10px;
-}
-
-#createCalendarBtn:hover {
-    background-color: #218838;
-}
-
-#deleteCalendarBtn {
-    background-color: #d9534f;
-}
-
-#deleteCalendarBtn:hover {
-    background-color: #c9302c;
-}
+    // Initial call to update the select options to ensure correct delete button visibility
+    updateCalendarSelectOptions();
+});
