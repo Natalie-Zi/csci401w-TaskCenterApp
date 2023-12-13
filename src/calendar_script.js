@@ -52,17 +52,29 @@ document.addEventListener('DOMContentLoaded', function() {
         daysContainer.innerHTML = '';
         const firstDayOfMonth = new Date(displayYear, displayMonth, 1).getDay();
         const daysInMonth = new Date(displayYear, displayMonth + 1, 0).getDate();
-
+    
+        // Create empty boxes for days before the first day of the month
         for (let i = 0; i < firstDayOfMonth; i++) {
-            daysContainer.appendChild(document.createElement('div'));
+            const emptyCell = document.createElement('div');
+            emptyCell.classList.add('tc-day', 'empty');
+            daysContainer.appendChild(emptyCell);
         }
-
+    
+        // Create boxes for each day of the month
         for (let i = 1; i <= daysInMonth; i++) {
             const dayCell = document.createElement('div');
+            dayCell.classList.add('tc-day');
             dayCell.textContent = i;
+    
+            let fullDate = `${displayYear}-${String(displayMonth + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+            // Check if there are tasks for the day and highlight if yes
+            if (calendars[currentCalendar][fullDate]) {
+                dayCell.classList.add('with-task');
+            }
+    
             daysContainer.appendChild(dayCell);
         }
-    };
+    };    
 
     // Update the options in the calendar selection dropdown
     const updateCalendarSelectOptions = () => {
@@ -167,15 +179,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const taskName = document.getElementById('taskName').value;
         const taskDate = document.getElementById('taskDate').value;
         const taskTime = document.getElementById('taskTime').value;
-
-        if (!calendars[currentCalendar][taskDate]) {
-            calendars[currentCalendar][taskDate] = [];
+    
+        const formattedDate = new Date(taskDate).toISOString().split('T')[0]; // Format date as YYYY-MM-DD
+    
+        if (!calendars[currentCalendar][formattedDate]) {
+            calendars[currentCalendar][formattedDate] = [];
         }
-        calendars[currentCalendar][taskDate].push({ name: taskName, time: taskTime });
-
+        calendars[currentCalendar][formattedDate].push({ name: taskName, time: taskTime });
+    
         updateTaskList();
+        generateCalendar(); // Refresh the calendar to show the new task
         addTaskModal.style.display = 'none';
-    });
+    });    
 
     // Initialize the calendar and task list
     updateCalendarTitle();
