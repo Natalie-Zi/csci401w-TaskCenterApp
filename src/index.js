@@ -7,7 +7,7 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 // Import the post function
-const postController = require('./controller/postController');
+const authUserPost = require('./controller/authUserPost');
 const addCalPost = require('./controller/addCalPost');
 const shareCalPost = require('./controller/shareCalPost');
 const taskPost = require('./controller/taskPost');
@@ -32,7 +32,7 @@ app.route('/login')
         // Use the same route for rendering the login page and processing the login.
         res.render('login.ejs');
     })
-    .post(postController.login);
+    .post(authUserPost.login);
     
 app.get('/register', (req, res) => {
     res.render('register.ejs');
@@ -64,7 +64,7 @@ app.get('/logout', (req, res) => {
 // Define routes ----- ENDS --------
 
 // Handle POST request for creating an account
-app.post('/create-account', postController.createAccount);
+app.post('/create-account', authUserPost.createAccount);
 
 // AddCalPost Javasscript
 app.post('/add-Calendar', addCalPost.addCalendar);
@@ -77,7 +77,8 @@ app.post('/get-SharedCalNames', shareCalPost.getSharedCalNames);
 // addTaskPost Javasscript
 app.post('/add-task', taskPost.addTask);
 app.post('/get-Task-Information', taskPost.getTaskInformation);
-app.post('/delete-task', taskPost.deleteTask);
+app.post('/delete-task', taskPost.deleteTask)
+
 
 // app configuration
 app.use(express.static(path.join(__dirname, 'public')));

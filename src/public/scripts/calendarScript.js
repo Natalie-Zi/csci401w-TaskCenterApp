@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const createCalendarBtn = document.getElementById('createCalendarBtn');
     const deleteCalendarBtn = document.getElementById('deleteCalendarBtn');
     const addSharedCalendarBtn = document.getElementById('addSharedCalendarBtn');
+    const deleteTaskBtn = document.createElement('button');
     const addTaskBtn = document.getElementById('addTaskBtn');
     const addTaskModal = document.getElementById('addTaskModal');
     const closeBtn = document.querySelector('.close');
@@ -35,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
         monthYear.textContent = new Date(displayYear, displayMonth).toLocaleString('default', { month: 'long', year: 'numeric' });
     };
 
+
     // Function to format time from 24-hour to 12-hour format
     const formatTime = (time) => {
         const [hours, minutes, seconds] = time.split(':');
@@ -51,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return `${formattedHours}:${minutes} ${period}`;
     };
 
-    const deleteTask = async (TaskID) => {
+    const deleteTask = async (taskTitle) => {
         try {
             const calendarName = getCurrentCalendar();
 
@@ -60,10 +62,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ 
-                    TaskID,
-                    calendarName
-                 }),
+                body: JSON.stringify({
+                    taskTitle,
+                    calendarName,
+                }),
             });
 
             if (!response.ok) {
@@ -81,8 +83,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
-    // Update tasks list
     const updateTaskList = async () => {
+
         try {
             const calendarName = getCurrentCalendar();
 
@@ -103,6 +105,8 @@ document.addEventListener('DOMContentLoaded', function () {
             // Clear the task list
             taskList.innerHTML = '';
 
+            deleteTaskBtn.textContent = 'Delete a task';
+
             // Populate the task list with the fetched tasks
             tasks.forEach(task => {
                 const listItem = document.createElement('li');
@@ -116,26 +120,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Construct the text content for the list item
                 listItem.textContent = `${taskTitle} - ${dueDate} ${formattedTime}`;
 
-                // Add a delete button
-                const deleteTaskBtn = document.createElement('button');
-                deleteTaskBtn.textContent = 'Delete';
-
-                // Assign the task ID to a custom attribute
-                deleteTaskBtn.dataset.TaskID = task.TaskID;
-
-                // Add a click event listener to handle task deletion
-                deleteTaskBtn.addEventListener('click', () => {
-                    const TaskID = deleteTaskBtn.dataset.TaskID;
-                    // Ask for confirmation before deleting the task
-                    const confirmDelete = confirm(`Are you sure you want to delete this task? `);
-
-                    // Check if the user clicked "OK"
-                    if (confirmDelete) {
-                        // Proceed with deletion
-                        deleteTask(Title);
-                    }
-                });
-
                 // Append the delete button to the list item
                 listItem.appendChild(deleteTaskBtn);
 
@@ -148,6 +132,23 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     };
 
+    // Add a click event listener to handle task deletion
+    deleteTaskBtn.addEventListener('click', () => {
+        // Check if the user entered a task name
+        const taskToDelete = prompt('Enter the name of the task to delete: ')
+        if (taskToDelete) {
+            // Ask for confirmation before deleting the task
+            const confirmDelete = confirm(`Are you sure you want to delete this task?`);
+
+            // Check if the user clicked "OK"
+            if (confirmDelete) {
+                // Proceed with deletion
+                deleteTask(taskToDelete);
+            }
+        } else {
+            alert('Please enter a valid task name.');
+        }
+    });
 
     // Generate the calendar view
     const generateCalendar = () => {
@@ -240,7 +241,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const addTask = async (taskTitle, dueDate, dueTime) => {
         const calendarName = getCurrentCalendar();
-    
+
         try {
             const response = await fetch('/add-task', {
                 method: 'POST',
@@ -254,25 +255,26 @@ document.addEventListener('DOMContentLoaded', function () {
                     calendarName
                 }),
             });
-    
+
             if (!response.ok) {
                 throw new Error('Failed to add task');
             }
-    
+
             const responseData = await response.json();
             console.log('Task added:', responseData);
-    
+
             // Update the UI after adding the task
             updateTaskList();
             generateCalendar();
 
             // Show alert upon successful addition of the task
-             alert(`Task "${taskTitle}" successfully added to "${calendarName}"!`);
+            alert(`Task "${taskTitle}" successfully added to "${calendarName}"!`);
         } catch (error) {
             console.error('Error adding task:', error);
             // Handle errors or show an error message to the user
         }
     };
+
 
     // Event listeners for calendar navigation, task modal, task form submission, etc.
     prevMonthBtn.addEventListener('click', () => {
@@ -454,9 +456,9 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault();
         const taskName = document.getElementById('taskName').value;
         const taskDate = document.getElementById('taskDate').value;
-        const taskTime = document.getElementById('taskTime').value;
+        const formattedTime = document.getElementById('taskTime').value;
 
-        addTask(taskName, taskDate, taskTime); // Call addTask without passing calendarName
+        addTask(taskName, taskDate, formattedTime); // Call addTask without passing calendarName
         updateTaskList();
         addTaskModal.style.display = 'none';
     });

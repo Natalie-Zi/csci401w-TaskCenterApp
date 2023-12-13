@@ -56,9 +56,8 @@ const getCalendarNames = async (req, res) => {
   }
 }
 
-
 // Export the route handler as a function
 module.exports = {
-  addCalendar: addCalendar,
-  getCalendarNames: getCalendarNames
+  addCalendar,
+  getCalendarNames
 };

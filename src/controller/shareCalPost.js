@@ -1,4 +1,4 @@
-const { shareCalendarDB, retrieveCalendarIDByName, isCalendarOwnedByUser, retrieveUserIDByEmail, retrievesSharedCalName } = require('../util/shareCalendar');
+const { shareCalendarDB, isCalendarOwnedByUser, retrieveUserIDByEmail, retrieveCalendarIDByName, retrievesSharedCalName } = require('../util/shareCalendar');
 
 const shareCalendar = async (req, res) => {
   try {

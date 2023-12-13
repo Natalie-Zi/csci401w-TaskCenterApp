@@ -1,5 +1,5 @@
 // Import the database connection
-const pool = require('./database');
+const pool = require('../config/database');
 
 // Function to share a calendar with another user.
 const shareCalendarDB = async (userID, calendarID, sharedWithID, permissionLevel) => {
@@ -17,6 +17,7 @@ const shareCalendarDB = async (userID, calendarID, sharedWithID, permissionLevel
 // Function to check the is Calendar Owned By User
 const isCalendarOwnedByUser = async (userID, calendarName) => {
     try {
+        // SQL query selects CalendarID based on UserID and calendarName
         const sql = 'SELECT CalendarID FROM Calendars WHERE UserID = ? AND CalendarName = ?';
         const [rows] = await pool.execute(sql, [userID, calendarName]);
 
@@ -46,7 +47,6 @@ const retrieveCalendarIDByName = async (userID, calendarName) => {
          // SQL query selects CalendarName based on UserID and calendarName
          const sql = 'SELECT CalendarID FROM Calendars WHERE UserID = ? and CalendarName = ? ';
          const [rows] = await pool.execute(sql, [userID, calendarName]);
-         
          if (rows.length === 1) {
             return rows[0].CalendarID; 
          }
@@ -56,16 +56,15 @@ const retrieveCalendarIDByName = async (userID, calendarName) => {
     }
 };
 
+// Function to retrieve shared Calendar Names by UserID
 const retrievesSharedCalName = async (userID) => {
     try {
+        // SQL query to retrieve Calendar Names where CalendarID from Calendars matches UserSharing's CalendarID and UserID matches SharedWithID
         const sql = ` SELECT Calendars.CalendarName
             FROM Calendars
             INNER JOIN UserSharing ON Calendars.CalendarID = UserSharing.CalendarID
             WHERE UserSharing.SharedWithID = ? `;
-    
-        // Using the database connection pool to execute the SQL query
         const [rows] = await pool.execute(sql, [userID]);
-
         // Extracting the CalendarName only from each row and returning an array of shared calendar names
         return rows.map(row => row.CalendarName);
     } catch (error) {
@@ -87,10 +86,10 @@ const isCalendarSharedWithUser = async (loggedInUserID, calendarID) => {
 
 // Export Functions 
 module.exports = {
-    shareCalendarDB: shareCalendarDB, 
-    isCalendarOwnedByUser: isCalendarOwnedByUser, 
-    retrieveUserIDByEmail: retrieveUserIDByEmail,
-    retrieveCalendarIDByName: retrieveCalendarIDByName,
-    retrievesSharedCalName: retrievesSharedCalName, 
-    isCalendarSharedWithUser: isCalendarSharedWithUser
+    shareCalendarDB, 
+    isCalendarOwnedByUser, 
+    retrieveUserIDByEmail,
+    retrieveCalendarIDByName,
+    retrievesSharedCalName, 
+    isCalendarSharedWithUser
 }

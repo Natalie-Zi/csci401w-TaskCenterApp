@@ -2,7 +2,7 @@
 const mysql2 = require('mysql2');
 
 // Import the database configuration from config.json
-const config = require('../config/config.json');
+const config = require('./config.json');
 
 // Create a MySQL database connection pool using the configuration
 const pool = mysql2.createPool({

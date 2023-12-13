@@ -1,14 +1,10 @@
-const { addTaskDB, checkEditPermission, retrieveTasksForCalendar, deleteTaskDB, retrieveTaskIDByTitle } = require('../util/taskQueries');
+const { addTaskDB, getCalendarIDByName, getTasksForCalendar, isTaskNameAvailable, checkViewPermission } = require('../util/addTaskQueries');
+const { deleteTaskDB, retrieveTaskIDByTitle } = require('../util/deleteQueries')
 const { retrieveCalendarIDByName, isCalendarOwnedByUser, isCalendarSharedWithUser } = require('../util/shareCalendar');
 
-
-// Define route to handle adding a task.
 const addTask = async (req, res) => {
     try {
-        const { taskTitle, dueDate, dueTime, calendarName } = req.body;
-
-        // Debug: Log the content of req.body
-        console.log('Request Body:', req.body);
+        const { taskName, calendarName } = req.body;
 
         // Get the UserID from the session
         const loggedInUserID = req.session.userId;
@@ -19,28 +15,32 @@ const addTask = async (req, res) => {
             return res.status(401).json({ message: 'User not logged in.' });
         }
 
-        // Retrieve the CalendarID based on the calendar name and logged-in user ID
-        const CalendarIDByName = await retrieveCalendarIDByName(loggedInUserID, calendarName);
+        const taskNameAvailable = await isTaskNameAvailable(loggedInUserID, taskName);
 
-        console.log('Calendar ID retrieved:', CalendarIDByName);
+        if (!taskNameAvailable) {
+            return res.status(400).json({ message: 'Task already exists. Try adding another name' });
+        }
+        
+        // Retrieve calendar ID associated with the calendar name
+        const calendarID = await getCalendarIDByName(calendarName);
+        console.log('Calendar ID retrieved:', calendarID);
 
-        // Check if the logged-in user owns the calendar
+        // Check if the logged-in user owns the calendar or has edit permisson
         const ownedByUser = await isCalendarOwnedByUser(loggedInUserID, calendarName);
+        const sharedWithUser = await isCalendarSharedWithUser(loggedInUserID, calendarID);
 
-        console.log('Owned by user:', ownedByUser);
-
-        // Check if the user has edit permission for the calendar
-        const hasEditPermission = await checkEditPermission(loggedInUserID, CalendarIDByName);
-
-        console.log('Has edit permission:', hasEditPermission);
-
-        // Check if the user has edit permission or owns the calendar
-        if (!hasEditPermission && !ownedByUser) {
-            return res.status(403).json({ message: 'Unauthorized. You do not have permission to add tasks to this calendar.' });
+        // If the calendar is not owned by the user and has no edit permisson
+        if (!ownedByUser || !sharedWithUser) {
+            return res.status(403).json({ message: 'Unauthorized. Calendar not accessible.' });
         }
 
-        // Use the retrieved calendarID and loggedInUserID to add the task to the database
-        const result = await addTaskDB(taskTitle, dueDate, dueTime, CalendarIDByName, loggedInUserID);
+        const hasViewPermission = await checkViewPermission(loggedInUserID, calendarID);
+        if (hasViewPermission) {
+            return res.status(403).json({ message: 'Unauthorized. Not allowed to add task because only have View permission.' });
+        }
+
+              // Use the userID (of the currently logged-in user) to add the calendar to the database
+      const result = await addTaskDB(taskName, loggedInUserID);
 
         console.log('Task added successfully.');
         res.status(201).json({ message: 'Task added successfully.', data: result });
@@ -64,8 +64,8 @@ const getTaskInformation = async (req, res) => {
             return res.status(401).json({ message: 'User not logged in.' });
         }
 
-        // Retrieve calendar ID associated with the calendar name for the logged-in user
-        const calendarID = await retrieveCalendarIDByName(loggedInUserID, calendarName);
+        // Retrieve calendar ID associated with the calendar name
+        const calendarID = await getCalendarIDByName(calendarName);
 
         if (!calendarID) {
             return res.status(404).json({ message: 'Calendar not found.' });
@@ -81,7 +81,7 @@ const getTaskInformation = async (req, res) => {
         }
 
         // Retrieve tasks associated with the calendar for the logged-in user
-        const tasks = await retrieveTasksForCalendar(loggedInUserID, calendarID);
+        const tasks = await getTasksForCalendar(calendarID);
 
         res.status(200).json({ tasks });
         console.log('Tasks retrieved successfully for', calendarName);
@@ -102,17 +102,9 @@ const deleteTask = async (req, res) => {
             console.log('User not logged in.');
             return res.status(401).json({ message: 'User not logged in.' });
         }
-        
-console.log('Task Title:', taskTitle);
-console.log('Logged In UserID:', loggedInUserID);
 
-        // Retrieve the TaskID based on the task title and user ID
-        const TaskID = await retrieveTaskIDByTitle(taskTitle, loggedInUserID);
-
-        // Check if the TaskID is found
-        if (!TaskID) {
-            return res.status(404).json({ message: 'Task not found.' });
-        }
+        console.log('Task Title:', taskTitle);
+        console.log('Logged In UserID:', loggedInUserID);
 
         // Retrieve the CalendarID based on the calendar name and logged-in user ID
         const calendarID = await retrieveCalendarIDByName(loggedInUserID, calendarName);
@@ -125,20 +117,18 @@ console.log('Logged In UserID:', loggedInUserID);
         console.log('Owned by user:', ownedByUser);
 
         // Check if the user has edit permission for the calendar
-        const hasEditPermission = await checkEditPermission(loggedInUserID, calendarID);
+        const hasViewPermission = await checkViewPermission(loggedInUserID, calendarID);
 
-        console.log('Has edit permission:', hasEditPermission);
+        console.log('Has edit permission:', hasViewPermission);
 
-        //Check if we can rfetrieve TaskID
-        console.log('TaskID:', TaskID);
 
         // Check if the user has edit permission or owns the calendar
-        if (!hasEditPermission || !ownedByUser) {
+        if (hasViewPermission || !ownedByUser) {
             return res.status(403).json({ message: 'Unauthorized. You do not have permission to delete this task' });
         }
 
         // Use the retrieved calendarID and loggedInUserID to delete the task from the database
-        const deleted = await deleteTaskDB(TaskID);
+        const deleted = await deleteTaskDB(taskTitle);
 
         res.status(200).json({ deleted });
         console.log('Task deleted successfully.');
