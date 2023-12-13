@@ -1,14 +1,13 @@
 // Import the database connection
 const pool = require('./database');
 
-// Function to delete a task from calendar
-const removeTask = async (userID, taskID) => {
+// Function to add a new task to the database
+const addTaskDB = async (title, dateDue, timeDue, calendarID, createdByUserID) => {
     try {
-        // SQL query to delete a task based on TaskID and UserID
-        const sql = 'DELETE FROM Task WHERE UserID = ? AND TaskID = ?';
-        const [rows] = await connection.execute(sql, [userID, taskID]);
+        const sql = 'INSERT INTO Task (Title, DateDue, TimeDue, CalendarID, CreatedByUserID) VALUES (?, ?, ?, ?, ?)';
+        const [rows, fields] = await pool.execute(sql, [title, dateDue, timeDue, calendarID, createdByUserID]);
+        return rows;
     } catch (error) {
-        console.error('Error deleting task:', error);
         throw error;
     }
 };
@@ -29,29 +28,52 @@ const retrieveTaskIDByName = async (title, userID) => {
     }
 };
 
-// Function to display the tasks of the user. 
-const displayTask = async (calendarID, createdByUserID) => {
+const isTaskOwnedByUser = async (userID, taskID) => {
     try {
-         // SQL query to retrieve tasks based on CalendarID and CreatedByUserID
-        const sql = 'SELECT Title, DateDue, TimeDue FROM Task WHERE CalendarID = ? AND CreatedByUserID = ?';
-        const [rows, fields] = await pool.execute(sql, [calendarID, createdByUserID]);
-        return rows;
-      } catch (error) {
-        throw error;
-      }
-};
+        // Select TaskID where the TaskID matches the provided ID and is created by the specified user
+        const sql = 'SELECT TaskID FROM Task WHERE TaskID = ? AND CreatedByUserID = ?';
+        const [rows] = await pool.execute(sql, [taskID, userID]);
 
-const addTask = async (title, dateDue, timeDue, calendarID, createdByUserID) => {
-    try {
-        // SQL query to insert a new task
-        const sql = 'INSERT INTO Task (Title, DateDue, TimeDue, CalendarID, CreatedByUserID) VALUES (?, ?, ?, ?, ?)';
-        const [result] = await pool.execute(sql, [title, dateDue, timeDue, calendarID, createdByUserID]);
-        return result;
+        // Check if there's a match for the provided TaskID and UserID
+        return rows.length > 0;
     } catch (error) {
         throw error;
     }
 };
 
+// Function to delete a task from calendar
+const removeTask = async (userID, taskID) => {
+    try {
+        // SQL query to delete a task based on TaskID and UserID
+        const sql = 'DELETE FROM Task WHERE UserID = ? AND TaskID = ?';
+        const [rows] = await connection.execute(sql, [userID, taskID]);
+    } catch (error) {
+        console.error('Error deleting task:', error);
+        throw error;
+    }
+};
+
+const displayEditTask = async (calendarID, taskID, createdByUserID) => {
+    try {
+        // SQL query to get tasks based on CalendarID, TaskID, and CreatedByUserID
+        const sql = 'SELECT Title, DateDue, TimeDue FROM Task WHERE CalendarID = ? AND TaskID = ? AND CreatedByUserID = ?';
+        const [rows, fields] = await pool.execute(sql, [calendarID, taskID, createdByUserID]);
+        return rows;
+    } catch (error) {
+        throw error;
+    }
+};
+
+const displayTask = async ( createdByUserID, calendarID) => {
+    try {
+        // SQL query to get a task by name, date, time, ID, CreatedByUserID, and CalendarID
+        const sql = 'SELECT TaskID, Title, DateDue, TimeDue FROM Task WHERE CreatedByUserID = ? AND CalendarID = ?';
+        const [rows] = await pool.execute(sql, [createdByUserID, calendarID]);
+        return rows;
+    } catch (error) {
+        throw error;
+    }
+};
 
 // Function to edit a task in the Task table
 const editTaskDB = async (updatedTitle, updatedDateDue, updatedTimeDue, taskID, userID ) => {
@@ -65,11 +87,40 @@ const editTaskDB = async (updatedTitle, updatedDateDue, updatedTimeDue, taskID, 
     }
 };
 
+const checkEditPermission = async (userID, calendarID) => {
+    try {
+        // SQL query to check if the user has Edit permission for the calendar
+        const sql = 'SELECT * FROM UserSharing WHERE UserID = ? AND CalendarID = ? AND PermissionLevel = "Edit"';
+        const [rows] = await pool.execute(sql, [userID, calendarID]);
+        
+        // Check if there are rows returned (indicating Edit permission)
+        return rows.length > 0;
+    } catch (error) {
+        throw error;
+    }
+};
+
+const getUserPermissionLevel = async (userID, calendarID) => {
+    try {
+        const sql = 'SELECT PermissionLevel FROM UserSharing WHERE UserID = ? AND CalendarID = ?';
+        const [rows] = await pool.execute(sql, [userID, calendarID]);
+        if (rows.length > 0) {
+            return rows[0].PermissionLevel;
+        } 
+    } catch (error) {
+        throw error;
+    }
+};
+
 // Export both functions
-module.exports = {
-    removeTask: removeTask, 
-    editTaskDB: editTaskDB, 
-    addTask: addTask, 
+module.exports = {   
+    addTaskDB: addTaskDB, 
+    retrieveTaskIDByName: retrieveTaskIDByName, 
+    isTaskOwnedByUser: isTaskOwnedByUser, 
+    removeTask: removeTask,
+    displayEditTask: displayEditTask,  
     displayTask: displayTask, 
-    retrieveTaskIDByName: retrieveTaskIDByName
+    editTaskDB: editTaskDB,
+    checkEditPermission: checkEditPermission,
+    getUserPermissionLevel: getUserPermissionLevel
 };
