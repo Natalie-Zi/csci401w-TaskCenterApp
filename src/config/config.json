@@ -1,6 +1,6 @@
 {
     "host": "localhost",
     "user": "root",
-    "password": "brutus",
-    "database": "taskcenter_db"
+    "password": "password",
+    "database": "database"
 }
