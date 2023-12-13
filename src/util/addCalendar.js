@@ -1,7 +1,7 @@
 // Import the database connection
 const pool = require('./database');
 
-// Function to add a new calendar to  the database
+// Function to add a new calednar to  the database
 const addCalendarDB = async (calendarName, userID) => {
     try {
         // SQL insert into new calendar based on CalendarName and UserID 
@@ -65,11 +65,12 @@ const retrieveCalendarIDByName = async (userID, calendarName) => {
     }
 };
 
-// Export functions
+
+// Export both functions
 module.exports = {    
     addCalendarDB: addCalendarDB,
     isCalendarNameAvailable: isCalendarNameAvailable,
     retrieveCalendarNames: retrieveCalendarNames,
-    removeCalendar: removeCalendar,
-    retrieveCalendarIDByName: retrieveCalendarIDByName
+    retrieveCalendarIDByName: retrieveCalendarIDByName,
+    removeCalendar: removeCalendar
 };
