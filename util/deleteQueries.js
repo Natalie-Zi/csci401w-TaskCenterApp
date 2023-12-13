@@ -12,11 +12,11 @@ const deleteCalendar = async (calendarID, userID) => {
     }
 };
 
-const deleteTaskDB = async (taskID, calendarID) => {
+const deleteTaskDB = async (Title) => {
     try {
         // SQL delete query to remove tasks based on TaskID and CalendarID
-        const sql = 'DELETE FROM Task WHERE TaskID = ? AND CalendarID = ?';
-        const [rows, fields] = await pool.execute(sql, [taskID, calendarID]);
+        const sql = 'DELETE FROM Task WHERE Title = ?';
+        const [rows, fields] = await pool.execute(sql, [Title]);
         return rows;
     } catch (error) {
         throw error;

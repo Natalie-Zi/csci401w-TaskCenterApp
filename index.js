@@ -77,6 +77,7 @@ app.post('/get-SharedCalNames', shareCalPost.getSharedCalNames);
 // addTaskPost Javasscript
 app.post('/add-task', taskPost.addTask);
 app.post('/get-Task-Information', taskPost.getTaskInformation);
+app.post('/delete-task', taskPost.deleteTask)
 
 
 // app configuration

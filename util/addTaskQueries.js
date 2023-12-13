@@ -50,11 +50,18 @@ const getTasksForCalendar = async (calendarID) => {
     }
 };
 
+const isTaskNameAvailable = async (userID, calendarName, taskName) => {
+    const calendarID = await getCalendarIDByName(calendarName);
+    const query = `SELECT * FROM Tasks WHERE CalendarID = ? AND Title = ?`;
+    const [rows, fields] = await pool.execute(query, [calendarID, taskName]);
+    return rows.length === 0;
+};
+
 // Export both functions
 module.exports = {    
     addTaskDB,
     checkViewPermission,
     getCalendarIDByName,
-    getTasksForCalendar
-
+    getTasksForCalendar,
+    isTaskNameAvailable
 };
