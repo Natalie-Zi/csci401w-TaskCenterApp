@@ -27,7 +27,7 @@ This assignment is designed to guide you in understanding the foundational aspec
 ### 1.1. Purpose
 
 
-A brief overview of what this document entails.
+Our goal is to develop a web-based application that simplifies schedule organization. This software will provide users, including students and employees, with a versatile calendar tool. Additionally, it will seamlessly connect with various software platforms, consolidating deadlines and meetings into a single, user-friendly interface.
 
 ---
 
@@ -56,8 +56,8 @@ We chose this framework because it has many optons we could implement.
 
 ### 3.2. Backend Framework
 
-Node.js 
-We chose this framework especially because it can be used to connect with our database.
+Express.js 
+We chose this framework because we want to use node.js which can be used to connect with our database.
 
 ### 3.3. Database System
 
@@ -100,6 +100,6 @@ Here, you'll log key decisions made and the rationale behind them. Here's an exa
 | 2023-10-10 | Chose Javascript for backend   | Our team found that it would be easier to use javascript for backend because we're developing a web application.|
 |2023-16-10| Chose Node.js | We decided to use node.js as our backend framework|
 |2023-16-10| Chose jQuery and HTML | jQuery  and HTML will be used for frontend|
-
+|2023-28-11|Established features priority|We established which feature needed to be done by a certain date. Register/login, Add/share calendar, add/delete a task.|
 
 Note: As you progress, keep adding to this log. It will not only help you track your decisions but also offer insights into your evolving
