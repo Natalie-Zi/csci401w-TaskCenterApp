@@ -50,12 +50,16 @@ const getTasksForCalendar = async (calendarID) => {
     }
 };
 
-const isTaskNameAvailable = async (taskName, calendarID) => {
+const getCalendarID = async (calendarName, userID) => {
     try {
-        const query = `SELECT * FROM task WHERE CalendarID = ? AND Title = ?`;
-        const [rows, fields] = await pool.execute(query, [calendarID, taskName]);
-        return rows.length === 0;
+         // SQL query selects CalendarID based on CalendarName and UserID
+         const sql = 'SELECT CalendarID FROM Calendars WHERE CalendarName = ? AND UserID = ?';
+         const [rows] = await pool.execute(sql, [calendarName, userID]);
+         if (rows.length === 1) {
+            return rows[0].CalendarID; 
+         }
     } catch (error) {
+        console.error('Error retrieving calendarID by calendarName:', error);
         throw error;
     }
 };
@@ -66,5 +70,5 @@ module.exports = {
     checkViewPermission,
     getCalendarIDByName,
     getTasksForCalendar,
-    isTaskNameAvailable
+    getCalendarID
 };

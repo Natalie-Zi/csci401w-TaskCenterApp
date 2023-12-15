@@ -19,9 +19,8 @@ const shareCalendar = async (req, res) => {
     // Retrieve the CalendarID based on the calendar name and logged-in user ID
     const CalendarIDByName = await retrieveCalendarIDByName(loggedInUserID, calendarName);
     
-
     // Check if the logged-in user owns the calendar
-    const OwnedByUser = await isCalendarOwnedByUser(loggedInUserID, calendarName);
+    const OwnedByUser = await isCalendarOwnedByUser(loggedInUserID, CalendarIDByName);
 
     if (!sharedUserID) {
       console.log('User with provided email does not exist.');

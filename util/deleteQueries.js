@@ -1,3 +1,4 @@
+
 // Import the database connection
 const pool = require('../config/database');
 
@@ -12,22 +13,35 @@ const deleteCalendar = async (calendarID, userID) => {
     }
 };
 
-const deleteTaskDB = async (Title) => {
+const deleteTaskDB = async (taskID, calendarID) => {
     try {
         // SQL delete query to remove tasks based on TaskID and CalendarID
-        const sql = 'DELETE FROM Task WHERE Title = ?';
-        const [rows, fields] = await pool.execute(sql, [Title]);
-        return rows;
+        const sql = 'DELETE FROM Task WHERE TaskID = ? AND CalendarID = ?';
+        const [result] = await pool.execute(sql, [taskID, calendarID]);
+        return result;
     } catch (error) {
         throw error;
     }
 };
 
+const getTaskIDByTitle = async (title) => {
+    try {
+        // SQL select query to retrieve TaskID based on Title
+        const sql = 'SELECT TaskID FROM Task WHERE Title = ?';
+        const [result] = await pool.execute(sql, [title]);
+        if (result.length === 1) {
+            return result[0].TaskID; 
+        }
+    } catch (error) {
+        throw error;
+    }
+};
 
 // Export the deleteCalendar function
 module.exports = {
     deleteCalendar,
-    deleteTaskDB
+    deleteTaskDB,
+    getTaskIDByTitle
 };
 
 

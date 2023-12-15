@@ -8,6 +8,7 @@ CREATE TABLE UserRegistration (
 CREATE TABLE Calendars (
     CalendarID INT AUTO_INCREMENT PRIMARY KEY,
     CalendarName VARCHAR(50) NOT NULL,
+    Color VARCHAR(7),
     UserID INT,
     FOREIGN KEY (UserID) REFERENCES UserRegistration(UserID)
 );

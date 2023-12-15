@@ -8,7 +8,7 @@ const port = process.env.PORT || 3001;
 
 // Import the post function
 const authUserPost = require('./controller/authUserPost');
-const addCalPost = require('./controller/addCalPost');
+const AddCalPost = require('./controller/AddCalPost');
 const shareCalPost = require('./controller/shareCalPost');
 const taskPost = require('./controller/taskPost');
 
@@ -67,8 +67,8 @@ app.get('/logout', (req, res) => {
 app.post('/create-account', authUserPost.createAccount);
 
 // AddCalPost Javasscript
-app.post('/add-Calendar', addCalPost.addCalendar);
-app.post('/get-CalendarName', addCalPost.getCalendarNames);
+app.post('/add-Calendar', AddCalPost.addCalendar);
+app.post('/get-CalendarName', AddCalPost.getCalendarNames);
 
 // shareCalPost Javasscript
 app.post('/share-Calendar', shareCalPost.shareCalendar);
@@ -77,8 +77,7 @@ app.post('/get-SharedCalNames', shareCalPost.getSharedCalNames);
 // addTaskPost Javasscript
 app.post('/add-task', taskPost.addTask);
 app.post('/get-Task-Information', taskPost.getTaskInformation);
-app.post('/delete-task', taskPost.deleteTask)
-
+app.post('/deleteTask', taskPost.deleteTask);
 
 // app configuration
 app.use(express.static(path.join(__dirname, 'public')));

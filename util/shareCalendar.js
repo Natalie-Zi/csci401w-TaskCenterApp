@@ -15,13 +15,13 @@ const shareCalendarDB = async (userID, calendarID, sharedWithID, permissionLevel
 };
 
 // Function to check the is Calendar Owned By User
-const isCalendarOwnedByUser = async (userID, calendarName) => {
+const isCalendarOwnedByUser = async (userID, calendarID) => {
     try {
-        // SQL query selects CalendarID based on UserID and calendarName
-        const sql = 'SELECT CalendarID FROM Calendars WHERE UserID = ? AND CalendarName = ?';
-        const [rows] = await pool.execute(sql, [userID, calendarName]);
+        // SQL query selects CalendarID based on UserID and calendarID
+        const sql = 'SELECT CalendarID FROM Calendars WHERE UserID = ? AND CalendarID = ?';
+        const [rows] = await pool.execute(sql, [userID, calendarID]);
 
-        // Check if there's a match for the provided UserID and CalendarName
+        // Check if there's a match for the provided UserID and CalendarID
         return rows.length > 0;
     } catch (error) {
         throw error;
@@ -44,7 +44,7 @@ const retrieveUserIDByEmail = async (email) => {
 
 const retrieveCalendarIDByName = async (userID, calendarName) => {
     try {
-         // SQL query selects CalendarName based on UserID and calendarName
+         // SQL query selects CalendarID based on UserID and calendarName
          const sql = 'SELECT CalendarID FROM Calendars WHERE UserID = ? and CalendarName = ? ';
          const [rows] = await pool.execute(sql, [userID, calendarName]);
          if (rows.length === 1) {
@@ -83,6 +83,7 @@ const isCalendarSharedWithUser = async (loggedInUserID, calendarID) => {
         throw error;
     }
 };
+
 
 // Export Functions 
 module.exports = {
