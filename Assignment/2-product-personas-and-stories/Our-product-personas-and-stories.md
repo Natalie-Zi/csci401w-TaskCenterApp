@@ -9,24 +9,24 @@
 - [Product Name](#product-name)
 - [Product Personas](#product-personas)
 - [Product Scenarios](#product-scenarios)
-  - [1: Student](#product-scenario-1-student)
-  - [2: Manager](#Product-scenario-2-manager)
-  - [3: Office Professionals](#Product-Scenario-3-Office-Professionals)
-- [User Stories and Features](#user-stories)
-   - [1: Create events](#1-create-events)
-   - [2: Edit events](#2-edit-events)
-   - [3: Delete](#3-delete-events)
-   - [4: Q&A page](#4-Q&A)
-   - [5: Reminders](5-reminders)
-   - [6: Share](#6-share)
+  - [Student](#student)
+  - [Manager](#manager)
+  - [Office Professionals](#office-professionals)
+- [User Stories](#user-stories)
+   - [1: Create account](#1-create-account)
+   - [2: Login](#2-login)
+   - [3: Create new calendar](#3-create-new-calendar)
+   - [4: Create events](#4-create-events)
+   - [5: Share](#5-share)
+   - [6: Delete events](#6-delete-events)
+   - [7: Help page](#7-help-page)
 - [Future Features](#future-features)
-- [User Experience](#user-experience)
-  - [Describe the User Interface](#describe-the-user-interface)
+- [User Interface Mockup](#user-interface-Mockup)
 
  
 ## Product Definition
 
-The Task Center is a versatile and easy-to-use scheduling application designed to enhance users' and organizations' busy schedules. The Task Center software brings a new experience with a minimalistic design that emphasizes simplicity when completing crucial tasks before the deadline. Users could expect various features that improve their daily tasks and optimize user workflow.
+The Task Center is a versatile and easy-to-use scheduling application designed to enhance users' and organizations' busy schedules. Task Center brings a new experience with a minimalistic design that emphasizes simplicity when completing crucial tasks before the deadline. Users could expect various features that improve their daily tasks and optimize user workflow. 
 
 ## Vision
 
@@ -42,17 +42,17 @@ Our product name is TaskCenter.
 - **Persona 2**:  Restaurant Managers (users) are the secondary app customers who will use the application to manage employees' schedules and minimize conflicts regarding availability. 
 - **Persona 3**: Office professional (users) are a set of customers who will use the application in the workplace to keep track of upcoming deadlines and meetings, as a result enhancing their workload schedule.
 
-## Product Scenarios
+## Product Scenarios:
 
-## Product Scenario 1: Student
+## Student
 
 **Scenario:** Sarah is a full-time university student juggling coursework for five classes. She struggles to keep track of assignment due dates, project deadlines, and exam schedules. With the mobile application, she can now easily consolidate all her class schedules, project deadlines, and assignment due dates into a single view. The app's versatile calendar tool ensures that she never misses a due date or overlaps her study sessions. By subscribing to premium features, Sarah can also integrate her university's learning management system, giving her real-time updates and notifications, ensuring she's always a step ahead in her academic journey.
 
-## Product Scenario 2: Manager
+## Manager
 
 **Scenario:** Carlos is a restaurant manager responsible for managing a team of 25 staff, including chefs, waiters, and cleaning staff. He often faces scheduling conflicts due to overlapping shifts and staff availability. With the mobile application, Carlos can now input all employee schedules, noting their availability and preferences. The app's calendar tool highlights any potential conflicts, allowing Carlos to adjust shifts with ease. He can also share the schedule with his team, ensuring everyone is updated in real-time. This seamless organization helps maintain a smooth operation at the restaurant, minimizing conflicts and ensuring that shifts are covered adequately.
 
-### Product Scenario 3: Office Professionals
+### Office Professionals
 
 **Scenario:** Ava, an office professional at a marketing firm, often finds herself overwhelmed with various project deadlines, client meetings, and internal team discussions. The mobile application becomes her go-to scheduling tool. She can easily input her meetings, set reminders for project deliverables, and integrate the app with other office software platforms she uses daily. By consolidating all her deadlines and appointments into a user-friendly interface, Ava ensures that she is adequately prepared for each task and can manage her workload effectively, leading to enhanced productivity and reduced stress.
 
@@ -72,42 +72,29 @@ Comment: Each calendar should have a name
 As a user I want to create events for my calendar so I can organize my schedule better
 Comment: Set a title, date, time and color for the event
 
-## 5: Edit events
-As a student I want to be able to edit the events so I can keep my calendar up to dat if there's any changes in the class schedule.
+## 5: Share
+As a manager I want to share the calendar so I can let all the workers know their schedule.
 
 ## 6: Delete events
 As a manager I want to delete events so I can remember if a meeting was cancelled.
 
-## 7: Q&A
-As a user I want to access the Q&A page so I can find out how to use the app
+## 7: Help page
+As a user I want to access the help page so I can find out how to use the app
 
-## 8: Share
-As a manager I want to share the calendar so I can let all the workers know their schedule.
 
 ## Future Features
 
+- Edit events
 - Consider providing options for categorizing and color-coding events.
-
 - Ensure synchronization with the user's connected calendars.
-- Allow reminders
 - Implement validation checks to prevent scheduling conflicts.
-- Allow managers to assign and reassign tasks and shifts easily.
 - Implement a reminder system that supports multiple notification methods (e.g., email, push notifications).
 - Allow users to customize reminder settings for each event.
 - Provide option for dismissing reminders.
 - The app should support integration with popular platforms used by schools (e.g., Blackboard, Zybooks, etc).
 
-## User Experience
+## User Interface Mockup
 
-**Describe the user interface for your product.**
-
-- Account Login
-- Notifications
-- View of all calendars the user has created
-- Create/delete a calendar
-- Add/remove event or task from a calendar
-- Connect to another site where the task/assignment is located
-- Share calendar with other users
 
 ![TC_loginpage_menu](https://github.com/Natalie-Zi/csci401w-sandbox/assets/143462357/dee6bb37-eb1f-410a-9c46-c1b409cb9b01)
 
