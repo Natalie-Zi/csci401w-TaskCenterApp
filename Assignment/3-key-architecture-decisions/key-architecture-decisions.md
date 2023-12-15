@@ -51,8 +51,8 @@ The C4 diagram below shows additional details about the Task Center ecosystem.
 
 ### 3.1. Frontend Framework
 
-Angular material
-We chose this framework because it has many optons we could implement.
+HTML, javascript and CSS.
+We just used raw html, javascript and css.
 
 ### 3.2. Backend Framework
 
