@@ -22,6 +22,7 @@
    - [7: Help page](#7-help-page)
 - [Future Features](#future-features)
 - [User Interface Mockup](#user-interface-Mockup)
+- [Final User Interface](#final-user-interface)
 
  
 ## Product Definition
@@ -103,3 +104,5 @@ As a user I want to access the help page so I can find out how to use the app
 ![TC_calendar_options](https://github.com/Natalie-Zi/csci401w-sandbox/assets/143462357/ced49bc6-56ac-45ba-923c-1d96276bf08e)
 
 Menus and buttons for toggling through calendars and adding events will be minimalistic and intuitive for the user.
+
+## Final User Interface
