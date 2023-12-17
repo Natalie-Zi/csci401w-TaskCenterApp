@@ -93,7 +93,7 @@ While I was creating the help page, there were moments where the formatting was 
 
 3. **Contributions to the Project:** Discuss a specific task you contributed to and how your involvement positively impacted the project's development.
 
-I contributed to the project by writing code for a help page where a new user can find answers to some common questions they might have. In the earlier stages of developing the project, I also came up with the early concept of how the user interface layout might work.
+I contributed to the project by writing code for a help page where a new user can find guidance for how the calendar's features work. Along with creating the page itself, I created routes for navigating back and forth from the home page to the help page. In the earlier stages of developing the project, I also came up with the early concept of how the user interface and layout might work before we knew whether we'd be making a mobile, desktop, or web app. Some of those ideas carried over into the final product, such as the task list being next to the calendar.
    
 4. **Applied Knowledge:** Describe a technical concept learned in class that you've used in your project, highlighting its practical relevance.
 
