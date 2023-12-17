@@ -106,3 +106,11 @@ As a user I want to access the help page so I can find out how to use the app
 Menus and buttons for toggling through calendars and adding events will be minimalistic and intuitive for the user.
 
 ## Final User Interface
+
+
+![TC_Login_screenshot](https://github.com/Natalie-Zi/csci401w-TaskCenterApp/assets/143462357/86a8bfa7-c44a-42af-bda4-08515e5bbc0a)
+
+![TC_register_screenshot](https://github.com/Natalie-Zi/csci401w-TaskCenterApp/assets/143462357/4ee8474c-61d3-4a2f-80a9-20717a850bd8)
+
+![TC_homepage_screenshot](https://github.com/Natalie-Zi/csci401w-TaskCenterApp/assets/143462357/960484d4-521f-49f8-bd19-bc56e257f62a)
+
