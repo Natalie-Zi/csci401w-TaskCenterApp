@@ -27,7 +27,7 @@ Reflect on your journey in learning software engineering through concrete scenar
 1. **Team Collaboration Approach:**
    Describe how your team used tools like Slack and Trello to coordinate tasks. Share an example of how assigning tasks in Trello helped streamline your group projects and fostered effective communication.
 
-We used Trello to keep track of which team members were working on which user story/function of our web application. For example, if I completed one task, I could quickly go in and look at the "To Do" column in my team's Trello board to see if there was another task I could start doing that wasn't already claimed by someone else.
+We used Trello to keep track of which team members were working on which user story/function of our web application. For example, if I completed one task, I could quickly go in and look at the "To Do" column in my team's Trello board to see if there was another task I could start doing that didn't already have someone assigned to it.
 
 3. **Challenges and Overcoming Them:**
    Recall a specific challenge, like debugging a code issue together. Explain how you collaborated to identify the bug's source and successfully resolved it. This experience showcases your problem-solving and teamwork skills.
