@@ -111,48 +111,29 @@ Illustrate a coding concept with a relatable analogy:
 Answer the following questions with practical examples:
 
 1. **Team Collaboration Skills:** Reflect on a time when coordinating with team members improved a project's outcome or efficiency.
-   Brayan->
-   
-   Natalie->
-   
-   Nicholas->
-   
-   Veronica->
-   
-3. **Problem-Solving Abilities:** Share a situation where you had to troubleshoot a technical issue and how you approached the problem-solving process.
-   Brayan->
-   
-   Natalie->
-   
-   Nicholas->
-   
-   Veronica->
-   
-5. **Contributions to the Project:** Discuss a specific task you contributed to and how your involvement positively impacted the project's development.
-   Brayan->
-   
-   Natalie->
-   
-   Nicholas->
-   
-   Veronica->
-   
-7. **Applied Knowledge:** Describe a technical concept learned in class that you've used in your project, highlighting its practical relevance.
-   Brayan->
-   
-   Natalie->
-   
-   Nicholas->
-   
-   Veronica->
-   
-9. **Adaptability and Learning:** Provide an example of a challenge you faced that required learning a new skill or concept, and how you adapted to overcome it.
-   Brayan->
-   
-   Natalie->
-   
-   Nicholas->
-   
-   Veronica->
+   - **Brayan:**
+   - **Nicholas:**
+   - **Natalie:**
+   - **Veronica:** 
+2. **Problem-Solving Abilities:** Share a situation where you had to troubleshoot a technical issue and how you approached the problem-solving process.
+   - **Brayan:**
+   - **Nicholas:**
+   - **Natalie:**
+   - **Veronica:** 
+3. **Contributions to the Project:** Discuss a specific task you contributed to and how your involvement positively impacted the project's development.
+   - **Brayan:**
+   - **Nicholas:**
+   - **Natalie:**
+   - **Veronica:** 
+4. **Applied Knowledge:** Describe a technical concept learned in class that you've used in your project, highlighting its practical relevance.
+   - **Brayan:**
+   - **Nicholas:**
+   - **Natalie:**
+   - **Veronica:** 
+5. **Adaptability and Learning:** Provide an example of a challenge you faced that required learning a new skill or concept, and how you adapted to overcome it.
+   - **Brayan:**
+   - **Nicholas:**
+   - **Natalie:**
+   - **Veronica:** 
 
 ---
