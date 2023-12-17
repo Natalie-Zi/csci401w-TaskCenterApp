@@ -1,7 +1,7 @@
 CREATE TABLE UserRegistration (
     UserID INT AUTO_INCREMENT PRIMARY KEY,
     Username VARCHAR(50) UNIQUE NOT NULL,
-    UserPassword CHAR(12) NOT NULL,
+    UserPassword CHAR(32) NOT NULL,
     Email VARCHAR(100) NOT NULL UNIQUE
 );
 
