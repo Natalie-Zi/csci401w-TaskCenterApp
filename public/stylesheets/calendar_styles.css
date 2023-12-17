@@ -239,7 +239,7 @@
     border: 1px solid #ddd;
 }
 
-#createCalendarBtn, #deleteCalendarBtn, #addSharedCalendarBtn {
+#createCalendarBtn, #deleteCalendarBtn, #sharedCalendarBtn {
     padding: 5px 15px;
     background-color: #28a745;
     color: white;
