@@ -50,7 +50,7 @@ Veronica-> My team used Trello mainly to know which tasks had to be done, were i
 
 4. **Accomplishments and Pride:**
    Highlight a feature you contributed to, such as creating a login system. Discuss how your combined skills enabled the team to deliver a functional feature that enhances user experience.
-   Brayan->
+   Brayan-> As a result of fixing the getTaskInformation functionality, when a user shares their calendar, the person who was shared the calendar with is now able to view the tasks associated with the shared calendar. 
    
    Natalie->
    
