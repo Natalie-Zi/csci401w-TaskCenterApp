@@ -48,9 +48,10 @@ Veronica-> My team used Trello mainly to know which tasks had to be done, were i
    Veronica-> One of the biggest challenges for me was understanding how to work on all the different files and make them work together. The first feature I worked on fully and had working in the end was the login feature and looking at Bryan's code for the register feature really helped me understand what I needed to do in order to have everything working. At that time we met once in person and it really helped me since it made it easier to show my code and receive feedback from my teammate.
 
 
-4. **Accomplishments and Pride:**
+3. **Accomplishments and Pride:**
    Highlight a feature you contributed to, such as creating a login system. Discuss how your combined skills enabled the team to deliver a functional feature that enhances user experience.
-   Brayan-> As a result of fixing the getTaskInformation functionality, when a user shares their calendar, the person who was shared the calendar with is now able to view the tasks associated with the shared calendar. 
+   
+   Brayan-> After spending a considerable amount of time trying to fix the punctuality of the getTaskInformation, I was finally able to make it work. Now, when a user shares their calendar, the person with whom the calendar is shared can view the tasks associated with it.
    
    Natalie->
    
@@ -59,9 +60,10 @@ Veronica-> My team used Trello mainly to know which tasks had to be done, were i
    Veronica-> The delete task feature is what took me probably the longest, I kept working on it full days and I dfidn't understand how to make it work even after watching tutorials and other resources. After couple times I also aked my teammates to review the code I had so far, it finally worked and that felt like a big accomplishment for me.
 
 
-5. **Learning and Growth:**
+4. **Learning and Growth:**
    Provide an example of how you applied a concept learned in class to a practical scenario. Describe how you used version control (like Git) to collaborate on a coding assignment, improving code organization and collaboration.
-   Brayan->
+   
+   Brayan-> An example I can share from a concept learned in class was about utilizing jQuery. Learning how post requests function and how to adapt it into the frontend and how to handle the post in the backend.
    
    Natalie->
    
