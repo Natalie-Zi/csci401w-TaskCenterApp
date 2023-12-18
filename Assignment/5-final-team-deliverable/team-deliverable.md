@@ -131,7 +131,7 @@ Answer the following questions with practical examples:
    - **Veronica:**  When working on the delete task feature I ran into various issues where I would fix one thing and another one would not work anymore. I decided to take some time off the code and then I talked with our teammates about it. We decided that it would have been easier to just ask the user for the task name, so I restarted everything and it ended up working better that trying to have a delete button for each task where the task id would be stored.
      
 3. **Contributions to the Project:** Discuss a specific task you contributed to and how your involvement positively impacted the project's development.
-   - **Brayan:**
+   - **Brayan:** I worked on developing the database for our project, and I also worked on the backend development for several features, such as the different queries used throughout our project: creating accounts, adding calendars, and sharing calendars. I also worked on displaying user tasks, calendar names, and sharing calendars names using post request. 
      
    - **Nicholas:** My key contribution was in frontend development, where I integrated new features like a shared calendar button. This significantly improved the user interface and the overall functionality of the project.
      
@@ -151,7 +151,7 @@ Answer the following questions with practical examples:
 
      
 5. **Adaptability and Learning:** Provide an example of a challenge you faced that required learning a new skill or concept, and how you adapted to overcome it.
-   - **Brayan:**
+   - **Brayan:** I haven't worked on many group projects before, so when this class introduced Trello, it took some time to get used to and set up. After a while, we finally got Trello up and running effectively to keep track of our project process. 
      
    - **Nicholas:** Learning to use GitHub was a challenge I overcame, which was crucial for managing our project effectively. Adapting to this new tool enhanced our workflow and my personal skill set.
      
