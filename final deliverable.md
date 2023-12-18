@@ -27,7 +27,7 @@ Reflect on your journey in learning software engineering through concrete scenar
 1. **Team Collaboration Approach:**
    Describe how your team used tools like Slack and Trello to coordinate tasks. Share an example of how assigning tasks in Trello helped streamline your group projects and fostered effective communication.
 
-Brayan ->
+Brayan -> The use of Trello proved incredibly helpful in keeping track of incomplete features that needed to be worked on. Overall, the use of Trello helped with our efficiency in managing and completing tasks. 
 
 Natalie->
 
