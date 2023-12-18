@@ -16,7 +16,7 @@
 
 ## Product Vision
 
-Our goal in creating our web-based application, Task Center, was to design a productivity tool aimed at simplifying schedule organization. This tool aims to cater to various users, including students, office workers, and restaurant managers, in effectively organizing tasks and managing their time. Additionally, Task Center supports the creation of multiple calendars, enhancing organization, customization, and collaboration with a shared calendar feature, providing users with a versatile user-friendly productivity tool.
+Our vision behind creating Task Center—a web-based application designed to simplify schedule management for users, whether you’re a student juggling assignments, an office worker balancing meetings, or a restaurant manager handling shifts. Our application would allow users to take back control over their busy scheduling enabling improved task organization and time management, offered by the versatility support for multiple calendars. The introduction of multiple calendars would allow our users to better optimize their scheduling for different aspects of life or work.
 
 ### Learning and growth journey
 
