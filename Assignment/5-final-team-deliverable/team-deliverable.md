@@ -113,7 +113,7 @@ Illustrate a coding concept with a relatable analogy:
 Answer the following questions with practical examples:
 
 1. **Team Collaboration Skills:** Reflect on a time when coordinating with team members improved a project's outcome or efficiency.
-   - **Brayan:**
+   - **Brayan:** When Nichlas completed the homepage it came with a calendar_script that had the main logic for the buttons and most functions for each feature we were going to implement. This made it easier to implement the post request because we just had to change some stuff to have the post request. 
      
    - **Nicholas:** Using Trello enhanced our project's efficiency. It helped us organize tasks and track progress, leading to better coordination and a more streamlined process.
      
@@ -122,7 +122,7 @@ Answer the following questions with practical examples:
    - **Veronica:**  I would say that coordinating with other tem members helped a lot in this project because whenever we had an issue. Someone else would look at what we had so far for the code and sometimes it was just a missing comma or misspelled word that would have taken way longer to see for who wrote the code.
      
 2. **Problem-Solving Abilities:** Share a situation where you had to troubleshoot a technical issue and how you approached the problem-solving process.
-   - **Brayan:**
+   - **Brayan:** An example of troubleshooting would be when it came to creating the several differences SQL queries. The challenge part was having to test each one in the post handler to see it would function the way I wanted to implement them. 
      
    - **Nicholas:** Faced with CSS conflicts when integrating frontend and backend work, we tackled the issue by collaboratively analyzing the code in meetings. This approach helped us identify and solve the compatibility issues effectively.
      
@@ -140,7 +140,8 @@ Answer the following questions with practical examples:
    - **Veronica:** I contributed by working mostly on the backend development, in the specific I worked on the login page, delete task and then added some smaller features such as the password validation and how to format the time to AM/PM format since it was stored in 24H time. I also tried helping keeping the github and trello organized and up to date.
    - 
 4. **Applied Knowledge:** Describe a technical concept learned in class that you've used in your project, highlighting its practical relevance.
-   - **Brayan:**
+   - **Brayan:** When first starting our project it took some time learning how to connect each component together. For example, how to start listening for a port, connecting the database once it started,  and  ensuring the frontend was appearing properly. 
+
      
    - **Nicholas:** applied the concept of using branches in GitHub, learned in class, for better project management. This allowed for efficient collaboration and easy code review, greatly benefiting our project's development.
      
