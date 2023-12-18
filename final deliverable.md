@@ -37,7 +37,9 @@ Veronica-> My team used Trello mainly to know which tasks had to be done, were i
 
 2. **Challenges and Overcoming Them:**
    Recall a specific challenge, like debugging a code issue together. Explain how you collaborated to identify the bug's source and successfully resolved it. This experience showcases your problem-solving and teamwork skills.
-   Brayan->
+   
+   Brayan-> When working on the share functionality of the program, I encountered an issue with the 'post handler getTaskInformation' not displaying for the user to whom the calendar was shared. To overcome this, I changed the parameters for 'getCalendarIDByName' from (loggedInUserID, calendarName) to just (calendarName). This change made it easier to pass the logic to check whether the logged-in user owns the calendar or if it's shared with them to display the task info. 
+
    
    Natalie->
    
