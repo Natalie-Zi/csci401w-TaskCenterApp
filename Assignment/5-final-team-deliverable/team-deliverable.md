@@ -73,7 +73,8 @@ Reflect on your journey in learning software engineering through concrete scenar
 
 ### Elevator Pitch
 
-Our vision behind creating Task Center—a web-based application designed to simplify schedule management for users, whether you’re a student juggling assignments, an office worker balancing meetings, or a restaurant manager handling shifts. Our application would allow users to take back control over their busy scheduling enabling improved task organization and time management, offered by the versatility support for multiple calendars. The introduction of multiple calendars would allow our users to better optimize their scheduling for different aspects of life or work. 
+As college students and workers, we understand the challenges of managing busy schedules. That's why we envisioned Task Center, a scheduling app designed to simplify the lives of individuals like you—whether you're a student juggling assignments, an office worker balancing meetings, or a restaurant manager coordinating shifts.
+Understanding the importance of an intuitive user experience, we opted for a simple and clean interface in Task Center. We believe that effective schedule management should be accessible and straightforward.
 
 ### Product Demo
 
