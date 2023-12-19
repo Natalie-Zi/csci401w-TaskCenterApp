@@ -92,11 +92,15 @@ Simplify a technical concept with an example:
 
 - **Example:** Explain the client-server architecture by comparing it to a waiter taking orders (client) and a kitchen preparing food (server).
 
+Think of TaskCenter's technical setup like sending a text message. Users (clients) are like people sending messages, and the server is similar to the cellular network managing those messages. When a user interacts with TaskCenter—like adding or deleting a task—it's like sending a message with specific instructions. The server processes these requests, making sure everything happens smoothly, just as the network ensures your messages get where they need to go. This setup, known as client-server architecture, keeps communication efficient, much like texting with a reliable network.
+
 ### Codebase Exploration
 
 Illustrate a coding concept with a relatable analogy:
 
 - **Example:** Describe a conditional statement (like an "if" statement) as a recipe that's followed only if certain conditions, like having all ingredients, are met.
+
+- The createUser function in authUser.js is similar to the chef crafting a new dish. It takes ingredients (user details like username, email, and password), follows a specific recipe (SQL insert into UserRegistration), and produces a delightful outcome (a new user with a unique ID).
 
 ### Access Your Work
 
